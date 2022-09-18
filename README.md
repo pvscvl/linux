@@ -3,7 +3,8 @@
 ## postinstallv2:
 
 
->> neofetch -> check if last line is not neofetch, then add neofetch
+>> ~~neofetch -> check if last line is not neofetch, then add neofetch~~
+>>> appended in .bashrc
 >
 >> check /home/* for users and place ssh keys in their .ssh directory.
 >
