@@ -79,14 +79,14 @@ YW=`echo "\033[33m"`
 header_info
 sleep 1
 
-|| $prompt == "Yes" ]]
+
+msg_quest "Load .bashrc? <y/N> "; read -r -p "" prompt
+#printf "%b %b Load .bashrc? <y/N> " "${QUEST}"; read -r -p "" prompt
+    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/dotfiles/main/.bashrc 
         msg_ok ".bashrc loaded"
         sleep 1
-msg_quest "Load .bashrc? <y/N> "; read -r -p "" prompt
-#printf "%b %b Load .bashrc? <y/N> " "${QUEST}"; read -r -p "" prompt
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" 
     else
         msg_info ".bashrc unchanged"
         sleep 1
@@ -106,8 +106,8 @@ msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         else
             msg_no "Neofetch not installed"
         fi
-    else
-    echo "neofetch already installed"
+    #else
+    #echo "neofetch already installed"
 fi
     
     
