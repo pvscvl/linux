@@ -6,6 +6,7 @@
     COL_DARK_GREY='\e[1;30m'
     COL_PURPLE='\e[0;35m'
     COL_BLUE='\e[0;34m'
+    COL_CL=`echo "\033[m"`
     TICK="[${COL_LIGHT_GREEN}✓${COL_NC}]\\t"
     QUEST="[${COL_PURPLE}?${COL_NC}]\\t"
     CROSS="[${COL_LIGHT_RED}✗${COL_NC}]\\t"
@@ -14,8 +15,8 @@
     OVER="\\r\\033[K"
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
-    RD=`echo "\033[01;32m"`
-    CL=`echo "\033[m"`
+#    RD=`echo "\033[01;32m"`
+#    CL=`echo "\033[m"`
     rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBPqZaPRjavF9wGzSUZVwDF639JbpDA1Ocy8YbV+LwIT6gvCW0b8I6tbILz2PuER9B2MQqnlGB3iZb0bCqRn7BB6s62E6WnWwWzRoM8zvbV6ftLitG2pu6xoBGuEnRWGpjxncE4CZEF5QjGilZkotavPloUxZytRy5AXHfeX9O9S3FAfdxP34QEYVgM1Xqv8t3SL0Jz9v2k7/3SOyPMKHr9UDKykZeEjn+0zQwztPwX94kK9LP2s/DhMDCLLHK+ksEisekCI5qpkAjdft/sImPOBFtKLR+fWZdr/mwhBGLX5O72Rso5qkpeIhZri4DkAHweUAUCLem12KtUHDpImyO2ajCm/Gq8qJPRqGOuHpsbxIVIOfy7hQJEknNaLtHmd0MGSKQY1aw1vDGTtK2ELAi9N+3G1oUAb2wYrA+6qM1+aiiis38gGSh8Fnzs3cFlwuuRIFOs0QlIRnpo9EbCqyR7HxDoNBMfq7CQrLmEATO7S1yPlvgzxGD7ES7rM+FOWk= install@TKM-MG-NB030"
     rsakey2="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJd7Z+LQJ9rqYoIGgVusQ2XBLsoJgW2wPbj5k+ZDOS2G9/eTuzX0RC8pXSH1ovJVVr8AxOFIeRZg4gMn2OcwIPskD1qCpNLWAv9ChoXEyn5TKW4gU+9Yngj4w+YRLUAHXjrcEaPA1zOzDwDxdasO3cNJpJ5jhwnqPtNpy7dSYg4kc5j52MNoYJYYwNUJMDBFPmPOj4bg7TW8D2DNYc2jGVsVPClhdA4IRyylW4ozJDLLlOk+nvbBUBWQs3WgpY8QsnHqaP+dz0s1TAW1Vw4YAQGcVac2/dEb+UoCuHu9D4cKSRv+ObL5FYb4TtJogZY7+00Jf3W1Bl33lEyH/AZJrhaTO7mp5HTHajYVBtwsICZQl5VH+RQ0P8ERmXF+3aSd8UQkGl2JUXQfCLaHbr39dsB7DFQd8NgoAIkzpQhCv9JH/JtTt1Luafkegn+owlhJpTd7IribzkWofLB6M+7pky2m1jTtH5cScBDHhMGse3aj28PAJ4Ywe7G4QujiLnphc= zhr@wsred"
 function msg_info() {
@@ -41,7 +42,7 @@ function msg_no() {
 
 
 function header_info {
-    echo -e "${RD}
+    echo -e "${COL_LIGHT_GREEN}
  ____           _      _           _        _ _ 
 |  _ \ ___  ___| |_   (_)_ __  ___| |_ __ _| | |
 | |_) / _ \/ __| __|  | | '_ \/ __| __/ _' | | |
@@ -53,7 +54,7 @@ function header_info {
 |  __/| | |  __/ |_) |  ___) | (__| |  | | |_) | |_ 
 |_|   |_|  \___| .__/  |____/ \___|_|  |_| .__/ \__|
                |_|                       |_|        
-${CL}"
+${COL_CL}"
 }
 
 msg_info "This script will perform post-installation routines"
@@ -90,6 +91,27 @@ msg_quest "Load .bashrc? <y/N> "; read -r -p "" prompt
         msg_info ".bashrc unchanged"
         sleep 1
     fi
+    
+    
+if command -v Neofetch &> /dev/null
+then
+msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
+        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+        then
+            msg_info "Installing Neofetch"
+            apt update &>/dev/null
+            apt install neofetch -y &>/dev/null
+            echo "neofetch" >> .bashrc
+            msg_ok "Neofetch installed"
+        else
+            msg_no "Neofetch not installed"
+        fi
+    else
+    echo "neofetch already installed"
+fi
+    
+    
+    
 
 
 if  grep -q "KVM processor" /proc/cpuinfo ; then
