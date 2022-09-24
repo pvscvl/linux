@@ -94,18 +94,22 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
                 msg_ok "Installed qemu-guest-agent"
             else
                 msg_no "qemu-guest-agent not installed"
-                if [[ $detected_os == "ubuntu" ]]
-                then
-                    msg_info "Installing linux-virtual packages"
-                    apt update &>/dev/null
-                    apt install --install-recommends linux-virtual -y &>/dev/null
-                    apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-                    msg_ok "Installed linux-virtual packages"
-                else
-                    msg_info "Linux-virtual packages not compatible with OS"
-                    msg_info "Only installed qemu-guest-agent"
-                fi
             fi
+    fi
+    
+    if [[ $detected_os == "ubuntu" ]]
+    then
+        msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
+        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+            then
+                msg_info "Installing linux-virtual packages"
+                apt update &>/dev/null
+                apt install --install-recommends linux-virtual -y &>/dev/null
+                apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
+                msg_ok "Installed linux-virtual packages"
+        else
+            msg_no "Linux-virtual packages not installed"
+        fi
     fi
 
     if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" ]]
