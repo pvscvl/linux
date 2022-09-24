@@ -23,6 +23,8 @@
     OVER="\\r\\033[K"
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
+    chktz=`cat /etc/timezone`
+    
     #pubkey lenovo
     rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBPqZaPRjavF9wGzSUZVwDF639JbpDA1Ocy8YbV+LwIT6gvCW0b8I6tbILz2PuER9B2MQqnlGB3iZb0bCqRn7BB6s62E6WnWwWzRoM8zvbV6ftLitG2pu6xoBGuEnRWGpjxncE4CZEF5QjGilZkotavPloUxZytRy5AXHfeX9O9S3FAfdxP34QEYVgM1Xqv8t3SL0Jz9v2k7/3SOyPMKHr9UDKykZeEjn+0zQwztPwX94kK9LP2s/DhMDCLLHK+ksEisekCI5qpkAjdft/sImPOBFtKLR+fWZdr/mwhBGLX5O72Rso5qkpeIhZri4DkAHweUAUCLem12KtUHDpImyO2ajCm/Gq8qJPRqGOuHpsbxIVIOfy7hQJEknNaLtHmd0MGSKQY1aw1vDGTtK2ELAi9N+3G1oUAb2wYrA+6qM1+aiiis38gGSh8Fnzs3cFlwuuRIFOs0QlIRnpo9EbCqyR7HxDoNBMfq7CQrLmEATO7S1yPlvgzxGD7ES7rM+FOWk= install@TKM-MG-NB030"
     
@@ -67,6 +69,15 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     then
     msg_info "${COL_DIM}${COL_ITAL}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     sleep 1
+    msg_info "${COL_DIM}${COL_ITAL}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+        if  grep -q "Europe/Berlin" /etc/timezone ; then
+            sleep 1
+        else
+            timedatectl set-timezone Europe/Berlin
+            chktz=`cat /etc/timezone`
+            msg_ok "${COL_DIM}${COL_ITAL}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+        fi
+
     msg_ok "Script execution started"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
