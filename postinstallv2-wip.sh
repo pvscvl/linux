@@ -6,6 +6,8 @@
     COL_DARK_GREY='\e[1;30m'
     COL_PURPLE='\e[0;35m'
     COL_BLUE='\e[0;34m'
+    COL_YELLOW='\e[0;33m'
+    COL_CYAN='\e[0;36m'
     COL_CL=`echo "\033[m"` #zeilenumbruch
     COL_DIM='\e[2m' #dimmed 
     COL_ITAL='\e[3m' #italics
@@ -15,20 +17,14 @@
     QUEST="[${COL_PURPLE}?${COL_NC}]  "
     CROSS="[${COL_LIGHT_RED}✗${COL_NC}]  "
     INFO="[i]  "   
-    #TICK="[${COL_LIGHT_GREEN}✓${COL_NC}]\\t"
-    #QUEST="[${COL_PURPLE}?${COL_NC}]\\t"
-    #CROSS="[${COL_LIGHT_RED}✗${COL_NC}]\\t"
-    #INFO="[i]\\t"
     DONE="${COL_LIGHT_GREEN} done!${COL_NC}"
+    WARN="[${COL_YELLOW}⚠${COL_NC}]  "
     OVER="\\r\\033[K"
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
+    detected_env=`systemd-detect-virt`
     chktz=`cat /etc/timezone`
-    
-    #pubkey lenovo
     rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBPqZaPRjavF9wGzSUZVwDF639JbpDA1Ocy8YbV+LwIT6gvCW0b8I6tbILz2PuER9B2MQqnlGB3iZb0bCqRn7BB6s62E6WnWwWzRoM8zvbV6ftLitG2pu6xoBGuEnRWGpjxncE4CZEF5QjGilZkotavPloUxZytRy5AXHfeX9O9S3FAfdxP34QEYVgM1Xqv8t3SL0Jz9v2k7/3SOyPMKHr9UDKykZeEjn+0zQwztPwX94kK9LP2s/DhMDCLLHK+ksEisekCI5qpkAjdft/sImPOBFtKLR+fWZdr/mwhBGLX5O72Rso5qkpeIhZri4DkAHweUAUCLem12KtUHDpImyO2ajCm/Gq8qJPRqGOuHpsbxIVIOfy7hQJEknNaLtHmd0MGSKQY1aw1vDGTtK2ELAi9N+3G1oUAb2wYrA+6qM1+aiiis38gGSh8Fnzs3cFlwuuRIFOs0QlIRnpo9EbCqyR7HxDoNBMfq7CQrLmEATO7S1yPlvgzxGD7ES7rM+FOWk= install@TKM-MG-NB030"
-    
-    #pubkey acer
     rsakey2="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJd7Z+LQJ9rqYoIGgVusQ2XBLsoJgW2wPbj5k+ZDOS2G9/eTuzX0RC8pXSH1ovJVVr8AxOFIeRZg4gMn2OcwIPskD1qCpNLWAv9ChoXEyn5TKW4gU+9Yngj4w+YRLUAHXjrcEaPA1zOzDwDxdasO3cNJpJ5jhwnqPtNpy7dSYg4kc5j52MNoYJYYwNUJMDBFPmPOj4bg7TW8D2DNYc2jGVsVPClhdA4IRyylW4ozJDLLlOk+nvbBUBWQs3WgpY8QsnHqaP+dz0s1TAW1Vw4YAQGcVac2/dEb+UoCuHu9D4cKSRv+ObL5FYb4TtJogZY7+00Jf3W1Bl33lEyH/AZJrhaTO7mp5HTHajYVBtwsICZQl5VH+RQ0P8ERmXF+3aSd8UQkGl2JUXQfCLaHbr39dsB7DFQd8NgoAIkzpQhCv9JH/JtTt1Luafkegn+owlhJpTd7IribzkWofLB6M+7pky2m1jTtH5cScBDHhMGse3aj28PAJ4Ywe7G4QujiLnphc= zhr@wsred"
 
 function msg_info() {
@@ -49,6 +45,13 @@ function msg_no() {
     local msg="$1"
     printf "%b ${msg}\\n" "${CROSS}"
 }
+function msg_warn() {
+    local msg="$1"
+    printf "%b ${msg}\\n" "${WARN}"
+}
+
+
+
 
 function header_info {
     echo -e "${COL_LIGHT_GREEN}
@@ -63,21 +66,23 @@ ${COL_CL}"
 
 header_info
 
+
+
 msg_info "This script will perform post-installation routines"
 msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-    msg_info "${COL_DIM}${COL_ITAL}Detected OS:\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-    msg_info "1"
+    msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     sleep 1
-    msg_info "${COL_DIM}${COL_ITAL}Timezone:\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
-    msg_info "2"
+    msg_info "${COL_DIM}Virtual environment:\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+    sleep 1
+            msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             sleep 1
         else
             timedatectl set-timezone Europe/Berlin
             chktz=`cat /etc/timezone`
-            msg_ok "${COL_DIM}${COL_ITAL}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+            msg_ok "${COL_DIM}Timezone set to:      \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         fi
 
     msg_ok "Script execution started"
@@ -109,11 +114,13 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             if  grep -q "neofetch" .bashrc ; then
                 sleep 1
             else
+                echo "clear" >> .bashrc
                 echo "neofetch" >> .bashrc
             fi
              if  grep -q "neofetch" /root/.bashrc ; then
                 sleep 1
             else
+                echo "clear" >> /root/.bashrc
                 echo "neofetch" >> /root/.bashrc
             fi
         sleep 1
@@ -121,8 +128,10 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             msg_no "neofetch not installed"
         fi
 
-    if  grep -q "KVM processor" /proc/cpuinfo ; then
-        msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
+
+        if [[ $detected_env == "kvm" || $detected_env == "lxc" ]]
+        then
+            msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
                 msg_info "Installing qemu-guest-agent"
@@ -132,9 +141,9 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             else
                 msg_no "qemu-guest-agent not installed"
             fi
-    fi
+        fi
     
-    if [[ $detected_os == "ubuntu" ]]
+    if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
         msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
@@ -297,6 +306,35 @@ msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
                 else
                 msg_no "zabbix-agent2 not installed"
                 fi
+
+
+msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
+if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+then
+msg_info "Updating $HOSTNAME (Patience)"
+apt-get update &>/dev/null
+apt-get -y upgrade &>/dev/null
+msg_ok "Updated $HOSTNAME (⚠ Reboot Recommended)"
+fi
+
+
+msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
+if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+then
+msg_info "Updating $HOSTNAME (Patience)"
+apt-get update &>/dev/null
+apt-get -y upgrade &>/dev/null
+msg_ok "Updated $HOSTNAME (⚠ Reboot Recommended)"
+fi
+
+msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
+if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+then
+msg_info "Rebooting $HOSTNAME"
+sleep 2
+msg_ok "Completed post-installation routines"
+reboot
+fi
 
 else
     msg_no "Script not executed"    
