@@ -109,7 +109,12 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             else
                 echo "neofetch" >> .bashrc
             fi
-        msg_ok "neofetch installed"
+             if  grep -q "neofetch" /root/.bashrc ; then
+                sleep 1
+            else
+                echo "neofetch" >> /root/.bashrc
+            fi
+        sleep 1
         else
             msg_no "neofetch not installed"
         fi
