@@ -68,8 +68,10 @@ msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
     msg_info "${COL_DIM}${COL_ITAL}Detected OS:\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+    msg_info "1"
     sleep 1
     msg_info "${COL_DIM}${COL_ITAL}Timezone:\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+    msg_info "2"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             sleep 1
         else
