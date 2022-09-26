@@ -37,6 +37,11 @@ function msg_quest() {
     printf "%b ${msg}" "${QUEST}"
 }
 
+function msg_quest_prompt() {
+    local msg="$1"
+    printf "%b ${msg}"" <y/N> " "${QUEST}";read -r -p "" prompt
+	}
+
 function msg_ok() {
     local msg="$1"
     printf "%b ${msg}\\n" "${TICK}"
@@ -69,7 +74,8 @@ header_info
 
 
 msg_info "This script will perform post-installation routines"
-msg_quest "Start the script? <y/N> "; read -r -p "" prompt
+msg_quest_prompt "Start the script?"
+#msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
     msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
@@ -95,7 +101,8 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     fi
 
 
-    msg_quest "Modify .bashrc? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "Modify .bashrc?"
+    #msg_quest "Modify .bashrc? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/dotfiles/main/.bashrc 
@@ -103,8 +110,8 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     else
         msg_no ".bashrc not modified"
     fi
-    
-    msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "Install neofetch?"
+    #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "Installing neofetch"
@@ -131,7 +138,8 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 
         if [[ $detected_env == "kvm" || $detected_env == "lxc" ]]
         then
-            msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
+            msg_quest_prompt "Install qemu-guest-agent?"
+            #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
                 msg_info "Installing qemu-guest-agent"
@@ -145,7 +153,8 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
-        msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
+        msg_quest_prompt "Install linux-virtual packages?"
+        #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
                 msg_info "Installing linux-virtual packages"
@@ -160,7 +169,8 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 
     if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" ]]
     then
-        msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
+        msg_quest_prompt "Apply workaround for KVP daemon bug?"
+        #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "Applying workaround"
@@ -171,8 +181,8 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             msg_no "Workaround not applied"
         fi
     fi
-
-    msg_quest "Set root password? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "Set root password?"
+    #msg_quest "Set root password? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "Setting root password"
@@ -182,7 +192,8 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
         msg_no "root password unchanged"
     fi
 
-msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "Allow root login via SSH?"
+    #msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "Enabling root login via SSH"
@@ -194,7 +205,8 @@ msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
     msg_no "root login via SSH was not enabled"
     fi
 
-    msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "Copy public keys for root login?"
+    #msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "Copying public keys"
@@ -217,7 +229,8 @@ msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
         msg_no "Public keys not copied"
     fi
 
-    msg_quest "Install zabbix-agent? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "Install zabbix-agent?"
+    #msg_quest "Install zabbix-agent? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "Installing zabbix-agent" 
@@ -263,7 +276,8 @@ msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
             msg_no "zabbix-agent not installed"
     fi
 
-    msg_quest "Install zabbix-agent2? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "Install zabbix-agent2?"
+    #msg_quest "Install zabbix-agent2? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "Installing zabbix-agent2" 
@@ -308,7 +322,8 @@ msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
                 fi
 
 
-msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
+msg_quest_prompt "Update $HOSTNAME?"
+#msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
 msg_info "Updating $HOSTNAME (Patience)"
@@ -317,8 +332,8 @@ apt-get -y upgrade &>/dev/null
 msg_ok "Updated $HOSTNAME (⚠ Reboot Recommended)"
 fi
 
-
-msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
+msg_quest_prompt "Perform dist-upgrade on $HOSTNAME?"
+#msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
 msg_info "Updating $HOSTNAME (Patience)"
@@ -326,8 +341,8 @@ apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
 msg_ok "Updated $HOSTNAME (⚠ Reboot Recommended)"
 fi
-
-msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
+msg_quest_prompt "Reboot $HOSTNAME now?"
+#msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
 msg_info "Rebooting $HOSTNAME"
