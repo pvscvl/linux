@@ -326,20 +326,20 @@ msg_quest_prompt "Update $HOSTNAME?"
 #msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "Updating $HOSTNAME (Patience)"
+msg_info "Updating $HOSTNAME"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "Updated $HOSTNAME (⚠ Reboot Recommended)"
+msg_ok "Updated $HOSTNAME (reboot Rrcommended)"
 fi
 
 msg_quest_prompt "Perform dist-upgrade on $HOSTNAME?"
 #msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "Updating $HOSTNAME (Patience)"
+msg_info "Updating $HOSTNAME"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "Updated $HOSTNAME (⚠ Reboot Recommended)"
+msg_ok "Updated $HOSTNAME (reboot recommended)"
 fi
 msg_quest_prompt "Reboot $HOSTNAME now?"
 #msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
