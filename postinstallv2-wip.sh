@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
     COL_NC='\e[0m' # No Color
-    COL_LIGHT_GREEN='\e[1;32m'
-    COL_LIGHT_RED='\e[1;31m'
-    COL_LIGHT_GREY='\e[0;37m'
+    COL_GREEN='\e[1;32m'
+    COL_RED='\e[1;31m'
+    COL_GREY='\e[0;37m'
     COL_DARK_GREY='\e[1;30m'
     COL_PURPLE='\e[0;35m'
     COL_BLUE='\e[0;34m'
@@ -13,11 +13,11 @@
     COL_ITAL='\e[3m' #italics
     COL_BOLD='\e[1m' #bold
     COL_UNDER='\e[4m' #underline
-    TICK="[${COL_LIGHT_GREEN}✓${COL_NC}]  "
+    TICK="[${COL_GREEN}✓${COL_NC}]  "
     QUEST="[${COL_PURPLE}?${COL_NC}]  "
-    CROSS="[${COL_LIGHT_RED}✗${COL_NC}]  "
+    CROSS="[${COL_RED}✗${COL_NC}]  "
     INFO="[i]  "   
-    DONE="${COL_LIGHT_GREEN} done!${COL_NC}"
+    DONE="${COL_GREEN} done!${COL_NC}"
     WARN="[${COL_YELLOW}⚠${COL_NC}]  "
     OVER="\\r\\033[K"
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
@@ -59,7 +59,7 @@ function msg_warn() {
 
 
 function header_info {
-    echo -e "${COL_LIGHT_GREEN}
+    echo -e "${COL_GREEN}
     ____             __     _            __        ____         
    / __ \____  _____/ /_   (_)___  _____/ /_____ _/ / / 
   / /_/ / __ \/ ___/ __/  / / __ \/ ___/ __/ __ '/ / /  
@@ -96,7 +96,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
         #printf "\\n\\n"
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
         printf "%b Root privileges are needed for this script\\n" "${INFO}"
-        printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_LIGHT_RED}"
+        printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_RED}"
         exit 1
     fi
 
@@ -167,7 +167,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
         fi
     fi
 
-    if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" ]]
+    if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
     then
         msg_quest_prompt "Apply workaround for KVP daemon bug?"
         #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt

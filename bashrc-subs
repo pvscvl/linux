@@ -1,0 +1,6 @@
+mkdir /dotfiles
+chmod 777 /dotfiles
+
+source /dotfiles/.exports
+source /dotfiles/.aliases
+source /dotfiles/.functions

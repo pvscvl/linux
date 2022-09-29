@@ -1,0 +1,13 @@
+ABCDEFGHKLMNPRQSTUVWXYZabcdefghikmnoprstuvwxyz1234567890
+alias genpasswd='echo `env LC_CTYPE=C tr -dc "a-zA-Z0-9-_\$\?" < /dev/urandom | head -c 30`'
+alias genpasswd='echo `env LC_CTYPE=C tr -dc "ABCDEFGHKLMNPRQSTUVWXYZabcdefghikmnoprstuvwxyz1234567890-_\#\!\%" < /dev/urandom | head -c 30`'
+
+
+alias pwup='printf `env LC_CTYPE=C tr -dc "ABCDEFGHKLMNPRQSTUVWXYZ" < /dev/urandom | head -c 4`'
+alias pwdown='printf `env LC_CTYPE=C tr -dc "abcdefghikmnoprstuvwxyz" < /dev/urandom | head -c 4`'
+alias pwdigits='printf `env LC_CTYPE=C tr -dc "0123456789" < /dev/urandom | head -c 4`'
+alias genpasswd_upper='echo `env LC_CTYPE=C tr -dc "ABCDEFGHKLMNPRQSTUVWXYZ" < /dev/urandom | head -c 4`'
+00:53:31 root@fs01:~ $ alias genpasswd_lower='echo `env LC_CTYPE=C tr -dc "abcdefghikmnoprstuvwxyz" < /dev/urandom | head -c 4`'
+00:53:59 root@fs01:~ $ genpasswd_lower 
+vknm
+00:54:08 root@fs01:~ $ alias genpasswd_digits='echo `env LC_CTYPE=C tr -dc "0123456789" < /dev/urandom | head -c 4`'
