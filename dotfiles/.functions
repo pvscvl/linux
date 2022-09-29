@@ -1,3 +1,12 @@
+function update-dotfiles () {
+local DOTHOME=$HOME
+local DOTFILESHOME=$HOME/.dotfiles/
+wget -q -O $DOTHOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+wget -q -O $DOTFILESHOME/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports
+wget -q -O $DOTFILESHOME/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions
+wget -q -O $DOTFILESHOME/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases
+}
+
 function generate-mac() {
     local INFO="[i]  "   
     local COL_BOLD='\e[1m' #bold
