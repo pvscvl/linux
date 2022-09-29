@@ -1,22 +1,12 @@
-    
-    function msg_info() {
-    local msg="$1"
-    local INFO="[i]  " 
-    printf "%b ${msg}\\n" "${INFO}"
-    }
-    
-    function update-dotfiles () {
-local DOTHOME=$HOME
-local DOTFILESHOME=$HOME/.dotfiles/
-wget -q -O $DOTHOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-msg_info "Updated .bashrc"
-wget -q -O $DOTFILESHOME/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports
-msg_info "Updated .dotfiles/.exports"
-wget -q -O $DOTFILESHOME/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions
-msg_info "Updated .dotfiles/.functions"
-wget -q -O $DOTFILESHOME/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases
-msg_info "Updated .dotfiles/.aliases"
+function update-dotfiles () {
+    local DOTFILESHOME=$HOME
+    local DOTFILESFOLDER=$HOME/.dotfiles/
+    wget -q -O $DOTFILESHOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+    wget -q -O $DOTFILESFOLDER/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports
+wget -q -O $DOTFILESFOLDER/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions
+wget -q -O $DOTFILESFOLDER/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases
 }
+
 
 function generate-mac() {
     local INFO="[i]  "   
@@ -32,6 +22,7 @@ function generate-mac() {
     echo ""
 }
 
+
 function generate-mac2() {
     
     local COL_NC='\e[0m' # No Color
@@ -40,6 +31,7 @@ function generate-mac2() {
     local GEN_MAC=$(echo '00 13 37'$(od -An -N3 -t xC /dev/urandom) | sed -e 's/ /:/g' | tr '[:lower:]' '[:upper:]')
     printf "%b ${GEN_MAC}\\n" "${WARN}"
 }
+
 
 function generate-password() {
     local pwup="`env LC_CTYPE=C tr -dc "ABCDEFGHKLMNPRQSTUVWXYZ" < /dev/urandom | head -c 4`"
@@ -51,3 +43,4 @@ function generate-password() {
     echo ""
     echo ""
 }
+
