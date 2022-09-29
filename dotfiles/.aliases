@@ -1,5 +1,5 @@
 alias ls="ls -alhFX --color=always" 
 alias _update="sudo apt-get update && sudo apt-get upgrade -y"
-alias update-dotfiles="wget -O $HOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc && wget -O $HOME/.dotfiles/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports && wget -O $HOME/.dotfiles/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions && wget -O $HOME/.dotfiles/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases"
+alias _update-dotfiles="wget -O $HOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc && wget -O $HOME/.dotfiles/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports && wget -O $HOME/.dotfiles/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions && wget -O $HOME/.dotfiles/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases"
 alias show-externalip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias show-internalip="hostname -I"
