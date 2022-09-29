@@ -11,8 +11,12 @@ alias _update="sudo apt-get update && sudo apt-get upgrade -y"
 
 alias show-externalip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias show-internalip="hostname -I"
+alias pwgen="generate-password"
 
-
+# Copy w/ progress
+cp_p (){
+        rsync -WavP --human-readable --progress $1 $2
+}
 
 
 function update-dotfiles () {
