@@ -136,7 +136,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
         fi
 
 
-        if [[ $detected_env == "kvm" || $detected_env == "lxc" ]]
+        if [[ $detected_env == "kvm" ]]
         then
             msg_quest_prompt "Install qemu-guest-agent?"
             #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
@@ -329,7 +329,7 @@ then
 msg_info "Updating $HOSTNAME"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "Updated $HOSTNAME (reboot Rrcommended)"
+msg_ok "Updated $HOSTNAME (reboot recommended)"
 fi
 
 msg_quest_prompt "Perform dist-upgrade on $HOSTNAME?"
@@ -338,7 +338,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 then
 msg_info "Updating $HOSTNAME"
 apt-get update &>/dev/null
-apt-get -y upgrade &>/dev/null
+apt-get -y dist-upgrade &>/dev/null
 msg_ok "Updated $HOSTNAME (reboot recommended)"
 fi
 msg_quest_prompt "Reboot $HOSTNAME now?"
