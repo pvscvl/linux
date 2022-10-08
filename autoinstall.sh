@@ -209,4 +209,4 @@ apt-get -y upgrade &>/dev/null
 msg_ok "Updated $HOSTNAME (reboot recommended)"
 
 msg_ok "Completed post-installation routines"
-
+fi
