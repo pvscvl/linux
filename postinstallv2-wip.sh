@@ -154,32 +154,32 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
-        msg_quest_prompt "Install linux-virtual packages?"
+        msg_quest_prompt "${COL_DIM}linux-virtual-packages:\\t${COL_NC} Install?"
         #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-                msg_info "Installing linux-virtual packages"
+                msg_info "${COL_DIM}linux-virtual-packages:\\t${COL_NC} installing"
                 apt update &>/dev/null
                 apt install --install-recommends linux-virtual -y &>/dev/null
                 apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-                msg_ok "Installed linux-virtual packages"
+                msg_ok "${COL_DIM}linux-virtual-packages:\\t${COL_NC} installed"
         else
-            msg_no "Linux-virtual packages not installed"
+            msg_no "${COL_DIM}linux-virtual-packages:\\t${COL_NC} not installed"
         fi
     fi
 
     if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
     then
-        msg_quest_prompt "Apply workaround for KVP daemon bug?"
+        msg_quest_prompt "${COL_DIM}KVP daemon bug:\\t${COL_NC} Apply workaround?"
         #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "Applying workaround"
+            msg_info "${COL_DIM}KVP daemon bug:\\t${COL_NC} Applying workaround"
             sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
             systemctl daemon-reload
-            msg_ok "Workaround applied"
+            msg_ok "${COL_DIM}KVP daemon bug:\\t${COL_NC} Workaround applied"
         else
-            msg_no "Workaround not applied"
+            msg_no "${COL_DIM}KVP daemon bug:\\t${COL_NC} Workaround not applied"
         fi
     fi
     msg_quest_prompt "Set root password?"
