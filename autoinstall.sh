@@ -190,11 +190,8 @@ if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
 	wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bubuntu22.04_all.deb
 	dpkg -i zabbix-release_6.2-2+ubuntu22.04_all.deb &>/dev/null
 fi
-#apt update &>/dev/null
-apt update
-
-#apt install zabbix-agent -y &>/dev/null
-apt install zabbix-agent -y
+apt update &>/dev/null
+apt install zabbix-agent -y &>/dev/null
 
 msg_ok "zabbix-agent installed" 
 systemctl restart zabbix-agent &>/dev/null
