@@ -126,6 +126,7 @@ echo ""
             apt update &>/dev/null
             apt install neofetch -y &>/dev/null
             msg_ok "${COL_DIM}Neofetch:\\t${COL_NC} installed"
+            echo ""
             if  grep -q "neofetch" .bashrc ; then
                 sleep 1
             else
@@ -141,6 +142,7 @@ echo ""
         sleep 1
         else
             msg_no "${COL_DIM}Neofetch:\\t${COL_NC} not installed"
+            echo ""
         fi
 
 
@@ -154,8 +156,10 @@ echo ""
                 apt update &>/dev/null
                 apt install qemu-guest-agent -y &>/dev/null
                 msg_ok "${COL_DIM}qemu-guest-agent\\t${COL_NC} installed"
+                echo ""
             else
                 msg_no "${COL_DIM}qemu-guest-agent:\\t${COL_NC} not installed?"
+                echo ""
             fi
         fi
     
@@ -170,8 +174,10 @@ echo ""
                 apt install --install-recommends linux-virtual -y &>/dev/null
                 apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
                 msg_ok "${COL_DIM}linux-virtual-packages:\\t${COL_NC} installed"
+                echo ""
         else
             msg_no "${COL_DIM}linux-virtual-packages:\\t${COL_NC} not installed"
+            echo ""
         fi
     fi
 
@@ -185,8 +191,10 @@ echo ""
             sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
             systemctl daemon-reload
             msg_ok "${COL_DIM}KVP daemon bug:\\t${COL_NC} Workaround applied"
+            echo ""
         else
             msg_no "${COL_DIM}KVP daemon bug:\\t${COL_NC} Workaround not applied"
+            echo ""
         fi
     fi
     msg_quest_prompt "${COL_DIM}root login:\\t${COL_NC} Set password?"
@@ -196,8 +204,10 @@ echo ""
         msg_info "${COL_DIM}root login:\\t${COL_NC} setting password"
         echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
         msg_ok "${COL_DIM}root login:\\t${COL_NC} password set"
+        echo ""
     else
         msg_no "${COL_DIM}root login:\\t${COL_NC} password not set"
+        echo ""
     fi
 
     msg_quest_prompt "Allow root login via SSH?"
