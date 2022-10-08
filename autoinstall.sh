@@ -222,9 +222,3 @@ msg_ok "Updated $HOSTNAME"
 
 msg_ok "Completed post-installation routines"
 
-
-
-msg_info "Info Nachricht test."
-msg_no "Failed Nachricht test"
-msg_ok "OK NAchricht test"
-msg_warn "Warnung nachricht test"
