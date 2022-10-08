@@ -130,15 +130,16 @@ if [[ $detected_env == "kvm" ]]
         apt install --install-recommends linux-virtual -y &>/dev/null
         apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
         msg_ok "Installed linux-virtual packages"
-    fi
+            if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
+                then
+                msg_info "Applying workaround for KVP daemon bug"
+                sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
+                systemctl daemon-reload
+                msg_ok "Workaround for KVP daemon bug applied"
+            fi
+fi
 
-    if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
-    then
-        msg_info "Applying workaround for KVP daemon bug"
-        sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
-        systemctl daemon-reload
-        msg_ok "Workaround for KVP daemon bug applied"
-    fi
+
 
 msg_info "Setting root password"
 echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
