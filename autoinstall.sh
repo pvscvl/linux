@@ -191,7 +191,7 @@ if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
 	dpkg -i zabbix-release_6.2-2+ubuntu22.04_all.deb &>/dev/null
 fi
 apt update &>/dev/null
-apt install zabbix-agent -y &>/dev/null
+apt install zabbix-agent -y
 
 msg_ok "zabbix-agent installed" 
 systemctl restart zabbix-agent &>/dev/null
