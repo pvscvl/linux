@@ -5,7 +5,8 @@ export colorflag="-G"
 
 
 alias ls="ls -alhFX --color=always" 
-alias _update="sudo apt-get update && sudo apt-get upgrade -y"
+alias _update="apt-get update && apt-get upgrade -y"
+alias _updatedist="apt-get update && apt-get dist-upgrade -y"
 #alias _update-dotfiles="wget -O $HOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc && wget -O $HOME/.dotfiles/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports && wget -O $HOME/.dotfiles/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions && wget -O $HOME/.dotfiles/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases"
 #alias _update-dotfiles2="curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc > $HOME/.bashrc && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports > $HOME/.dotfiles/.exports && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions > $HOME/.dotfiles/.functions  && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases > $HOME/.dotfiles/.aliases"
 
@@ -68,4 +69,5 @@ function generate-password() {
 #source /root/.dotfiles/.aliases
 #source /root/.dotfiles/.functions
 #alias _update2="sudo apt-get update && sudo apt-get upgrade -y"
+clear
 neofetch
