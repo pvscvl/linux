@@ -14,12 +14,12 @@
     COL_ITAL='\e[3m' #italics
     COL_BOLD='\e[1m' #bold
     COL_UNDER='\e[4m' #underline
-    TICK="[${COL_GREEN}✓${COL_NC}]  "
-    QUEST="[${COL_PURPLE}?${COL_NC}]  "
-    CROSS="[${COL_RED}✗${COL_NC}]  "
-    INFO="[i]  "   
+    TICK="[ ${COL_GREEN}✓${COL_NC} ]  "
+    QUEST="[ ${COL_PURPLE}?${COL_NC} ]  "
+    CROSS="[ ${COL_RED}✗${COL_NC} ]  "
+    INFO="[ i ]  "   
     DONE="${COL_GREEN} done!${COL_NC}"
-    WARN="[${COL_YELLOW}⚠${COL_NC}]  "
+    WARN="[ ${COL_YELLOW}⚠${COL_NC} ]  "
     OVER="\\r\\033[K"
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
@@ -75,7 +75,7 @@ header_info
 
 
 msg_info "This script will perform post-installation routines"
-msg_quest_prompt "Start the script?"
+msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} Start script?"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
@@ -92,7 +92,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             msg_ok "${COL_DIM}Timezone set to:      \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         fi
 
-    msg_ok "Script execution started"
+    #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
@@ -102,23 +102,23 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     fi
 
 
-    msg_quest_prompt "Modify .bashrc?"
+    msg_quest_prompt "${COL_DIM}.bashrc:\\t${COL_NC} modify?"
     #msg_quest "Modify .bashrc? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-        msg_ok ".bashrc modified"
+        msg_ok "${COL_DIM}.bashrc:\\t${COL_NC} modified"
     else
-        msg_no ".bashrc not modified"
+        msg_no "${COL_DIM}.bashrc:\\t${COL_NC} not modified"
     fi
-    msg_quest_prompt "Install neofetch?"
+    msg_quest_prompt "${COL_DIM}Neofetch:\\t${COL_NC} install?"
     #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "Installing neofetch"
+            msg_info "${COL_DIM}Neofetch:\\t${COL_NC} installing"
             apt update &>/dev/null
             apt install neofetch -y &>/dev/null
-            msg_ok "neofetch installed"
+            msg_ok "${COL_DIM}Neofetch:\\t${COL_NC} installed"
             if  grep -q "neofetch" .bashrc ; then
                 sleep 1
             else
@@ -133,22 +133,22 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             fi
         sleep 1
         else
-            msg_no "neofetch not installed"
+            msg_no "${COL_DIM}Neofetch:\\t${COL_NC} not installed"
         fi
 
 
         if [[ $detected_env == "kvm" ]]
         then
-            msg_quest_prompt "Install qemu-guest-agent?"
+            msg_quest_prompt "${COL_DIM}qemu-guest-agent:\\t${COL_NC} Install?"
             #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-                msg_info "Installing qemu-guest-agent"
+                msg_info "${COL_DIM}qemu-guest-agent\\t${COL_NC} installing"
                 apt update &>/dev/null
                 apt install qemu-guest-agent -y &>/dev/null
-                msg_ok "Installed qemu-guest-agent"
+                msg_ok "${COL_DIM}qemu-guest-agent\\t${COL_NC} installed"
             else
-                msg_no "qemu-guest-agent not installed"
+                msg_no "${COL_DIM}qemu-guest-agent:\\t${COL_NC} not installed?"
             fi
         fi
     
