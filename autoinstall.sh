@@ -19,7 +19,7 @@
     TICK="[ ${COL_GREEN}✓${COL_NC} ]  "
     QUEST="[ ${COL_PURPLE}?${COL_NC} ]  "
     CROSS="[ ${COL_RED}✗${COL_NC} ]  "
-    INFO="[ i]  "   
+    INFO="[ i ]  "   
     DONE="${COL_GREEN} done!${COL_NC}"
     WARN="[ ${COL_YELLOW}⚠${COL_NC} ]  "
     OVER="\\r\\033[K"
@@ -187,12 +187,18 @@ if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
 	wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bubuntu22.04_all.deb
 	dpkg -i zabbix-release_6.2-2+ubuntu22.04_all.deb &>/dev/null
 fi
-apt update &>/dev/null
-apt install zabbix-agent -y &>/dev/null
+#apt update &>/dev/null
+apt update
+
+#apt install zabbix-agent -y &>/dev/null
+apt install zabbix-agent -y
+
 msg_ok "zabbix-agent installed" 
 systemctl restart zabbix-agent &>/dev/null
+
 msg_info "Service: zabbix-agent restarted"
 systemctl enable zabbix-agent &>/dev/null
+
 msg_info "Service: zabbix-agent enabled"
 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
