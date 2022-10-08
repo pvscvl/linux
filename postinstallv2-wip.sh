@@ -334,7 +334,7 @@ echo ""
                 apt update &>/dev/null
 		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
                         msg_ok "${COL_DIM}zabbix-agent2:\\t${COL_NC} installed"
-                        msg_info "${COL_DIM}zabbix-agent2:\\t${COL_NC} Modify config"
+                        msg_info "${COL_DIM}zabbix-agent2:\\t${COL_NC} modify config"
 		        systemctl restart zabbix-agent2 &>/dev/null
 		        systemctl enable zabbix-agent2  &>/dev/null
                 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
@@ -344,7 +344,7 @@ echo ""
                 sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
-                msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Config modified"
+                msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} config modified"
                 systemctl restart zabbix-agent2 &>/dev/null
                 echo ""
                 else
@@ -360,7 +360,10 @@ then
 msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} installing updates"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} Updates installed"
+msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} updates installed"
+echo ""
+else
+msg_no "${COL_DIM}$HOSTNAME:\\t${COL_NC} no updates installed"
 fi
 
 msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} install dist-upgrades?"
@@ -371,6 +374,10 @@ msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
 apt-get -y dist-upgrade &>/dev/null
 msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} dist-upgrades installed"
+echo ""
+else
+msg_no "${COL_DIM}$HOSTNAME:\\t${COL_NC} no updates installed"
+echo ""
 fi
 msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} reboot now?"
 #msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
