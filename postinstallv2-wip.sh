@@ -210,17 +210,17 @@ echo ""
         echo ""
     fi
 
-    msg_quest_prompt "Allow root login via SSH?"
-    #msg_quest "Allow root login via SSH? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "${COL_DIM}sshd_config:\\t${COL_NC} permit root login?"
+    #msg_quest "Allow r"Allow root login via SSH?"oot login via SSH? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "Enabling root login via SSH"
+        msg_info "${COL_DIM}sshd_config:\\t${COL_NC} enabling root login"
         sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
         sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
         sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-        msg_ok "root login via SSH is now permitted"
+        msg_ok "${COL_DIM}sshd_config:\\t${COL_NC} root login permitted"
     else
-    msg_no "root login via SSH was not enabled"
+    msg_no "${COL_DIM}sshd_config:\\t${COL_NC} root login not permitted"
     fi
 
     msg_quest_prompt "Copy public keys for root login?"
