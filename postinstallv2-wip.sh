@@ -158,7 +158,7 @@ echo ""
                 msg_ok "${COL_DIM}qemu-guest-agent\\t${COL_NC} installed"
                 echo ""
             else
-                msg_no "${COL_DIM}qemu-guest-agent:\\t${COL_NC} not installed?"
+                msg_no "${COL_DIM}qemu-guest-agent:\\t${COL_NC} not installed"
                 echo ""
             fi
         fi
@@ -223,35 +223,35 @@ echo ""
     msg_no "${COL_DIM}sshd_config:\\t${COL_NC} root login not permitted"
     fi
 
-    msg_quest_prompt "Copy public keys for root login?"
+    msg_quest_prompt "${COL_DIM}ssh:\\t${COL_NC} Copy public keys for root login?"
     #msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "Copying public keys"
+        msg_info "${COL_DIM}ssh:\\t${COL_NC} Copying public keys"
         if [[ -d "/root/.ssh" ]]
         then
             chmod 700 /root/.ssh
             echo $rsakey1 > /root/.ssh/authorized_keys2
             echo $rsakey2 >> /root/.ssh/authorized_keys2
             chmod 600 /root/.ssh/authorized_keys2
-            msg_ok "Public keys for root login copied"
+            msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
         else
             mkdir /root/.ssh
             chmod 700 /root/.ssh
             echo $rsakey1 > /root/.ssh/authorized_keys2
             echo $rsakey2 >> /root/.ssh/authorized_keys2
             chmod 600 /root/.ssh/authorized_keys2
-            msg_ok "Public keys for root login copied"
+            msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
         fi
     else
-        msg_no "Public keys not copied"
+        msg_no "${COL_DIM}ssh:\\t${COL_NC} Public keys not copied"
     fi
 
-    msg_quest_prompt "Install zabbix-agent?"
+    msg_quest_prompt "${COL_DIM}zabbix-agent:\\t${COL_NC} install?"
     #msg_quest "Install zabbix-agent? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "Installing zabbix-agent" 
+        msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} installing"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bdebian10_all.deb
@@ -278,6 +278,8 @@ echo ""
 
             apt update &>/dev/null
             apt install zabbix-agent -y &>/dev/null
+        msg_ok "${COL_DIM}zabbix-agent:\\t${COL_NC} installed"
+        msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Modify config"
 	        systemctl restart zabbix-agent &>/dev/null
 	        systemctl enable zabbix-agent &>/dev/null
             sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
@@ -289,16 +291,17 @@ echo ""
             sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
             sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
             systemctl restart zabbix-agent &>/dev/null
-            msg_ok "zabbix-agent installed" 
+            msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Config modified"
+            echo ""
         else
-            msg_no "zabbix-agent not installed"
+            msg_no "${COL_DIM}zabbix-agent:\\t${COL_NC} not installed"
     fi
 
-    msg_quest_prompt "Install zabbix-agent2?"
+  msg_quest_prompt "${COL_DIM}zabbix-agent2:\\t${COL_NC} install?"
     #msg_quest "Install zabbix-agent2? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "Installing zabbix-agent2" 
+        msg_info "${COL_DIM}zabbix-agent2:\\t${COL_NC} installing"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bdebian10_all.deb
@@ -324,6 +327,8 @@ echo ""
         fi    
                 apt update &>/dev/null
 		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
+                        msg_ok "${COL_DIM}zabbix-agent2:\\t${COL_NC} installed"
+                        msg_info "${COL_DIM}zabbix-agent2:\\t${COL_NC} Modify config"
 		        systemctl restart zabbix-agent2 &>/dev/null
 		        systemctl enable zabbix-agent2  &>/dev/null
                 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
@@ -333,10 +338,12 @@ echo ""
                 sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
+                msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Config modified"
                 systemctl restart zabbix-agent2 &>/dev/null
-                msg_ok "zabbix-agent2 installed" 
+                echo ""
                 else
-                msg_no "zabbix-agent2 not installed"
+                msg_no "${COL_DIM}zabbix-agent2:\\t${COL_NC} not installed"
+                echo ""
                 fi
 
 
