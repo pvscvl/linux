@@ -364,6 +364,7 @@ msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} updates installed"
 echo ""
 else
 msg_no "${COL_DIM}$HOSTNAME:\\t${COL_NC} no updates installed"
+echo ""
 fi
 
 msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} install dist-upgrades?"
