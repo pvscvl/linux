@@ -152,10 +152,10 @@ echo ""
             #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-                msg_info "${COL_DIM}qemu-guest-agent\\t${COL_NC} installing"
+                msg_info "${COL_DIM}qemu-guest-agent:\\t${COL_NC} installing"
                 apt update &>/dev/null
                 apt install qemu-guest-agent -y &>/dev/null
-                msg_ok "${COL_DIM}qemu-guest-agent\\t${COL_NC} installed"
+                msg_ok "${COL_DIM}qemu-guest-agent:\\t${COL_NC} installed"
                 echo ""
             else
                 msg_no "${COL_DIM}qemu-guest-agent:\\t${COL_NC} not installed"
