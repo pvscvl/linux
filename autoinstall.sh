@@ -123,6 +123,8 @@ if [[ $detected_env == "kvm" ]]
         apt install --install-recommends linux-virtual -y &>/dev/null
         apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
         msg_ok "Installed linux-virtual packages"
+        if [[ -d "/etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service" ]]
+        then
             if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
                 then
                 msg_info "Applying workaround for KVP daemon bug"
@@ -130,6 +132,7 @@ if [[ $detected_env == "kvm" ]]
                 systemctl daemon-reload
                 msg_ok "Workaround for KVP daemon bug applied"
             fi
+        fi
 fi
 
 
