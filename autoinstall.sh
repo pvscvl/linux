@@ -102,8 +102,8 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
     msg_info "${COL_DIM}Neofetch:\\t${COL_NC}${COL_BOLD} Installing${COL_NC}"
     apt update &>/dev/null
     apt install neofetch -y &>/dev/null
-    msg_ok "${COL_DIM}Neofetch\\t${COL_NC}${COL_BOLD} Installed${COL_NC}"
-    msg_ok "${COL_DIM}Neofetch\\t${COL_NC} Installed"
+    msg_ok "${COL_DIM}Neofetch:\\t${COL_NC}${COL_BOLD} Installed${COL_NC}"
+    msg_ok "${COL_DIM}Neofetch:\\t${COL_NC} Installed"
         if  grep -q "neofetch" /root/.bashrc ; then
             sleep 1
         else
@@ -113,9 +113,9 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
 
 if [[ $detected_env == "kvm" ]]
     then
-            msg_info "Installing qemu-guest-agent"
+            msg_info "${COL_DIM}qemu-guest-agent:\\t${COL_NC}${COL_BOLD} Installing${COL_NC}"
             apt install qemu-guest-agent -y &>/dev/null
-            msg_ok "Installed qemu-guest-agent"
+            msg_ok "${COL_DIM}qemu-guest-agent:\\t${COL_NC}${COL_BOLD} Installed${COL_NC}"
     fi
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
