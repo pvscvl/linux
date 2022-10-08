@@ -75,10 +75,11 @@ header_info
 
 
 msg_info "This script will perform post-installation routines"
-msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} Start script?"
+msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
+    echo ""
     msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     sleep 1
     msg_info "${COL_DIM}Virtual environment:\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
@@ -86,10 +87,12 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             sleep 1
+                echo ""
         else
             timedatectl set-timezone Europe/Berlin
             chktz=`cat /etc/timezone`
             msg_ok "${COL_DIM}Timezone set to:      \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+                echo ""
         fi
 
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
@@ -101,16 +104,20 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
         exit 1
     fi
 
-
+echo ""
     msg_quest_prompt "${COL_DIM}.bashrc:\\t${COL_NC} modify?"
     #msg_quest "Modify .bashrc? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
         msg_ok "${COL_DIM}.bashrc:\\t${COL_NC} modified"
+            echo ""
     else
         msg_no "${COL_DIM}.bashrc:\\t${COL_NC} not modified"
+            echo ""
     fi
+
+
     msg_quest_prompt "${COL_DIM}Neofetch:\\t${COL_NC} install?"
     #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
