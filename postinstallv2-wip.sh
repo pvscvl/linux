@@ -40,7 +40,7 @@ function msg_quest() {
 
 function msg_quest_prompt() {
     local msg="$1"
-    printf "%b ${msg}"" <y/N> " "${QUEST}";read -r -p "" prompt
+    printf "%b ${msg}"" ${COL_DIM}<y/N> " "${QUEST}";read -r -p "" prompt
 	}
 
 function msg_ok() {
