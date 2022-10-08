@@ -73,18 +73,9 @@ ${COL_CL}"
 }
 
 header_info
-
-
-
-msg_info "This script will perform post-installation routines"
-msg_quest_prompt "Start the script?"
-#msg_quest "Start the script? <y/N> "; read -r -p "" prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-    msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-    sleep 1
+msg_info "Script execution started"
+msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Virtual environment:\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-    sleep 1
             msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             sleep 1
@@ -94,7 +85,6 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             msg_ok "${COL_DIM}Timezone set to:      \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         fi
 
-    msg_ok "Script execution started"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
@@ -103,7 +93,10 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
         exit 1
     fi
 
+
+    msg_info "Loading .bashrc"    
     wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+    sleep 1
     msg_ok ".bashrc modified"
 
     msg_info "Installing neofetch"
@@ -143,12 +136,14 @@ fi
 
 msg_info "Setting root password"
 echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
+sleep 1
 msg_ok "root password set"
 
 msg_info "Enabling root login via SSH"
 sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
 sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
 sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
+sleep 1
 msg_ok "root login via SSH is now permitted"
 
 
@@ -159,6 +154,7 @@ if [[ -d "/root/.ssh" ]]
         echo $rsakey1 > /root/.ssh/authorized_keys2
         echo $rsakey2 >> /root/.ssh/authorized_keys2
         chmod 600 /root/.ssh/authorized_keys2
+        sleep 1
         msg_ok "Public keys for root login copied"
     else
         mkdir /root/.ssh
@@ -166,6 +162,7 @@ if [[ -d "/root/.ssh" ]]
         echo $rsakey1 > /root/.ssh/authorized_keys2
         echo $rsakey2 >> /root/.ssh/authorized_keys2
         chmod 600 /root/.ssh/authorized_keys2
+        sleep 1
         msg_ok "Public keys for root login copied"
 fi
 
@@ -192,8 +189,11 @@ if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
 fi
 apt update &>/dev/null
 apt install zabbix-agent -y &>/dev/null
+msg_ok "zabbix-agent installed" 
 systemctl restart zabbix-agent &>/dev/null
+msg_info "Service: zabbix-agent restarted"
 systemctl enable zabbix-agent &>/dev/null
+msg_info "Service: zabbix-agent enabled"
 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agentd.conf
@@ -202,12 +202,14 @@ sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/z
 sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
+msg_info "zabbix-agent config modified"
 systemctl restart zabbix-agent &>/dev/null
+msg_info "Service: zabbix-agent restarted"
 msg_ok "zabbix-agent installed" 
 
 msg_info "Updating $HOSTNAME"
 apt-get -y upgrade &>/dev/null
-msg_ok "Updated $HOSTNAME (reboot recommended)"
+msg_ok "Updated $HOSTNAME"
 
 msg_ok "Completed post-installation routines"
-fi
+
