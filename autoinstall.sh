@@ -73,7 +73,7 @@ ${COL_CL}"
 }
 
 header_info
-msg_info "${COL_DIM}autoinstall.sh:\\t${COL_NC} Executing"
+#msg_info "${COL_DIM}autoinstall.sh:\\t${COL_NC} Executing"
 msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Virtual environment:\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
             msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
@@ -84,7 +84,7 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
             chktz=`cat /etc/timezone`
             msg_ok "${COL_DIM}Timezone set to:      \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         fi
-
+    echo ""
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
@@ -97,7 +97,8 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
     msg_info "${COL_DIM}.bashrc:\\t${COL_NC} Downloading"
     wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
     sleep 1
-    msg_ok "${COL_DIM}.bashrc:\\t${COL_NC} Modified."
+    msg_ok "${COL_DIM}.bashrc:\\t${COL_NC} Modified"
+    echo ""
 
     msg_info "${COL_DIM}Neofetch:\\t${COL_NC} Installing"
     apt update &>/dev/null
@@ -109,12 +110,14 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
             echo "clear" >> /root/.bashrc
             echo "neofetch" >> /root/.bashrc
         fi
+        echo ""
 
 if [[ $detected_env == "kvm" ]]
     then
             msg_info "${COL_DIM}qemu-guest-agent:\\t${COL_NC} Installing"
             apt install qemu-guest-agent -y &>/dev/null
             msg_ok "${COL_DIM}qemu-guest-agent:\\t${COL_NC} Installed"
+            echo ""
     fi
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
@@ -123,6 +126,7 @@ if [[ $detected_env == "kvm" ]]
         apt install --install-recommends linux-virtual -y &>/dev/null
         apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
         msg_ok "${COL_DIM}Linux-virtual packages:\\t${COL_NC} Installed"
+        echo ""
         if [[ -d "/etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service" ]]
         then
             if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
@@ -132,6 +136,7 @@ if [[ $detected_env == "kvm" ]]
                 sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
                 systemctl daemon-reload
                 msg_ok "${COL_DIM}KVP daemon bug:\\t${COL_NC} Workaround applied"
+                echo ""
             fi
         fi
 fi
@@ -142,6 +147,7 @@ msg_info "${COL_DIM}root password:\\t${COL_NC} Setting root password"
 echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
 sleep 1
 msg_ok "${COL_DIM}root password:\\t${COL_NC} root password set"
+    echo ""
 
 msg_info "${COL_DIM}sshd_config:\\t${COL_NC} Allowing root login"
 sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
@@ -149,6 +155,7 @@ sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd
 sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
 sleep 1
 msg_ok "${COL_DIM}sshd_config:\\t${COL_NC} root login allowed"
+echo ""
 
 msg_info "${COL_DIM}ssh:\\t${COL_NC} Copying public keys"
 if [[ -d "/root/.ssh" ]]
@@ -168,6 +175,8 @@ msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
         sleep 1
         msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
 fi
+echo ""
+
 msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Installing"
 if [[ $detected_os == "debian" && $detected_version == "10" ]]
     then
@@ -205,11 +214,12 @@ sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_age
 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
 msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Config modified"
+echo ""
 systemctl restart zabbix-agent &>/dev/null
 
 msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} Installing updates"
 apt-get -y upgrade &>/dev/null
 msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} Updates installed"
-
+echo ""
 msg_ok "Completed post-installation routines"
 
