@@ -73,7 +73,7 @@ ${COL_CL}"
 }
 
 header_info
-msg_info "Script execution started"
+msg_info "${COL_DIM}autoinstall.sh:\\t${COL_NC} Executing${COL_NC}"
 msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Virtual environment:\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
             msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
@@ -94,15 +94,16 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
     fi
 
 
-    msg_info "Loading .bashrc"    
+    msg_info "${COL_DIM}.bashrc:\\t${COL_NC}${COL_BOLD} Downloading${COL_NC}"
     wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
     sleep 1
-    msg_ok ".bashrc modified"
+    msg_ok "${COL_DIM}.bashrc:\\t${COL_NC}${COL_BOLD} Modified.${COL_NC}"
 
-    msg_info "Installing neofetch"
+    msg_info "${COL_DIM}Neofetch:\\t${COL_NC}${COL_BOLD} Installing${COL_NC}"
     apt update &>/dev/null
     apt install neofetch -y &>/dev/null
-    msg_ok "neofetch installed"
+    msg_ok "${COL_DIM}Neofetch\\t${COL_NC}${COL_BOLD} Installed${COL_NC}"
+    msg_ok "${COL_DIM}Neofetch\\t${COL_NC} Installed"
         if  grep -q "neofetch" /root/.bashrc ; then
             sleep 1
         else
