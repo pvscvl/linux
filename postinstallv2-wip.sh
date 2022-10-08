@@ -219,8 +219,10 @@ echo ""
         sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
         sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
         msg_ok "${COL_DIM}sshd_config:\\t${COL_NC} root login permitted"
+        echo ""
     else
     msg_no "${COL_DIM}sshd_config:\\t${COL_NC} root login not permitted"
+    echo ""
     fi
 
     msg_quest_prompt "${COL_DIM}ssh:\\t${COL_NC} Copy public keys for root login?"
@@ -235,6 +237,7 @@ echo ""
             echo $rsakey2 >> /root/.ssh/authorized_keys2
             chmod 600 /root/.ssh/authorized_keys2
             msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
+            echo ""
         else
             mkdir /root/.ssh
             chmod 700 /root/.ssh
@@ -242,9 +245,11 @@ echo ""
             echo $rsakey2 >> /root/.ssh/authorized_keys2
             chmod 600 /root/.ssh/authorized_keys2
             msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
+            echo ""
         fi
     else
         msg_no "${COL_DIM}ssh:\\t${COL_NC} Public keys not copied"
+        echo ""
     fi
 
     msg_quest_prompt "${COL_DIM}zabbix-agent:\\t${COL_NC} install?"
@@ -295,6 +300,7 @@ echo ""
             echo ""
         else
             msg_no "${COL_DIM}zabbix-agent:\\t${COL_NC} not installed"
+            echo ""
     fi
 
   msg_quest_prompt "${COL_DIM}zabbix-agent2:\\t${COL_NC} install?"
@@ -347,30 +353,30 @@ echo ""
                 fi
 
 
-msg_quest_prompt "Update $HOSTNAME?"
+msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} install updates?"
 #msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "Updating $HOSTNAME"
+msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} installing updates"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "Updated $HOSTNAME (reboot recommended)"
+msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} Updates installed"
 fi
 
-msg_quest_prompt "Perform dist-upgrade on $HOSTNAME?"
+msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} install dist-upgrades?"
 #msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "Updating $HOSTNAME"
+msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
 apt-get -y dist-upgrade &>/dev/null
-msg_ok "Updated $HOSTNAME (reboot recommended)"
+msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} dist-upgrades installed"
 fi
-msg_quest_prompt "Reboot $HOSTNAME now?"
+msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} reboot now?"
 #msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "Rebooting $HOSTNAME"
+msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} rebooting"
 sleep 2
 msg_ok "Completed post-installation routines"
 reboot
