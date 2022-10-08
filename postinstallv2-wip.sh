@@ -80,18 +80,18 @@ msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
     echo ""
-    msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+    msg_info "${COL_DIM}Detected OS:        \\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     sleep 1
-    msg_info "${COL_DIM}Virtual environment:\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+    msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
     sleep 1
-            msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+            msg_info "${COL_DIM}Timezone:           \\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             sleep 1
                 
         else
             timedatectl set-timezone Europe/Berlin
             chktz=`cat /etc/timezone`
-            msg_ok "${COL_DIM}Timezone set to:      \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+            msg_ok "${COL_DIM}Timezone set to:      \\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
                 
         fi
 
@@ -105,27 +105,27 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     fi
 
 echo ""
-    msg_quest_prompt "${COL_DIM}.bashrc:\\t${COL_NC} modify?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} modify?${COL_DIM}"
     #msg_quest "Modify .bashrc? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-        msg_ok "${COL_DIM}.bashrc:\\t${COL_NC} modified"
+        msg_ok "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} modified"
             echo ""
     else
-        msg_no "${COL_DIM}.bashrc:\\t${COL_NC} not modified"
+        msg_no "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} not modified"
             echo ""
     fi
 
 
-    msg_quest_prompt "${COL_DIM}Neofetch:\\t${COL_NC} install?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} install?${COL_DIM}"
     #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}Neofetch:\\t${COL_NC} installing"
+            msg_info "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installing"
             apt update &>/dev/null
             apt install neofetch -y &>/dev/null
-            msg_ok "${COL_DIM}Neofetch:\\t${COL_NC} installed"
+            msg_ok "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installed"
             echo ""
             if  grep -q "neofetch" .bashrc ; then
                 sleep 1
@@ -141,72 +141,72 @@ echo ""
             fi
         sleep 1
         else
-            msg_no "${COL_DIM}Neofetch:\\t${COL_NC} not installed"
+            msg_no "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} not installed"
             echo ""
         fi
 
 
         if [[ $detected_env == "kvm" ]]
         then
-            msg_quest_prompt "${COL_DIM}qemu-guest-agent:\\t${COL_NC} install?${COL_DIM}"
+            msg_quest_prompt "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} install?${COL_DIM}"
             #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-                msg_info "${COL_DIM}qemu-guest-agent:\\t${COL_NC} installing"
+                msg_info "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} installing"
                 apt update &>/dev/null
                 apt install qemu-guest-agent -y &>/dev/null
-                msg_ok "${COL_DIM}qemu-guest-agent:\\t${COL_NC} installed"
+                msg_ok "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} installed"
                 echo ""
             else
-                msg_no "${COL_DIM}qemu-guest-agent:\\t${COL_NC} not installed"
+                msg_no "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} not installed"
                 echo ""
             fi
         fi
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
-        msg_quest_prompt "${COL_DIM}linux-virtual-packages:\\t${COL_NC} install?${COL_DIM}"
+        msg_quest_prompt "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} install?${COL_DIM}"
         #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-                msg_info "${COL_DIM}linux-virtual-packages:\\t${COL_NC} installing"
+                msg_info "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} installing"
                 apt update &>/dev/null
                 apt install --install-recommends linux-virtual -y &>/dev/null
                 apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-                msg_ok "${COL_DIM}linux-virtual-packages:\\t${COL_NC} installed"
+                msg_ok "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} installed"
                 echo ""
         else
-            msg_no "${COL_DIM}linux-virtual-packages:\\t${COL_NC} not installed"
+            msg_no "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} not installed"
             echo ""
         fi
     fi
 
     if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
     then
-        msg_quest_prompt "${COL_DIM}KVP daemon bug:\\t${COL_NC} apply workaround?${COL_DIM}"
+        msg_quest_prompt "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} apply workaround?${COL_DIM}"
         #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}KVP daemon bug:\\t${COL_NC} applying workaround"
+            msg_info "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} applying workaround"
             sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
             systemctl daemon-reload
-            msg_ok "${COL_DIM}KVP daemon bug:\\t${COL_NC} workaround applied"
+            msg_ok "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} workaround applied"
             echo ""
         else
-            msg_no "${COL_DIM}KVP daemon bug:\\t${COL_NC} workaround not applied"
+            msg_no "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} workaround not applied"
             echo ""
         fi
     fi
-    msg_quest_prompt "${COL_DIM}root login:\\t${COL_NC} set password?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}root login:\\t\\t\\t${COL_NC} set password?${COL_DIM}"
     #msg_quest "Set root password? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "${COL_DIM}root login:\\t${COL_NC} setting password"
+        msg_info "${COL_DIM}root login:\\t\\t\\t${COL_NC} setting password"
         echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-        msg_ok "${COL_DIM}root login:\\t${COL_NC} password set"
+        msg_ok "${COL_DIM}root login:\\t\\t\\t${COL_NC} password set"
         echo ""
     else
-        msg_no "${COL_DIM}root login:\\t${COL_NC} password not set"
+        msg_no "${COL_DIM}root login:\\t\\t\\t${COL_NC} password not set"
         echo ""
     fi
 
