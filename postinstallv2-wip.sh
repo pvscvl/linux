@@ -182,15 +182,15 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             msg_no "${COL_DIM}KVP daemon bug:\\t${COL_NC} Workaround not applied"
         fi
     fi
-    msg_quest_prompt "Set root password?"
+    msg_quest_prompt "${COL_DIM}root login:\\t${COL_NC} Set password?"
     #msg_quest "Set root password? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "Setting root password"
+        msg_info "${COL_DIM}root login:\\t${COL_NC} setting password"
         echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-        msg_ok "root password set"
+        msg_ok "${COL_DIM}root login:\\t${COL_NC} password set"
     else
-        msg_no "root password unchanged"
+        msg_no "${COL_DIM}root login:\\t${COL_NC} password not set"
     fi
 
     msg_quest_prompt "Allow root login via SSH?"
