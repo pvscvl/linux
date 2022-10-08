@@ -73,7 +73,7 @@ ${COL_CL}"
 }
 
 header_info
-msg_info "${COL_DIM}autoinstall.sh:\\t${COL_NC} Executing${COL_NC}"
+msg_info "${COL_DIM}autoinstall.sh:\\t${COL_NC} Executing"
 msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Virtual environment:\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
             msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
@@ -94,16 +94,14 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
     fi
 
 
-    msg_info "${COL_DIM}.bashrc:\\t${COL_NC}${COL_BOLD} Downloading${COL_NC}"
     msg_info "${COL_DIM}.bashrc:\\t${COL_NC} Downloading"
     wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
     sleep 1
-    msg_ok "${COL_DIM}.bashrc:\\t${COL_NC}${COL_BOLD} Modified.${COL_NC}"
+    msg_ok "${COL_DIM}.bashrc:\\t${COL_NC} Modified."
 
-    msg_info "${COL_DIM}Neofetch:\\t${COL_NC}${COL_BOLD} Installing${COL_NC}"
+    msg_info "${COL_DIM}Neofetch:\\t${COL_NC} Installing"
     apt update &>/dev/null
     apt install neofetch -y &>/dev/null
-    msg_ok "${COL_DIM}Neofetch:\\t${COL_NC}${COL_BOLD} Installed${COL_NC}"
     msg_ok "${COL_DIM}Neofetch:\\t${COL_NC} Installed"
         if  grep -q "neofetch" /root/.bashrc ; then
             sleep 1
@@ -114,45 +112,45 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
 
 if [[ $detected_env == "kvm" ]]
     then
-            msg_info "${COL_DIM}qemu-guest-agent:\\t${COL_NC}${COL_BOLD} Installing${COL_NC}"
+            msg_info "${COL_DIM}qemu-guest-agent:\\t${COL_NC} Installing"
             apt install qemu-guest-agent -y &>/dev/null
-            msg_ok "${COL_DIM}qemu-guest-agent:\\t${COL_NC}${COL_BOLD} Installed${COL_NC}"
+            msg_ok "${COL_DIM}qemu-guest-agent:\\t${COL_NC} Installed"
     fi
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
-        msg_info "Installing linux-virtual packages"
+        msg_info "${COL_DIM}Linux-virtual packages:\\t${COL_NC} Installing"
         apt install --install-recommends linux-virtual -y &>/dev/null
         apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-        msg_ok "Installed linux-virtual packages"
+        msg_ok "${COL_DIM}Linux-virtual packages:\\t${COL_NC} Installed"
         if [[ -d "/etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service" ]]
         then
             if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
                 then
+                msg_info "${COL_DIM}KVP daemon bug:\\t${COL_NC} Apply workaround"
                 msg_info "Applying workaround for KVP daemon bug"
                 sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
                 systemctl daemon-reload
-                msg_ok "Workaround for KVP daemon bug applied"
+                msg_ok "${COL_DIM}KVP daemon bug:\\t${COL_NC} Workaround applied"
             fi
         fi
 fi
 
 
 
-msg_info "Setting root password"
+msg_info "${COL_DIM}root password:\\t${COL_NC} Setting root password"
 echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
 sleep 1
-msg_ok "root password set"
+msg_ok "${COL_DIM}root password:\\t${COL_NC} root password set"
 
-msg_info "Enabling root login via SSH"
+msg_info "${COL_DIM}sshd_config:\\t${COL_NC} Allowing root login"
 sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
 sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
 sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
 sleep 1
-msg_ok "root login via SSH is now permitted"
+msg_ok "${COL_DIM}sshd_config:\\t${COL_NC} root login allowed"
 
-
-msg_info "Copying public keys"
+msg_info "${COL_DIM}ssh:\\t${COL_NC} Copying public keys"
 if [[ -d "/root/.ssh" ]]
     then
         chmod 700 /root/.ssh
@@ -160,7 +158,7 @@ if [[ -d "/root/.ssh" ]]
         echo $rsakey2 >> /root/.ssh/authorized_keys2
         chmod 600 /root/.ssh/authorized_keys2
         sleep 1
-        msg_ok "Public keys for root login copied"
+msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
     else
         mkdir /root/.ssh
         chmod 700 /root/.ssh
@@ -168,10 +166,9 @@ if [[ -d "/root/.ssh" ]]
         echo $rsakey2 >> /root/.ssh/authorized_keys2
         chmod 600 /root/.ssh/authorized_keys2
         sleep 1
-        msg_ok "Public keys for root login copied"
+        msg_ok "${COL_DIM}ssh:\\t${COL_NC} Public keys copied"
 fi
-
-msg_info "Installing zabbix-agent" 
+msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Installing"
 if [[ $detected_os == "debian" && $detected_version == "10" ]]
     then
 	wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bdebian10_all.deb
@@ -195,13 +192,10 @@ fi
 apt update &>/dev/null
 apt install zabbix-agent -y &>/dev/null
 
-msg_ok "zabbix-agent installed" 
+msg_ok "${COL_DIM}zabbix-agent:\\t${COL_NC} Installed"
 systemctl restart zabbix-agent &>/dev/null
-
-msg_info "Service: zabbix-agent restarted"
 systemctl enable zabbix-agent &>/dev/null
-
-msg_info "Service: zabbix-agent enabled"
+msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Modify config"
 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agentd.conf
@@ -210,14 +204,12 @@ sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/z
 sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
-msg_info "zabbix-agent config modified"
+msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} Config modified"
 systemctl restart zabbix-agent &>/dev/null
-msg_info "Service: zabbix-agent restarted"
-msg_ok "zabbix-agent installed" 
 
-msg_info "Updating $HOSTNAME"
+msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} Installing updates"
 apt-get -y upgrade &>/dev/null
-msg_ok "Updated $HOSTNAME"
+msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} Updates installed"
 
 msg_ok "Completed post-installation routines"
 
