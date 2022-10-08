@@ -95,6 +95,7 @@ msg_info "${COL_DIM}Detected OS:        \\t${COL_NC}${COL_BOLD}$detected_os $det
 
 
     msg_info "${COL_DIM}.bashrc:\\t${COL_NC}${COL_BOLD} Downloading${COL_NC}"
+    msg_info "${COL_DIM}.bashrc:\\t${COL_NC} Downloading"
     wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
     sleep 1
     msg_ok "${COL_DIM}.bashrc:\\t${COL_NC}${COL_BOLD} Modified.${COL_NC}"
