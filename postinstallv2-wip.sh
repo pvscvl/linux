@@ -40,7 +40,7 @@ function msg_quest() {
 
 function msg_quest_prompt() {
     local msg="$1"
-    printf "%b ${msg}"" ${COL_DIM}<y/N> " "${QUEST}";read -r -p "" prompt
+    printf "%b ${msg}"" <y/N> " "${QUEST}";read -r -p "" prompt
 	}
 
 function msg_ok() {
@@ -75,7 +75,7 @@ header_info
 
 
 msg_info "This script will perform post-installation routines"
-msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?"
+msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
