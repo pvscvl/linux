@@ -16,12 +16,12 @@
     COL_ITAL='\e[3m' #italics
     COL_BOLD='\e[1m' #bold
     COL_UNDER='\e[4m' #underline
-    TICK="[${COL_GREEN}✓${COL_NC}]  "
-    QUEST="[${COL_PURPLE}?${COL_NC}]  "
-    CROSS="[${COL_RED}✗${COL_NC}]  "
-    INFO="[i]  "   
+    TICK="[ ${COL_GREEN}✓${COL_NC} ]  "
+    QUEST="[ ${COL_PURPLE}?${COL_NC} ]  "
+    CROSS="[ ${COL_RED}✗${COL_NC} ]  "
+    INFO="[ i]  "   
     DONE="${COL_GREEN} done!${COL_NC}"
-    WARN="[${COL_YELLOW}⚠${COL_NC}]  "
+    WARN="[ ${COL_YELLOW}⚠${COL_NC} ]  "
     OVER="\\r\\033[K"
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
@@ -213,3 +213,9 @@ msg_ok "Updated $HOSTNAME"
 
 msg_ok "Completed post-installation routines"
 
+
+
+msg_info "Info Nachricht test."
+msg_no "Failed Nachricht test"
+msg_ok "OK NAchricht test"
+msg_warn "Warnung nachricht test"
