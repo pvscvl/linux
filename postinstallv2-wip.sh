@@ -87,12 +87,12 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
             msg_info "${COL_DIM}Timezone:           \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             sleep 1
-                echo ""
+                
         else
             timedatectl set-timezone Europe/Berlin
             chktz=`cat /etc/timezone`
             msg_ok "${COL_DIM}Timezone set to:      \\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
-                echo ""
+                
         fi
 
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
