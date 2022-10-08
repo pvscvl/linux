@@ -80,18 +80,18 @@ msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
     echo ""
-    msg_info "${COL_DIM}Detected OS:        \\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+    msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     sleep 1
-    msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+    msg_info "${COL_DIM}Virtual environment:\\t\\tt${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
     sleep 1
-            msg_info "${COL_DIM}Timezone:           \\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+            msg_info "${COL_DIM}Timezone:\\t\\t\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             sleep 1
                 
         else
             timedatectl set-timezone Europe/Berlin
             chktz=`cat /etc/timezone`
-            msg_ok "${COL_DIM}Timezone set to:      \\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+            msg_ok "${COL_DIM}Timezone set to:\\t\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
                 
         fi
 
