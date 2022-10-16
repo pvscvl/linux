@@ -43,3 +43,43 @@ function generate-password() {
     echo ""
     echo ""
 }
+
+
+
+
+function msg_info1() {
+        COL_NC='\e[0m' # No Color
+    COL_CL=`echo "\033[m"` #zeilenumbruch
+    COL_DIM='\e[2m' #dimmed 
+    COL_ITAL='\e[3m' #italics
+    COL_BOLD='\e[1m' #bold
+    COL_UNDER='\e[4m' #underline
+    INFO="${COL_NC}[ i ]  ${COL_BOLD}${COL_DIM}"   
+    OVER="\\r\\033[K"
+    local msg="$1"
+    printf "%b ${msg}" "${INFO}"
+}
+
+function msg_info2() {
+        COL_NC='\e[0m' # No Color
+    COL_CL=`echo "\033[m"` #zeilenumbruch
+    COL_DIM='\e[2m' #dimmed 
+    COL_ITAL='\e[3m' #italics
+    COL_BOLD='\e[1m' #bold
+    COL_UNDER='\e[4m' #underline
+    INFO="${COL_NC}[ i ]  "   
+    OVER="\\r\\033[K"
+    local msg="$1"
+    printf "\\t${COL_NC}${msg}\\n"
+}
+
+
+function sens (){
+    local cputemp = "sensors | grep 'Core 7'"
+    local cpufan = "sensors | grep 'fan2'"
+    local fan1 = "sensors | grep 'fan1'"
+        local fan2 = "sensors | grep 'fan3'"
+            local fan3 = "sensors | grep 'fan5'"
+
+            echo 
+}
