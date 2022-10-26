@@ -25,6 +25,8 @@
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
     chktz=`cat /etc/timezone`
+    #rsakey1 = tkm\pascal@TKM-MG-NB029
+    #rsakey2 = zhr@wsred
     rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDu4GY7aercgm2ooseWTJCJWNIdi2e0Mbf+rDSDJnG1EdBh9pUh9WQ4bxr2YWcaVkjL9Ph7mcuE01FyhRyQRsySigx543rgjHCEhpGR4XUN1R1Oz2CIduaHNMEWOCrNZ6LnYMyomhsqwjRSk7+PyW+3bzNVwqQaQGf/UwcnjaWo+N0tampJKK8ZZqnPbAEgc2VwwcjcKCET3JmE38KesBJsauEW3uyXFTnEhijhfCweyZKIwQHGApGJot+TKH3XpA2FHs8hrIbAXVLFXvuNFwu9ECQ/bw7MIzfd2zLcju2hmm7JC3NdEqah5Rni9bEFD8dwCb0EYUBpwXMEVtgSTe0nZN21Kx1IBIXRABmbljsmHFaUgp2l1gYdPiQP28PDRV7u+unQ/A3hYKxiq6Py88VdDzcplSdrcnqrBp9hL5KcX6iLPHDpmCbD+xhJyUhiUYfM/hLgRq4jG8YpbuvDnX/dNyok9q5h0VjeAD/WlqzltHFVNcLqNhUUJ2ToHylRPfU= tkm\pascal@TKM-MG-NB029"
     rsakey2="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJd7Z+LQJ9rqYoIGgVusQ2XBLsoJgW2wPbj5k+ZDOS2G9/eTuzX0RC8pXSH1ovJVVr8AxOFIeRZg4gMn2OcwIPskD1qCpNLWAv9ChoXEyn5TKW4gU+9Yngj4w+YRLUAHXjrcEaPA1zOzDwDxdasO3cNJpJ5jhwnqPtNpy7dSYg4kc5j52MNoYJYYwNUJMDBFPmPOj4bg7TW8D2DNYc2jGVsVPClhdA4IRyylW4ozJDLLlOk+nvbBUBWQs3WgpY8QsnHqaP+dz0s1TAW1Vw4YAQGcVac2/dEb+UoCuHu9D4cKSRv+ObL5FYb4TtJogZY7+00Jf3W1Bl33lEyH/AZJrhaTO7mp5HTHajYVBtwsICZQl5VH+RQ0P8ERmXF+3aSd8UQkGl2JUXQfCLaHbr39dsB7DFQd8NgoAIkzpQhCv9JH/JtTt1Luafkegn+owlhJpTd7IribzkWofLB6M+7pky2m1jTtH5cScBDHhMGse3aj28PAJ4Ywe7G4QujiLnphc= zhr@wsred"
 
