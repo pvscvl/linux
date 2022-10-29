@@ -68,7 +68,7 @@ ${COL_CL}"
 header_info
 
 msg_info "This script will perform post-installation routines"
-msg_info "v1"
+msg_info "v2"
 msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
