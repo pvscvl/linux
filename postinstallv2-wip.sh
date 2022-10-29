@@ -21,6 +21,7 @@
     DONE="${COL_GREEN} done!${COL_NC}"
     WARN="${COL_NC}[ ${COL_YELLOW}⚠${COL_NC} ]  "
     OVER="\\r\\033[K"
+    detected_architechture=`uname -m`
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
@@ -33,34 +34,27 @@
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
-}
-
+    }
 function msg_quest() {
     local msg="$1"
     printf "%b ${msg}" "${QUEST}"
-}
-
+    }
 function msg_quest_prompt() {
     local msg="$1"
     printf "%b ${msg}"" <y/N> " "${QUEST}";read -r -p "" prompt
 	}
-
 function msg_ok() {
     local msg="$1"
     printf "%b ${msg}\\n" "${TICK}"
-}
+    }
 function msg_no() {
     local msg="$1"
     printf "%b ${msg}\\n" "${CROSS}"
-}
+    }
 function msg_warn() {
     local msg="$1"
     printf "%b ${msg}\\n" "${WARN}"
-}
-
-
-
-
+    }
 function header_info {
     echo -e "${COL_GREEN}
     ____             __     _            __        ____         
@@ -70,19 +64,18 @@ function header_info {
 /_/    \____/____/\__/  /_/_/ /_/____/\__/\__,_/_/_/ 
 ${COL_CL}
 ${COL_CL}"
-}
-
+    }
 header_info
 
-
-
 msg_info "This script will perform post-installation routines"
+msg_info "v1"
 msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
     echo ""
     msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+    msg_info "${COL_DIM}Detected Architecture:\\t${COL_NC}${COL_BOLD}$detected_architecture{COL_NC}"
     sleep 1
     msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
     sleep 1
