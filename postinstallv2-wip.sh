@@ -75,7 +75,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     then
     echo ""
     msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-    msg_info "${COL_DIM}Detected Architecture:\\t${COL_NC}${COL_BOLD}$detected_architecture{COL_NC}"
+    msg_info "${COL_DIM}Detected architecture:\\t\\t${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
     sleep 1
     msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
     sleep 1
