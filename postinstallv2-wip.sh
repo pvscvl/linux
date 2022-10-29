@@ -21,7 +21,7 @@
     DONE="${COL_GREEN} done!${COL_NC}"
     WARN="${COL_NC}[ ${COL_YELLOW}⚠${COL_NC} ]  "
     OVER="\\r\\033[K"
-    detected_architechture=`uname -m`
+    detected_architecture=`uname -m`
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
@@ -68,7 +68,7 @@ ${COL_CL}"
 header_info
 
 msg_info "This script will perform post-installation routines"
-msg_info "v2"
+msg_info "v3"
 msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
