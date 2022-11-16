@@ -101,7 +101,6 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 
 echo ""
     msg_quest_prompt "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} modify?${COL_DIM}"
-    #msg_quest "Modify .bashrc? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
@@ -125,14 +124,25 @@ echo ""
             if  grep -q "neofetch" .bashrc ; then
                 sleep 1
             else
-                echo "clear" >> .bashrc
                 echo "neofetch" >> .bashrc
             fi
-             if  grep -q "neofetch" /root/.bashrc ; then
+            if  grep -q "clear" .bashrc ; then
+                sleep 1 
+            else
+                echo "clear" >> .bashrc
+            fi
+
+
+
+            if  grep -q "neofetch" /root/.bashrc ; then
                 sleep 1
             else
-                echo "clear" >> /root/.bashrc
                 echo "neofetch" >> /root/.bashrc
+            fi
+            if  grep -q "clear" /root/.bashrc ; then
+                sleep 1 
+            else
+                echo "clear" >> /root/.bashrc
             fi
         sleep 1
         else
@@ -248,38 +258,37 @@ echo ""
     fi
 
     msg_quest_prompt "${COL_DIM}zabbix-agent:\\t${COL_NC} install?${COL_DIM}"
-    #msg_quest "Install zabbix-agent? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} installing"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bdebian10_all.deb
-		    dpkg -i zabbix-release_6.2-2+debian10_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
+		    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "debian" && $detected_version == "11" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bdebian11_all.deb
-		    dpkg -i zabbix-release_6.2-2+debian11_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
+		    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.2-2+ubuntu20.04_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
+		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.2-2+ubuntu22.04_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
+		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
         fi
 
             apt update &>/dev/null
             apt install zabbix-agent -y &>/dev/null
-        msg_ok "${COL_DIM}zabbix-agent:\\t${COL_NC} installed"
-        msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} modify config"
+            msg_ok "${COL_DIM}zabbix-agent:\\t${COL_NC} installed"
+            msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} modify config"
 	        systemctl restart zabbix-agent &>/dev/null
 	        systemctl enable zabbix-agent &>/dev/null
             sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
@@ -298,33 +307,32 @@ echo ""
             echo ""
     fi
 
-  msg_quest_prompt "${COL_DIM}zabbix-agent2:\\t${COL_NC} install?${COL_DIM}"
-    #msg_quest "Install zabbix-agent2? <y/N> "; read -r -p "" prompt
+    msg_quest_prompt "${COL_DIM}zabbix-agent2:\\t${COL_NC} install?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "${COL_DIM}zabbix-agent2:\\t${COL_NC} installing"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bdebian10_all.deb
-		    dpkg -i zabbix-release_6.2-2+debian10_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
+		    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "debian" && $detected_version == "11" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bdebian11_all.deb
-		    dpkg -i zabbix-release_6.2-2+debian11_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
+		    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.2-2+ubuntu20.04_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
+		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-2%2Bubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.2-2+ubuntu22.04_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
+		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
         fi    
                 apt update &>/dev/null
 		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
