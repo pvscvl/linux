@@ -124,11 +124,13 @@ echo ""
             if  grep -q "neofetch" .bashrc ; then
                 sleep 1
             else
+                echo " " >> .bashrc
                 echo "neofetch" >> .bashrc
             fi
             if  grep -q "clear" .bashrc ; then
                 sleep 1 
             else
+                echo " " >> .bashrc
                 echo "clear" >> .bashrc
             fi
 
@@ -137,11 +139,13 @@ echo ""
             if  grep -q "neofetch" /root/.bashrc ; then
                 sleep 1
             else
+                echo " " >> /root/.bashrc
                 echo "neofetch" >> /root/.bashrc
             fi
             if  grep -q "clear" /root/.bashrc ; then
                 sleep 1 
             else
+                echo " " >> /root/.bashrc
                 echo "clear" >> /root/.bashrc
             fi
         sleep 1
