@@ -121,33 +121,34 @@ echo ""
             apt install neofetch -y &>/dev/null
             msg_ok "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installed"
             echo ""
-            if  grep -q "neofetch" .bashrc ; then
-                sleep 1
-            else
-                echo " " >> .bashrc
-                echo "neofetch" >> .bashrc
-            fi
             if  grep -q "clear" .bashrc ; then
                 sleep 1 
             else
                 echo " " >> .bashrc
                 echo "clear" >> .bashrc
             fi
-
-
-
-            if  grep -q "neofetch" /root/.bashrc ; then
+            if  grep -q "neofetch" .bashrc ; then
                 sleep 1
             else
-                echo " " >> /root/.bashrc
-                echo "neofetch" >> /root/.bashrc
+                echo " " >> .bashrc
+                echo "neofetch" >> .bashrc
             fi
+
+
+
             if  grep -q "clear" /root/.bashrc ; then
                 sleep 1 
             else
                 echo " " >> /root/.bashrc
                 echo "clear" >> /root/.bashrc
             fi
+            if  grep -q "neofetch" /root/.bashrc ; then
+                sleep 1
+            else
+                echo " " >> /root/.bashrc
+                echo "neofetch" >> /root/.bashrc
+            fi
+
         sleep 1
         else
             msg_no "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} not installed"
