@@ -96,6 +96,16 @@ function move-video() {
     mv ./*.{mp4,MP4,mov,MOV,avi,AVI,mpg,MPG,mpeg,MPEG,m4v,M4V} ./"$tdir" -v 2>/dev/null
 }
 
+function move-yrs() {
+   mv ./2022*.* ./2022 2>/dev/null
+   mv ./2021*.* ./2021 2>/dev/null
+   mv ./2020*.* ./2020 2>/dev/null
+   mv ./2019*.* ./2019 2>/dev/null
+   mv ./2018*.* ./2018 2>/dev/null
+   mv ./2017*.* ./2017 2>/dev/null
+}
+
+
 function rename-timestamp-prefix() {
     for f in ./*.*; do   fn=$(basename "$f");   mv "$fn" "$(date -r "$f" +"%Y.Q%q-%m%d_%H%M").$fn" -v; done
 }
