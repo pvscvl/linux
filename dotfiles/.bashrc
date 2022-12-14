@@ -72,6 +72,34 @@ function create-folders() {
     mkdir "$cdir vids"
 }
 
+function create-yrssub-folders() {
+mkdir -p 2022/Q1
+mkdir -p 2022/Q2
+mkdir -p 2022/Q3
+mkdir -p 2022/Q4
+mkdir -p 2021/Q1
+mkdir -p 2021/Q2
+mkdir -p 2021/Q3
+mkdir -p 2021/Q4
+mkdir -p 2020/Q1
+mkdir -p 2020/Q2
+mkdir -p 2020/Q3
+mkdir -p 2020/Q4
+mkdir -p 2019/Q1
+mkdir -p 2019/Q2
+mkdir -p 2019/Q3
+mkdir -p 2019/Q4
+mkdir -p 2018/Q1
+mkdir -p 2018/Q2
+mkdir -p 2018/Q3
+mkdir -p 2018/Q4
+mkdir -p 2017/Q1
+mkdir -p 2017/Q2
+mkdir -p 2017/Q3
+mkdir -p 2017/Q4
+}
+
+
 function move-pics-quiet() {
     local cdir=`echo "${PWD##*/}"`
         local tdir="$cdir pics"
@@ -95,7 +123,7 @@ function move-video() {
     local tdir="$cdir vids"
     mv ./*.{mp4,MP4,mov,MOV,avi,AVI,mpg,MPG,mpeg,MPEG,m4v,M4V} ./"$tdir" -v 2>/dev/null
 }
-
+mv 2022.Q4
 function move-yrs() {
    mv ./2022*.* ./2022 2>/dev/null
    mv ./2021*.* ./2021 2>/dev/null
@@ -105,6 +133,44 @@ function move-yrs() {
    mv ./2017*.* ./2017 2>/dev/null
 }
 
+
+function move-yrs-sub() {
+   mv ./2022.Q1* ./2022/Q1 2>/dev/null
+   mv ./2022.Q2* ./2022/Q2 2>/dev/null
+   mv ./2022.Q3* ./2022/Q3 2>/dev/null
+   mv ./2022.Q4* ./2022/Q4 2>/dev/null
+   mv ./2021.Q1* ./2021/Q1 2>/dev/null
+   mv ./2021.Q2* ./2021/Q2 2>/dev/null
+   mv ./2021.Q3* ./2021/Q3 2>/dev/null
+   mv ./2021.Q4* ./2021/Q4 2>/dev/null
+   mv ./2020.Q1* ./2020/Q1 2>/dev/null
+   mv ./2020.Q2* ./2020/Q2 2>/dev/null
+   mv ./2020.Q3* ./2020/Q3 2>/dev/null
+   mv ./2020.Q4* ./2020/Q4 2>/dev/null
+   mv ./2019.Q1* ./2019/Q1 2>/dev/null
+   mv ./2019.Q2* ./2019/Q2 2>/dev/null
+   mv ./2019.Q3* ./2019/Q3 2>/dev/null
+   mv ./2019.Q4* ./2019/Q4 2>/dev/null
+   mv ./2018.Q1* ./2018/Q1 2>/dev/null
+   mv ./2018.Q2* ./2018/Q2 2>/dev/null
+   mv ./2018.Q3* ./2018/Q3 2>/dev/null
+   mv ./2018.Q4* ./2018/Q4 2>/dev/null
+   mv ./2017.Q1* ./2017/Q1 2>/dev/null
+   mv ./2017.Q2* ./2017/Q2 2>/dev/null
+   mv ./2017.Q3* ./2017/Q3 2>/dev/null
+   mv ./2017.Q4* ./2017/Q4 2>/dev/null
+   mv ./2016.Q1* ./2016/Q1 2>/dev/null
+   mv ./2016.Q2* ./2016/Q2 2>/dev/null
+   mv ./2016.Q3* ./2016/Q3 2>/dev/null
+   mv ./2016.Q4* ./2016/Q4 2>/dev/null
+}
+
+function move-qrtr() {
+   mv ./20??.Q1* ./Q1 2>/dev/null
+   mv ./20??.Q2* ./Q2 2>/dev/null
+    mv ./20??.Q3* ./Q3 2>/dev/null
+    mv ./20??.Q4* ./Q4 2>/dev/null
+}
 
 function rename-timestamp-prefix() {
     for f in ./*.*; do   fn=$(basename "$f");   mv "$fn" "$(date -r "$f" +"%Y.Q%q-%m%d_%H%M").$fn" -v; done
