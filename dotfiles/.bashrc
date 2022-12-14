@@ -65,6 +65,43 @@ function generate-password() {
     echo ""
     echo ""
 }
+
+function create-folders() {
+    local cdir=`echo "${PWD##*/}"`
+    mkdir "$cdir pics"
+    mkdir "$cdir vids"
+}
+
+function move-pics-quiet() {
+    local cdir=`echo "${PWD##*/}"`
+        local tdir="$cdir pics"
+        mv ./*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF} ./"$tdir" 2>/dev/null
+}
+
+function move-pics() {
+    local cdir=`echo "${PWD##*/}"`
+        local tdir="$cdir pics"
+        mv ./*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF} ./"$tdir" -v 2>/dev/null
+}
+
+function move-video-quiet() {
+    local cdir=`echo "${PWD##*/}"`
+    local tdir="$cdir vids"
+    mv ./*.{mp4,MP4,mov,MOV,avi,AVI,mpg,MPG,mpeg,MPEG,m4v,M4V} ./"$tdir" 2>/dev/null
+}
+
+function move-video() {
+    local cdir=`echo "${PWD##*/}"`
+    local tdir="$cdir vids"
+    mv ./*.{mp4,MP4,mov,MOV,avi,AVI,mpg,MPG,mpeg,MPEG,m4v,M4V} ./"$tdir" -v 2>/dev/null
+}
+
+function rename-timestamp-prefix() {
+    for f in ./*.*; do   fn=$(basename "$f");   mv "$fn" "$(date -r "$f" +"%Y.Q%q-%m%d_%H%M").$fn" -v; done
+}
+
+
+
 #source /root/.dotfiles/.exports
 #source /root/.dotfiles/.aliases
 #source /root/.dotfiles/.functions
