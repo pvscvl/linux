@@ -123,7 +123,7 @@ echo ""
             msg_ok "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installed"
             echo ""
             if  grep -q "clear" .bashrc ; then
-                  
+                    msg_info "Neofetch already in bashrc.${COL_NC}"
             else
                 echo " " >> .bashrc
                 echo "clear" >> .bashrc
