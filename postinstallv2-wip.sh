@@ -129,7 +129,7 @@ echo ""
                 echo "clear" >> .bashrc
             fi
             if  grep -q "neofetch" .bashrc ; then
-                 
+                 msg_info "Neofetch already in bashrc.${COL_NC}"
             else
                 echo " " >> .bashrc
                 echo "neofetch" >> .bashrc
