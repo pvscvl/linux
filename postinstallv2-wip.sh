@@ -82,7 +82,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 
             msg_info "${COL_DIM}Timezone:\\t\\t\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
-             echo "" 
+            msg_info "Timezone is correct.${COL_NC}"
                 
         else
             timedatectl set-timezone Europe/Berlin
