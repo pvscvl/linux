@@ -138,13 +138,15 @@ echo ""
 
 
             if  grep -q "clear" /root/.bashrc ; then
-                  
+                                      msg_info "Neofetch already in bashrc.${COL_NC}"
+
             else
                 echo " " >> /root/.bashrc
                 echo "clear" >> /root/.bashrc
             fi
             if  grep -q "neofetch" /root/.bashrc ; then
-                 
+                                      msg_info "Neofetch already in bashrc.${COL_NC}"
+
             else
                 echo " " >> /root/.bashrc
                 echo "neofetch" >> /root/.bashrc
