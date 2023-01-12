@@ -78,12 +78,9 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     echo ""
     msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Detected architecture:\\t\\t${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
-    sleep 1
     msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-    sleep 1
             msg_info "${COL_DIM}Timezone:\\t\\t\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
-            sleep 1
                 
         else
             timedatectl set-timezone Europe/Berlin
@@ -124,13 +121,11 @@ echo ""
             msg_ok "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installed"
             echo ""
             if  grep -q "clear" .bashrc ; then
-                sleep 1 
             else
                 echo " " >> .bashrc
                 echo "clear" >> .bashrc
             fi
             if  grep -q "neofetch" .bashrc ; then
-                sleep 1
             else
                 echo " " >> .bashrc
                 echo "neofetch" >> .bashrc
@@ -139,19 +134,17 @@ echo ""
 
 
             if  grep -q "clear" /root/.bashrc ; then
-                sleep 1 
             else
                 echo " " >> /root/.bashrc
                 echo "clear" >> /root/.bashrc
             fi
             if  grep -q "neofetch" /root/.bashrc ; then
-                sleep 1
+
             else
                 echo " " >> /root/.bashrc
                 echo "neofetch" >> /root/.bashrc
             fi
 
-        sleep 1
         else
             msg_no "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} not installed"
             echo ""
