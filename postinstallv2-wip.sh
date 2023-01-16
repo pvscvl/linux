@@ -74,6 +74,14 @@ ${COL_CL}"
     }
 header_info
 
+
+    msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+    msg_info "${COL_DIM}Detected architecture:\\t\\t${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
+    msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+
+
+
+
 msg_info "This script will perform post-installation routines"
 msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
