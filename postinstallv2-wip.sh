@@ -139,7 +139,7 @@ echo ""
             msg_info "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installing"
  #           apt update &>/dev/null
  #           apt install neofetch -y &>/dev/null
-            apt update $verbosevar
+            apt update &>/dev/null
             apt install neofetch -y $verbosevar
 
             msg_ok "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installed"
