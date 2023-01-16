@@ -73,7 +73,7 @@ ${COL_CL}
 ${COL_CL}"
     }
 header_info
-
+verbosevar=" &>/dev/null"
 
     msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Detected architecture:\\t\\t${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
@@ -118,7 +118,7 @@ echo ""
     then
         verbosevar=""
     else
-        verbosevar=" &>/dev/null"
+        echo " else"
     fi
     msg_quest_prompt "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} modify?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
