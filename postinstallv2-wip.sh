@@ -115,6 +115,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 echo ""
     msg_quest_prompt "${COL_DIM}verbose?\\t\\t\\t${COL_NC}${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+    then
         verbosevar=""
     else
         verbosevar=" &>/dev/null"
