@@ -59,18 +59,22 @@ function msg_warn() {
     }
 function header_info {
     echo -e "${COL_GREEN}
-    ____             __     _            __        ____         
-   / __ \____  _____/ /_   (_)___  _____/ /_____ _/ / / 
-  / /_/ / __ \/ ___/ __/  / / __ \/ ___/ __/ __ '/ / /  
- / ____/ /_/ (__  ) /_   / / / / (__  ) /_/ /_/ / / / 
-/_/    \____/____/\__/  /_/_/ /_/____/\__/\__,_/_/_/ 
+ _    ____  ___            __   _  ________   
+| |  / /  |/  /    __     / /  | |/ / ____/   
+| | / / /|_/ /  __/ /_   / /   |   / /        
+| |/ / /  / /  /_  __/  / /___/   / /___      
+|___/_/  /_/__  /_/    /_____/_/|_\____/      
+        / ___/__________(_)___  / /_          
+        \__ \/ ___/ ___/ / __ \/ __/          
+       ___/ / /__/ /  / / /_/ / /_            
+      /____/\___/_/  /_/ .___/\__/            
+                      /_/                     
 ${COL_CL}
 ${COL_CL}"
     }
 header_info
 
 msg_info "This script will perform post-installation routines"
-msg_info "v3"
 msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
 #msg_quest "Start the script? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
@@ -101,6 +105,12 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
     fi
 
 echo ""
+    msg_quest_prompt "${COL_DIM}verbose?\\t\\t\\t${COL_NC}${COL_DIM}"
+    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+        verbosevar=""
+    else
+        verbosevar=" &>/dev/null"
+    fi
     msg_quest_prompt "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} modify?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
@@ -118,8 +128,11 @@ echo ""
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installing"
-            apt update &>/dev/null
-            apt install neofetch -y &>/dev/null
+ #           apt update &>/dev/null
+ #           apt install neofetch -y &>/dev/null
+            apt update $verbosevar
+            apt install neofetch -y $verbosevar
+
             msg_ok "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installed"
             echo ""
             if  grep -q "clear" .bashrc ; then
