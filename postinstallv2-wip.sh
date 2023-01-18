@@ -84,7 +84,7 @@ header_info
             msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             #msg_info "Timezone is correct.${COL_NC}"
-            sleep 1
+            echo -n ""
             #echo "" &>/dev/null   
         else
             timedatectl set-timezone Europe/Berlin
@@ -92,7 +92,7 @@ header_info
             msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
                 
         fi
-    echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
+    echo ${COL_DIM}${COL_BOLD}\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#${COL_NC}
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
