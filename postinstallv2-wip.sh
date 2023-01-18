@@ -92,7 +92,7 @@ header_info
             msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
                 
         fi
-    echo ${COL_DIM}${COL_BOLD}\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#${COL_NC}
+    echo "${COL_DIM}${COL_BOLD}\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#${COL_NC}"
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
