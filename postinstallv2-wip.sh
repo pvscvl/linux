@@ -78,7 +78,7 @@ ${COL_CL}
 ${COL_CL}"
     }
 header_info
-     msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}´hostname -f´ ${COL_NC}"
+     msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
     msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
     msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
