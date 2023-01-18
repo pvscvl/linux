@@ -16,6 +16,8 @@
     COL_UNDER='\e[4m' #underline
     TICK="${COL_NC}[ ${COL_GREEN}✓${COL_NC} ]  "
     QUEST="${COL_NC}[ ${COL_PURPLE}?${COL_NC} ]  "
+    col='\e[38;5;46m'
+    ${col}
     CROSS="${COL_NC}[ ${COL_RED}✗${COL_NC} ]  "
     INFO="${COL_NC}[ i ]  "   
     DONE="${COL_GREEN} done!${COL_NC}"
@@ -75,33 +77,18 @@ ${COL_CL}
 ${COL_CL}"
     }
 header_info
-verbosevar=" &>/dev/null"
+    msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+    msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
+    msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
 
-    msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-    msg_info "${COL_DIM}Detected architecture:\\t\\t${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
-    msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-
-
-
-
-msg_info "This script will perform post-installation routines"
-msg_quest_prompt "${COL_DIM}postinstall.sh:\\t${COL_NC} start script?${COL_DIM}"
-#msg_quest "Start the script? <y/N> "; read -r -p "" prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-    echo ""
-    msg_info "${COL_DIM}Detected OS:\\t\\t\\t${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-    msg_info "${COL_DIM}Detected architecture:\\t\\t${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
-    msg_info "${COL_DIM}Virtual environment:\\t\\t${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-
-            msg_info "${COL_DIM}Timezone:\\t\\t\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+            msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             msg_info "Timezone is correct.${COL_NC}"
                 
         else
             timedatectl set-timezone Europe/Berlin
             chktz=`cat /etc/timezone`
-            msg_ok "${COL_DIM}Timezone set to:\\t\\t\\t${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+            msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
                 
         fi
 
@@ -114,37 +101,28 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
         exit 1
     fi
 
-echo ""
-    msg_quest_prompt "${COL_DIM}verbose?\\t\\t\\t${COL_NC}${COL_DIM}"
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-        verbosevar=" "
-    else
-        echo " else"
-    fi
-    msg_quest_prompt "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} modify?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}.bashrc: ${COL_NC} modify?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-        msg_ok "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} modified"
+        msg_ok "${COL_DIM}.bashrc: ${COL_NC} modified"
             echo ""
     else
-        msg_no "${COL_DIM}.bashrc:\\t\\t\\t${COL_NC} not modified"
+        msg_no "${COL_DIM}.bashrc: ${COL_NC} not modified"
             echo ""
     fi
 
 
-    msg_quest_prompt "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} install?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}Neofetch: ${COL_NC} install?${COL_DIM}"
     #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installing"
- #           apt update &>/dev/null
- #           apt install neofetch -y &>/dev/null
-            apt update &>/dev/null
-            apt install neofetch -y $verbosevar
+            msg_info "${COL_DIM}Neofetch: ${COL_NC} installing"
+           apt update &>/dev/null
+           apt install neofetch -y &>/dev/null
 
-            msg_ok "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} installed"
+
+            msg_ok "${COL_DIM}Neofetch: ${COL_NC} installed"
             echo ""
             if  grep -q "clear" .bashrc ; then
                     msg_info "Neofetch already in bashrc.${COL_NC}"
@@ -178,95 +156,95 @@ echo ""
 
          
         else
-            msg_no "${COL_DIM}Neofetch:\\t\\t\\t${COL_NC} not installed"
+            msg_no "${COL_DIM}Neofetch: ${COL_NC} not installed"
             echo ""
         fi
 
 
         if [[ $detected_env == "kvm" ]]
         then
-            msg_quest_prompt "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} install?${COL_DIM}"
+            msg_quest_prompt "${COL_DIM}qemu-guest-agent: ${COL_NC} install?${COL_DIM}"
             #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-                msg_info "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} installing"
+                msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
                 apt update &>/dev/null
                 apt install qemu-guest-agent -y &>/dev/null
-                msg_ok "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} installed"
+                msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
                 echo ""
             else
-                msg_no "${COL_DIM}qemu-guest-agent:\\t\\t${COL_NC} not installed"
+                msg_no "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
                 echo ""
             fi
         fi
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
-        msg_quest_prompt "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} install?${COL_DIM}"
+        msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
         #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-                msg_info "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} installing"
+                msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
                 apt update &>/dev/null
                 apt install --install-recommends linux-virtual -y &>/dev/null
                 apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-                msg_ok "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} installed"
+                msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
                 echo ""
         else
-            msg_no "${COL_DIM}linux-virtual-packages:\\t\\t${COL_NC} not installed"
+            msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
             echo ""
         fi
     fi
 
     if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
     then
-        msg_quest_prompt "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} apply workaround?${COL_DIM}"
+        msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
         #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} applying workaround"
+            msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
             sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
             systemctl daemon-reload
-            msg_ok "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} workaround applied"
+            msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
             echo ""
         else
-            msg_no "${COL_DIM}KVP daemon bug:\\t\\t\\t${COL_NC} workaround not applied"
+            msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
             echo ""
         fi
     fi
-    msg_quest_prompt "${COL_DIM}root login:\\t\\t\\t${COL_NC} set password?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
     #msg_quest "Set root password? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "${COL_DIM}root login:\\t\\t\\t${COL_NC} setting password"
+        msg_info "${COL_DIM}root login:${COL_NC} setting password"
         echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-        msg_ok "${COL_DIM}root login:\\t\\t\\t${COL_NC} password set"
+        msg_ok "${COL_DIM}root login:${COL_NC} password set"
         echo ""
     else
-        msg_no "${COL_DIM}root login:\\t\\t\\t${COL_NC} password not set"
+        msg_no "${COL_DIM}root login:${COL_NC} password not set"
         echo ""
     fi
 
-    msg_quest_prompt "${COL_DIM}sshd_config:\\t${COL_NC} permit root login?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
     #msg_quest "Allow r"Allow root login via SSH?"oot login via SSH? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "${COL_DIM}sshd_config:\\t${COL_NC} enabling root login"
+        msg_info "${COL_DIM}sshd_config:${COL_NC} enabling root login"
         sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
         sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
         sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
         msg_ok "${COL_DIM}sshd_config:\\t${COL_NC} root login permitted"
         echo ""
     else
-    msg_no "${COL_DIM}sshd_config:\\t${COL_NC} root login not permitted"
+    msg_no "${COL_DIM}sshd_config:${COL_NC} root login not permitted"
     echo ""
     fi
 
-    msg_quest_prompt "${COL_DIM}ssh:\\t${COL_NC} copy public keys for root login?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
     #msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "${COL_DIM}ssh:\\t${COL_NC} copying public keys"
+        msg_info "${COL_DIM}ssh:${COL_NC} copying public keys"
         if [[ -d "/root/.ssh" ]]
         then
             chmod 700 /root/.ssh
@@ -274,7 +252,7 @@ echo ""
             echo $rsakey2 >> /root/.ssh/authorized_keys2
             echo $rsakey3 >> /root/.ssh/authorized_keys2
             chmod 600 /root/.ssh/authorized_keys2
-            msg_ok "${COL_DIM}ssh:\\t${COL_NC} public keys copied"
+            msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
             echo ""
         else
             mkdir /root/.ssh
@@ -283,18 +261,18 @@ echo ""
             echo $rsakey2 >> /root/.ssh/authorized_keys2
             echo $rsakey3 >> /root/.ssh/authorized_keys2
             chmod 600 /root/.ssh/authorized_keys2
-            msg_ok "${COL_DIM}ssh:\\t${COL_NC} public keys copied"
+            msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
             echo ""
         fi
     else
-        msg_no "${COL_DIM}ssh:\\t${COL_NC} public keys not copied"
+        msg_no "${COL_DIM}ssh:${COL_NC} public keys not copied"
         echo ""
     fi
 
     msg_quest_prompt "${COL_DIM}zabbix-agent:\\t${COL_NC} install?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} installing"
+        msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
@@ -334,17 +312,17 @@ echo ""
             sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
             sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
             systemctl restart zabbix-agent &>/dev/null
-            msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} config modified"
+            msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
             echo ""
         else
-            msg_no "${COL_DIM}zabbix-agent:\\t${COL_NC} not installed"
+            msg_no "${COL_DIM}zabbix-agent:${COL_NC} not installed"
             echo ""
     fi
 
-    msg_quest_prompt "${COL_DIM}zabbix-agent2:\\t${COL_NC} install?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}zabbix-agent2:${COL_NC} install?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
-        msg_info "${COL_DIM}zabbix-agent2:\\t${COL_NC} installing"
+        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
@@ -381,26 +359,26 @@ echo ""
                 sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
-                msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} config modified"
+                msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
                 systemctl restart zabbix-agent2 &>/dev/null
                 echo ""
                 else
-                msg_no "${COL_DIM}zabbix-agent2:\\t${COL_NC} not installed"
+                msg_no "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
                 echo ""
                 fi
 
 
-msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} install updates?${COL_DIM}"
+msg_quest_prompt "${COL_DIM}$HOSTNAME:${COL_NC} install updates?${COL_DIM}"
 #msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} installing updates"
+msg_info "${COL_DIM}$HOSTNAME:${COL_NC} installing updates"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} updates installed"
+msg_ok "${COL_DIM}$HOSTNAME:${COL_NC} updates installed"
 echo ""
 else
-msg_no "${COL_DIM}$HOSTNAME:\\t${COL_NC} no updates installed"
+msg_no "${COL_DIM}$HOSTNAME:${COL_NC} no updates installed"
 echo ""
 fi
 
@@ -425,8 +403,4 @@ msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} rebooting"
 sleep 2
 msg_ok "Completed post-installation routines"
 reboot
-fi
-
-else
-    msg_no "Script not executed"    
 fi
