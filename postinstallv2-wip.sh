@@ -97,7 +97,7 @@ header_info
     echo ""
     echo ""
     echo ""
-    
+
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
@@ -166,6 +166,19 @@ header_info
             echo ""
         fi
 
+    msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
+    #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
+        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+        then
+            msg_info "${COL_DIM}ack:${COL_NC} installing"
+           apt update &>/dev/null
+           apt install ack -y &>/dev/null
+           msg_ok "${COL_DIM}ack:${COL_NC} installed"
+           echo ""
+        else
+        msg_no "${COL_DIM}ack:${COL_NC} not installed"
+        echo ""
+        fi
 
         if [[ $detected_env == "kvm" ]]
         then
@@ -374,39 +387,43 @@ header_info
                 fi
 
 
-msg_quest_prompt "${COL_DIM}$HOSTNAME:${COL_NC} install updates?${COL_DIM}"
+msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 #msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "${COL_DIM}$HOSTNAME:${COL_NC} installing updates"
+msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
-msg_ok "${COL_DIM}$HOSTNAME:${COL_NC} updates installed"
+msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
 echo ""
 else
-msg_no "${COL_DIM}$HOSTNAME:${COL_NC} no updates installed"
+msg_no "${COL_DIM}$hostsys:${COL_NC} no updates installed"
 echo ""
 fi
 
-msg_quest_prompt "${COL_DIM}$HOSTNAME:${COL_NC} install dist-upgrades?${COL_DIM}"
+msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM}"
 #msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "${COL_DIM}$HOSTNAME:${COL_NC} installing dist-upgrades"
+msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
 apt-get -y dist-upgrade &>/dev/null
-msg_ok "${COL_DIM}$HOSTNAME:${COL_NC} dist-upgrades installed"
+msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
 echo ""
 else
-msg_no "${COL_DIM}$HOSTNAME:${COL_NC} no updates installed"
+msg_no "${COL_DIM}$hostsys:${COL_NC} no updates installed"
 echo ""
 fi
-msg_quest_prompt "${COL_DIM}$HOSTNAME:${COL_NC} reboot now?${COL_DIM}"
+msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} reboot now?${COL_DIM}"
 #msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "${COL_DIM}$HOSTNAME:${COL_NC} rebooting"
-sleep 2
+msg_info "${COL_DIM}$hostsys:${COL_NC} rebooting"
+sleep 1
 msg_ok "Completed post-installation routines"
+sleep 1
+else
+msg_no "${COL_DIM}$hostsys:${COL_NC} not rebooted"
+
 reboot
 fi
