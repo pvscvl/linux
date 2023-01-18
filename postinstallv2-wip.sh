@@ -77,6 +77,7 @@ ${COL_CL}
 ${COL_CL}"
     }
 header_info
+     msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD} $HOSTNAME ${COL_NC}"
     msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
     msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
     msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
@@ -92,7 +93,7 @@ header_info
             msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
                 
         fi
-    echo ${COL_DIM}${COL_BOLD}\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#${COL_NC}
+    echo ${COL_DIM}\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#${COL_NC}
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
