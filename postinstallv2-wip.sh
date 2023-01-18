@@ -215,7 +215,7 @@ header_info
         fi
     fi
 
-    if [[ $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
+    if [[ $detected_env == "kvm" && $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
     then
         msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
         #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
