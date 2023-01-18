@@ -15,7 +15,7 @@
     COL_BOLD='\e[1m' #bold
     COL_UNDER='\e[4m' #underline
     TICK="${COL_NC}[ ${COL_GREEN}✓${COL_NC} ]  "
-    QUEST="${COL_NC}[ ${COL_PURPLE}?${COL_NC} ]  "
+    QUEST="${COL_NC}[ ${COL_BLUE}?${COL_NC} ]  "
     col='\e[38;5;46m'
     ${col}
     CROSS="${COL_NC}[ ${COL_RED}✗${COL_NC} ]  "
@@ -83,7 +83,7 @@ header_info
 
             msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
-            msg_info "Timezone is correct.${COL_NC}"
+            #msg_info "Timezone is correct.${COL_NC}"
                 
         else
             timedatectl set-timezone Europe/Berlin
@@ -105,10 +105,10 @@ header_info
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-        msg_ok "${COL_DIM}.bashrc: ${COL_NC} modified"
+        msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
             echo ""
     else
-        msg_no "${COL_DIM}.bashrc: ${COL_NC} not modified"
+        msg_no "${COL_DIM}.bashrc:${COL_NC} not modified"
             echo ""
     fi
 
@@ -117,12 +117,12 @@ header_info
     #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}Neofetch: ${COL_NC} installing"
+            msg_info "${COL_DIM}Neofetch:${COL_NC} installing"
            apt update &>/dev/null
            apt install neofetch -y &>/dev/null
 
 
-            msg_ok "${COL_DIM}Neofetch: ${COL_NC} installed"
+            msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" .bashrc ; then
                     msg_info "Neofetch already in bashrc.${COL_NC}"
@@ -156,7 +156,7 @@ header_info
 
          
         else
-            msg_no "${COL_DIM}Neofetch: ${COL_NC} not installed"
+            msg_no "${COL_DIM}Neofetch:${COL_NC} not installed"
             echo ""
         fi
 
@@ -269,7 +269,7 @@ header_info
         echo ""
     fi
 
-    msg_quest_prompt "${COL_DIM}zabbix-agent:\\t${COL_NC} install?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}zabbix-agent:${COL_NC} install?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
@@ -348,8 +348,8 @@ header_info
         fi    
                 apt update &>/dev/null
 		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
-                        msg_ok "${COL_DIM}zabbix-agent2:\\t${COL_NC} installed"
-                        msg_info "${COL_DIM}zabbix-agent2:\\t${COL_NC} modify config"
+                        msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
+                        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
 		        systemctl restart zabbix-agent2 &>/dev/null
 		        systemctl enable zabbix-agent2  &>/dev/null
                 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
@@ -382,24 +382,24 @@ msg_no "${COL_DIM}$HOSTNAME:${COL_NC} no updates installed"
 echo ""
 fi
 
-msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} install dist-upgrades?${COL_DIM}"
+msg_quest_prompt "${COL_DIM}$HOSTNAME:${COL_NC} install dist-upgrades?${COL_DIM}"
 #msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} installing dist-upgrades"
+msg_info "${COL_DIM}$HOSTNAME:${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
 apt-get -y dist-upgrade &>/dev/null
-msg_ok "${COL_DIM}$HOSTNAME:\\t${COL_NC} dist-upgrades installed"
+msg_ok "${COL_DIM}$HOSTNAME:${COL_NC} dist-upgrades installed"
 echo ""
 else
-msg_no "${COL_DIM}$HOSTNAME:\\t${COL_NC} no updates installed"
+msg_no "${COL_DIM}$HOSTNAME:${COL_NC} no updates installed"
 echo ""
 fi
-msg_quest_prompt "${COL_DIM}$HOSTNAME:\\t${COL_NC} reboot now?${COL_DIM}"
+msg_quest_prompt "${COL_DIM}$HOSTNAME:${COL_NC} reboot now?${COL_DIM}"
 #msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
-msg_info "${COL_DIM}$HOSTNAME:\\t${COL_NC} rebooting"
+msg_info "${COL_DIM}$HOSTNAME:${COL_NC} rebooting"
 sleep 2
 msg_ok "Completed post-installation routines"
 reboot
