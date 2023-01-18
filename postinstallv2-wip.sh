@@ -422,8 +422,7 @@ msg_info "${COL_DIM}$hostsys:${COL_NC} rebooting"
 sleep 1
 msg_ok "Completed post-installation routines"
 sleep 1
+reboot
 else
 msg_no "${COL_DIM}$hostsys:${COL_NC} not rebooted"
-
-reboot
 fi
