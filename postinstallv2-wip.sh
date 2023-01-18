@@ -28,6 +28,7 @@
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
     chktz=`cat /etc/timezone`
+    hostsys=`hostname -f`
     #rsakey1 = tkm\pascal@TKM-MG-NB029
     #rsakey2 = zhr@wsred
     #rsakey3 = pascal@pascal-mba.local
