@@ -84,7 +84,7 @@ header_info
             msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         if  grep -q "Europe/Berlin" /etc/timezone ; then
             #msg_info "Timezone is correct.${COL_NC}"
-                
+            echo -n ""    
         else
             timedatectl set-timezone Europe/Berlin
             chktz=`cat /etc/timezone`
