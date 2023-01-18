@@ -92,7 +92,7 @@ header_info
             msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
                 
         fi
-
+    echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
@@ -126,13 +126,13 @@ header_info
             msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" .bashrc ; then
-                    msg_info "Neofetch already in bashrc.${COL_NC}"
+                   echo -n ""
             else
                 echo " " >> .bashrc
                 echo "clear" >> .bashrc
             fi
             if  grep -q "neofetch" .bashrc ; then
-                 msg_info "Neofetch already in bashrc.${COL_NC}"
+                 echo -n ""
             else
                 echo " " >> .bashrc
                 echo "neofetch" >> .bashrc
@@ -141,14 +141,14 @@ header_info
 
 
             if  grep -q "clear" /root/.bashrc ; then
-                                      msg_info "Neofetch already in bashrc.${COL_NC}"
+                                      echo -n ""
 
             else
                 echo " " >> /root/.bashrc
                 echo "clear" >> /root/.bashrc
             fi
             if  grep -q "neofetch" /root/.bashrc ; then
-                                      msg_info "Neofetch already in bashrc.${COL_NC}"
+                                     echo -n ""
 
             else
                 echo " " >> /root/.bashrc
@@ -234,7 +234,7 @@ header_info
         sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
         sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
         sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-        msg_ok "${COL_DIM}sshd_config:\\t${COL_NC} root login permitted"
+        msg_ok "${COL_DIM}sshd_config:${COL_NC} root login permitted"
         echo ""
     else
     msg_no "${COL_DIM}sshd_config:${COL_NC} root login not permitted"
@@ -300,8 +300,8 @@ header_info
 
             apt update &>/dev/null
             apt install zabbix-agent -y &>/dev/null
-            msg_ok "${COL_DIM}zabbix-agent:\\t${COL_NC} installed"
-            msg_info "${COL_DIM}zabbix-agent:\\t${COL_NC} modify config"
+            msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
+            msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
 	        systemctl restart zabbix-agent &>/dev/null
 	        systemctl enable zabbix-agent &>/dev/null
             sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
