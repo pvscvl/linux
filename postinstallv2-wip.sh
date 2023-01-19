@@ -134,7 +134,7 @@ header_info
                    echo -n ""
             else
                 echo " " >> ~/.bashrc
-                echo "clear" >> .bashrc
+                echo "clear" >> ~/.bashrc
             fi
             if  grep -q "neofetch" ~/.bashrc ; then
                  echo -n ""
