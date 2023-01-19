@@ -107,7 +107,7 @@ header_info
         exit 1
     fi
 
-    msg_quest_prompt "${COL_DIM}.bashrc: ${COL_NC} modify?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
         wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
@@ -119,7 +119,7 @@ header_info
     fi
 
 
-    msg_quest_prompt "${COL_DIM}Neofetch: ${COL_NC} install?${COL_DIM}"
+    msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
     #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
