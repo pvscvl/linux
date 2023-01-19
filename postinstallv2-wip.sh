@@ -130,17 +130,17 @@ header_info
 
             msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
             echo ""
-            if  grep -q "clear" .bashrc ; then
+            if  grep -q "clear" ~/.bashrc ; then
                    echo -n ""
             else
-                echo " " >> .bashrc
+                echo " " >> ~/.bashrc
                 echo "clear" >> .bashrc
             fi
-            if  grep -q "neofetch" .bashrc ; then
+            if  grep -q "neofetch" ~/.bashrc ; then
                  echo -n ""
             else
-                echo " " >> .bashrc
-                echo "neofetch" >> .bashrc
+                echo " " >> ~/.bashrc
+                echo "neofetch" >> ~/.bashrc
             fi
 
 
