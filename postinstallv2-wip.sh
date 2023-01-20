@@ -17,7 +17,6 @@
     TICK="${COL_NC}[ ${COL_GREEN}✓${COL_NC} ]  "
     QUEST="${COL_NC}[ ${COL_BLUE}?${COL_NC} ]  "
     col='\e[38;5;46m'
-    ${col}
     CROSS="${COL_NC}[ ${COL_RED}✗${COL_NC} ]  "
     INFO="${COL_NC}[ i ]  "   
     DONE="${COL_GREEN} done!${COL_NC}"
