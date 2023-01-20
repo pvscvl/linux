@@ -95,7 +95,7 @@ header_info
         fi
     echo ""
     echo ""
-     msg_info "v4"
+     msg_info "v5"
     echo ""
 
     #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
