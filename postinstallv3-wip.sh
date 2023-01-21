@@ -174,8 +174,7 @@ msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
     if [ ! -x "$(command -v ack)" ]
     then
 msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
-    #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}ack:${COL_NC} installing"
            apt update &>/dev/null
@@ -192,7 +191,9 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
     fi
     
 
-        if [[ $detected_env == "kvm" ]]
+    if [ ! -x "$(command -v qemu-ga)" ]
+    then
+    if [[ $detected_env == "kvm" ]]
         then
             msg_quest_prompt "${COL_DIM}qemu-guest-agent: ${COL_NC} install?${COL_DIM}"
             #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
@@ -207,7 +208,15 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
                 msg_no "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
                 echo ""
             fi
-        fi
+    fi
+    else
+        msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
+        echo ""
+    fi
+
+
+
+
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
