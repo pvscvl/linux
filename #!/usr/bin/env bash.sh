@@ -168,6 +168,7 @@ msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
         fi
     else
         msg_info "${COL_DIM}Neofetch:${COL_NC} already installed"
+        echo ""
     fi
     
     if [ ! -x "$(command -v ack)" ]
@@ -187,6 +188,7 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
         fi
     else
         msg_info "${COL_DIM}ack:${COL_NC} already installed"
+        echo ""
     fi
     
 
