@@ -77,28 +77,22 @@ ${COL_CL}
 ${COL_CL}"
     }
 header_info
-    msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
-    msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-    msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
-    msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-
-            msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
-        if  grep -q "Europe/Berlin" /etc/timezone ; then
-            #msg_info "Timezone is correct.${COL_NC}"
-            echo -n ""
-            #echo "" &>/dev/null   
-        else
-            timedatectl set-timezone Europe/Berlin
-            chktz=`cat /etc/timezone`
-            msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
-                
-        fi
-    echo ""
-    echo ""
-     msg_info "v6"
-    echo ""
-
-    #msg_ok "${COL_DIM}postinstall.sh:\\t${COL_NC} Executing"
+msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
+msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
+msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+    if  grep -q "Europe/Berlin" /etc/timezone ; then
+        echo -n ""
+    else
+        timedatectl set-timezone Europe/Berlin
+        chktz=`cat /etc/timezone`
+        msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"        
+    fi
+echo ""
+echo ""
+msg_info "v6"
+echo ""
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
@@ -110,58 +104,49 @@ header_info
     msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-        wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-        msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
+            wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+            msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
             echo ""
-    else
-        msg_no "${COL_DIM}.bashrc:${COL_NC} not modified"
+        else
+            msg_no "${COL_DIM}.bashrc:${COL_NC} not modified"
             echo ""
     fi
 
     if [ ! -x "$(command -v neofetch)" ]
     then
-msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
-    #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
+        msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
+        #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}Neofetch:${COL_NC} installing"
-           apt update &>/dev/null
-           apt install neofetch -y &>/dev/null
-
-
+            apt update #&>/dev/null
+            apt install neofetch -y #&>/dev/null
             msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" ~/.bashrc ; then
-                   echo -n ""
+                echo -n ""
             else
                 echo " " >> ~/.bashrc
                 echo "clear" >> ~/.bashrc
             fi
             if  grep -q "neofetch" ~/.bashrc ; then
-                 echo -n ""
+                echo -n ""
             else
                 echo " " >> ~/.bashrc
                 echo "neofetch" >> ~/.bashrc
             fi
-
-
-
             if  grep -q "clear" /root/.bashrc ; then
-                                      echo -n ""
-
+                echo -n ""
             else
                 echo " " >> /root/.bashrc
                 echo "clear" >> /root/.bashrc
             fi
             if  grep -q "neofetch" /root/.bashrc ; then
-                                     echo -n ""
-
+                echo -n ""
             else
                 echo " " >> /root/.bashrc
                 echo "neofetch" >> /root/.bashrc
             fi
-
-         
         else
             msg_no "${COL_DIM}Neofetch:${COL_NC} not installed"
             echo ""
@@ -173,17 +158,17 @@ msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
     
     if [ ! -x "$(command -v ack)" ]
     then
-msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+        msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
+        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}ack:${COL_NC} installing"
-           apt update &>/dev/null
-           apt install ack -y &>/dev/null
-           msg_ok "${COL_DIM}ack:${COL_NC} installed"
-           echo ""
+            apt update #&>/dev/null
+            apt install ack -y #&>/dev/null
+            msg_ok "${COL_DIM}ack:${COL_NC} installed"
+            echo ""
         else
-        msg_no "${COL_DIM}ack:${COL_NC} not installed"
-        echo ""
+            msg_no "${COL_DIM}ack:${COL_NC} not installed"
+            echo ""
         fi
     else
         msg_info "${COL_DIM}ack:${COL_NC} already installed"
@@ -193,43 +178,39 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
 
     if [ ! -x "$(command -v qemu-ga)" ]
     then
-    if [[ $detected_env == "kvm" ]]
+        if [[ $detected_env == "kvm" ]]
         then
             msg_quest_prompt "${COL_DIM}qemu-guest-agent: ${COL_NC} install?${COL_DIM}"
             #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
                 msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
-                apt update &>/dev/null
-                apt install qemu-guest-agent -y &>/dev/null
+                apt update #&>/dev/null
+                apt install qemu-guest-agent -y #&>/dev/null
                 msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
                 echo ""
             else
                 msg_no "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
                 echo ""
             fi
+        fi
+        else
+            msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
+            echo ""
     fi
-    else
-        msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
-        echo ""
-    fi
-
-
-
-
     
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
     then
         msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
         #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-            then
-                msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
-                apt update &>/dev/null
-                apt install --install-recommends linux-virtual -y &>/dev/null
-                apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-                msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
-                echo ""
+        then
+            msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
+            apt update #&>/dev/null
+            apt install --install-recommends linux-virtual -y #&>/dev/null
+            apt install linux-tools-virtual linux-cloud-tools-virtual -y #&>/dev/null
+            msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
+            echo ""
         else
             msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
             echo ""
@@ -316,33 +297,33 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
         fi
 
         if [[ $detected_os == "debian" && $detected_version == "11" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
         fi
 
-            apt update &>/dev/null
-            apt install zabbix-agent -y &>/dev/null
+            apt update #&>/dev/null
+            apt install zabbix-agent -y #&>/dev/null
             msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
             msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
-	        systemctl restart zabbix-agent &>/dev/null
-	        systemctl enable zabbix-agent &>/dev/null
+	        systemctl restart zabbix-agent #&>/dev/null
+	        systemctl enable zabbix-agent #&>/dev/null
             sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
             sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
             sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agentd.conf
@@ -351,7 +332,7 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
             sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
             sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
             sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
-            systemctl restart zabbix-agent &>/dev/null
+            systemctl restart zabbix-agent #&>/dev/null
             msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
             echo ""
         else
@@ -366,32 +347,32 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
         fi
 
         if [[ $detected_os == "debian" && $detected_version == "11" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
+		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
         fi    
-                apt update &>/dev/null
-		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
+                apt update #&>/dev/null
+		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
                         msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
                         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
-		        systemctl restart zabbix-agent2 &>/dev/null
-		        systemctl enable zabbix-agent2  &>/dev/null
+		        systemctl restart zabbix-agent2 #&>/dev/null
+		        systemctl enable zabbix-agent2  #&>/dev/null
                 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agent2.conf
@@ -400,7 +381,7 @@ msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
                 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
                 msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
-                systemctl restart zabbix-agent2 &>/dev/null
+                systemctl restart zabbix-agent2 #&>/dev/null
                 echo ""
                 else
                 msg_no "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
@@ -413,8 +394,8 @@ msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
-apt-get update &>/dev/null
-apt-get -y upgrade &>/dev/null
+apt-get update #&>/dev/null
+apt-get -y upgrade #&>/dev/null
 msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
 echo ""
 else
@@ -427,8 +408,8 @@ msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM}"
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
-apt-get update &>/dev/null
-apt-get -y dist-upgrade &>/dev/null
+apt-get update #&>/dev/null
+apt-get -y dist-upgrade #&>/dev/null
 msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
 echo ""
 else
