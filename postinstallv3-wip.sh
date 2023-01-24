@@ -158,9 +158,9 @@ echo ""
             echo ""
         fi
     else
-        msg_quest "${COL_DIM}Neofetch:${COL_NC} install?"
+        msg_quest "${COL_DIM}「Neofetch」${COL_NC} install?"
         echo""
-        msg_info "${COL_DIM}Neofetch:${COL_NC} already installed"
+        msg_info "${COL_DIM}「Neofetch」${COL_NC} already installed"
         echo ""
     fi
     
