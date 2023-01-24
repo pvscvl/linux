@@ -97,7 +97,7 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     fi
 echo ""
 echo ""
-msg_info "v6"
+msg_info "v7"
 echo ""
     if [[ "${EUID}" -ne 0 ]]; then
         #printf "\\n\\n"
