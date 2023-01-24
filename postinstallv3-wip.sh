@@ -41,7 +41,7 @@ function msg_info() {
     }
 function msg_quest() {
     local msg="$1"
-    printf "%b ${msg}" "${QUEST}"
+    printf "%b ${msg}${COL_NC}" "${QUEST}${COL_NC}"
     }
 function msg_quest_prompt() {
     local msg="$1"
