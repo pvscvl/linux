@@ -86,7 +86,7 @@ msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
 msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
 msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
 msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-msg_info "v11"
+msg_info "v12"
 apt update &>/dev/null
 msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if  grep -q "Europe/Berlin" /etc/timezone ; then
@@ -157,7 +157,7 @@ echo ""
             echo ""
         fi
     else
-        msg_quest "Install neofetch?"
+        msg_quest "${COL_DIM}Neofetch:${COL_NC} install?"
         echo""
         msg_info "${COL_DIM}Neofetch:${COL_NC} already installed"
         echo ""
@@ -178,7 +178,7 @@ echo ""
             echo ""
         fi
     else
-        msg_quest "Install ack?"
+        msg_quest "${COL_DIM}ack:${COL_NC} install?"
         echo ""
         msg_info "${COL_DIM}ack:${COL_NC} already installed"
         echo ""
@@ -199,7 +199,7 @@ echo ""
             echo ""
         fi
     else
-        msg_quest "Install Midnight Commander?"
+        msg_quest "${COL_DIM}Midnight Commander:${COL_NC} install?"
         echo ""
         msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
         echo ""
