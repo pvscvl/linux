@@ -81,7 +81,7 @@ msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
 msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
 msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
 msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-apt update #&>/dev/null
+apt update &>/dev/null
 msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if  grep -q "Europe/Berlin" /etc/timezone ; then
         echo -n ""
@@ -120,7 +120,7 @@ echo ""
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}Neofetch:${COL_NC} installing"
-            apt update #&>/dev/null
+            #apt update &>/dev/null
             apt install neofetch -y #&>/dev/null
             msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
             echo ""
@@ -163,7 +163,7 @@ echo ""
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}ack:${COL_NC} installing"
-            apt update #&>/dev/null
+            #apt update &>/dev/null
             apt install ack -y #&>/dev/null
             msg_ok "${COL_DIM}ack:${COL_NC} installed"
             echo ""
@@ -182,7 +182,7 @@ echo ""
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
-            apt update #&>/dev/null
+            #apt update &>/dev/null
             apt install mc -y #&>/dev/null
             msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
             echo ""
@@ -205,7 +205,7 @@ echo ""
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
                 msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
-                apt update #&>/dev/null
+                #apt update &>/dev/null
                 apt install qemu-guest-agent -y #&>/dev/null
                 msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
                 echo ""
@@ -226,7 +226,7 @@ echo ""
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
             msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
-            apt update #&>/dev/null
+            #apt update &>/dev/null
             apt install --install-recommends linux-virtual -y #&>/dev/null
             apt install linux-tools-virtual linux-cloud-tools-virtual -y #&>/dev/null
             msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
