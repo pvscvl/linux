@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v13"
+    VERSION="v14"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -120,14 +120,14 @@ echo ""
 
     if [ ! -x "$(command -v neofetch)" ]
     then
-        msg_quest_prompt "${COL_DIM}「Neofetch」${COL_NC} install?${COL_DIM}"
+        msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
         #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}「Neofetch」${COL_NC} installing"
+            msg_info "${COL_DIM}Neofetch:${COL_NC} installing"
             #apt update &>/dev/null
             apt install neofetch -y #&>/dev/null
-            msg_ok "${COL_DIM}「Neofetch」${COL_NC} installed"
+            msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" ~/.bashrc ; then
                 echo -n ""
@@ -154,13 +154,13 @@ echo ""
                 echo "neofetch" >> /root/.bashrc
             fi
         else
-            msg_no "${COL_DIM}「Neofetch」${COL_NC} not installed"
+            msg_no "${COL_DIM}Neofetch:${COL_NC} not installed"
             echo ""
         fi
     else
-        msg_quest "${COL_DIM}「Neofetch」${COL_NC} install?"
+        msg_quest "${COL_DIM}Neofetch:${COL_NC} install?"
         echo""
-        msg_info "${COL_DIM}「Neofetch」${COL_NC} already installed"
+        msg_info "${COL_DIM}Neofetch:${COL_NC} already installed"
         echo ""
     fi
     
