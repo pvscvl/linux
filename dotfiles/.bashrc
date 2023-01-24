@@ -13,6 +13,8 @@ alias _updatedist="apt-get update && apt-get dist-upgrade -y"
 alias show-externalip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias show-internalip="hostname -I"
 alias pwgen="generate-password"
+alias repeatscript="rm postinstallv3-wip.sh; wget https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh; chmod +x postinstallv3-wip.sh; ./postinstallv3-wip.sh"
+
 
 # Copy w/ progress
 cp_p (){
