@@ -81,6 +81,7 @@ msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
 msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
 msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
 msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+apt update #&>/dev/null
 msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if  grep -q "Europe/Berlin" /etc/timezone ; then
         echo -n ""
@@ -174,6 +175,25 @@ echo ""
         msg_info "${COL_DIM}ack:${COL_NC} already installed"
         echo ""
     fi
+
+    if [ ! -x "$(command -v mc)" ]
+    then
+        msg_quest_prompt "${COL_DIM}Midnight Commander:${COL_NC} install?${COL_DIM}"
+        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+        then
+            msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
+            apt update #&>/dev/null
+            apt install mc -y #&>/dev/null
+            msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
+            echo ""
+        else
+            msg_no "${COL_DIM}Midnight Commander:${COL_NC} not installed"
+            echo ""
+        fi
+    else
+        msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
+        echo ""
+    fi    
     
 
     if [ ! -x "$(command -v qemu-ga)" ]
