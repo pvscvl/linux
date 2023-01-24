@@ -158,6 +158,7 @@ echo ""
             echo ""
         fi
     else
+        msg_quest "Install neofetch?"
         msg_info "${COL_DIM}Neofetch:${COL_NC} already installed"
         echo ""
     fi
@@ -173,11 +174,11 @@ echo ""
             msg_ok "${COL_DIM}ack:${COL_NC} installed"
             echo ""
         else
-            msg_quest "Install neofetch?"
             msg_no "${COL_DIM}ack:${COL_NC} not installed"
             echo ""
         fi
     else
+        msg_quest "Install ack?"
         msg_info "${COL_DIM}ack:${COL_NC} already installed"
         echo ""
     fi
@@ -197,6 +198,7 @@ echo ""
             echo ""
         fi
     else
+    msg_quest "Install Midnight Commander?"
         msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
         echo ""
     fi    
