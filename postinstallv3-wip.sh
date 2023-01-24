@@ -167,15 +167,15 @@ echo ""
     then
         msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-        then
-            msg_info "${COL_DIM}ack:${COL_NC} installing"
-            #apt update &>/dev/null
-            apt install ack -y #&>/dev/null
-            msg_ok "${COL_DIM}ack:${COL_NC} installed"
-            echo ""
-        else
-            msg_no "${COL_DIM}ack:${COL_NC} not installed"
-            echo ""
+            then
+                msg_info "${COL_DIM}ack:${COL_NC} installing"
+                #apt update &>/dev/null
+                apt install ack -y #&>/dev/null
+                msg_ok "${COL_DIM}ack:${COL_NC} installed"
+                echo ""
+            else
+                msg_no "${COL_DIM}ack:${COL_NC} not installed"
+                echo ""
         fi
     else
         msg_quest "${COL_DIM}ack:${COL_NC} install?"
@@ -185,45 +185,45 @@ echo ""
     fi
 
     if [ ! -x "$(command -v mc)" ]
-    then
-        msg_quest_prompt "${COL_DIM}Midnight Commander:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
-            #apt update &>/dev/null
-            apt install mc -y #&>/dev/null
-            msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
-            echo ""
+            msg_quest_prompt "${COL_DIM}Midnight Commander:${COL_NC} install?${COL_DIM}"
+            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+                then
+                    msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
+                    #apt update &>/dev/null
+                    apt install mc -y #&>/dev/null
+                    msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
+                    echo ""
+                else
+                msg_no "${COL_DIM}Midnight Commander:${COL_NC} not installed"
+                echo ""
+            fi
         else
-            msg_no "${COL_DIM}Midnight Commander:${COL_NC} not installed"
+            msg_quest "${COL_DIM}Midnight Commander:${COL_NC} install?"
             echo ""
-        fi
-    else
-        msg_quest "${COL_DIM}Midnight Commander:${COL_NC} install?"
-        echo ""
-        msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
-        echo ""
+            msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
+            echo ""
     fi    
     
 
     if [ ! -x "$(command -v qemu-ga)" ]
-    then
-        if [[ $detected_env == "kvm" ]]
         then
-            msg_quest_prompt "${COL_DIM}qemu-guest-agent: ${COL_NC} install?${COL_DIM}"
-            #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
-            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-            then
-                msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
-                #apt update &>/dev/null
-                apt install qemu-guest-agent -y #&>/dev/null
-                msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
-                echo ""
-            else
-                msg_no "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
-                echo ""
+            if [[ $detected_env == "kvm" ]]
+                then
+                    msg_quest_prompt "${COL_DIM}qemu-guest-agent: ${COL_NC} install?${COL_DIM}"
+                    #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
+                    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+                        then
+                            msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
+                            #apt update &>/dev/null
+                            apt install qemu-guest-agent -y #&>/dev/null
+                            msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
+                            echo ""
+                        else
+                        msg_no "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
+                        echo ""
+                    fi
             fi
-        fi
         else
             msg_quest "${COL_DIM}qemu-guest-agent:${COL_NC} install?"
             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
@@ -231,141 +231,142 @@ echo ""
     fi
     
     if [[ $detected_os == "Ubuntu" && $detected_env == "kvm" ]]
-    then
-        msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
-        #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
-            #apt update &>/dev/null
-            apt install --install-recommends linux-virtual -y #&>/dev/null
-            apt install linux-tools-virtual linux-cloud-tools-virtual -y #&>/dev/null
-            msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
-            echo ""
-        else
-            msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
-            echo ""
-        fi
+            msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
+            #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
+            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+                then
+                    msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
+                    #apt update &>/dev/null
+                    apt install --install-recommends linux-virtual -y #&>/dev/null
+                    apt install linux-tools-virtual linux-cloud-tools-virtual -y #&>/dev/null
+                    msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
+                    echo ""
+                else
+                    msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
+                    echo ""
+            fi
     fi
 
     if [[ $detected_env == "kvm" && $detected_os == "Ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
-    then
-        msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
-        #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
-            sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
-            systemctl daemon-reload
-            msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
+            msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
+            #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
+            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+                then
+                    msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
+                    sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
+                    systemctl daemon-reload
+                    msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
+                    echo ""
+                else
+                    msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
+                    echo ""
+            fi
+fi
+
+msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
+#msg_quest "Set root password? <y/N> "; read -r -p "" prompt
+    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+        then
+            msg_info "${COL_DIM}root login:${COL_NC} setting password"
+            echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
+            msg_ok "${COL_DIM}root login:${COL_NC} password set"
             echo ""
         else
-            msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
+            msg_no "${COL_DIM}root login:${COL_NC} password not set"
             echo ""
-        fi
-    fi
-    msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
-    #msg_quest "Set root password? <y/N> "; read -r -p "" prompt
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-        msg_info "${COL_DIM}root login:${COL_NC} setting password"
-        echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-        msg_ok "${COL_DIM}root login:${COL_NC} password set"
-        echo ""
-    else
-        msg_no "${COL_DIM}root login:${COL_NC} password not set"
-        echo ""
     fi
 
-    msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
-    #msg_quest "Allow r"Allow root login via SSH?"oot login via SSH? <y/N> "; read -r -p "" prompt
+msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
+#msg_quest "Allow r"Allow root login via SSH?"oot login via SSH? <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-        msg_info "${COL_DIM}sshd_config:${COL_NC} enabling root login"
-        sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
-        sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
-        sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-        msg_ok "${COL_DIM}sshd_config:${COL_NC} root login permitted"
-        echo ""
-    else
-        msg_no "${COL_DIM}sshd_config:${COL_NC} root login not permitted"
-        echo ""
-    fi
-
-    msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
-    #msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-        msg_info "${COL_DIM}ssh:${COL_NC} copying public keys"
-        if [[ -d "/root/.ssh" ]]
         then
-            chmod 700 /root/.ssh
-            echo $rsakey1 > /root/.ssh/authorized_keys2
-            echo $rsakey2 >> /root/.ssh/authorized_keys2
-            echo $rsakey3 >> /root/.ssh/authorized_keys2
-            chmod 600 /root/.ssh/authorized_keys2
-            msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
+            msg_info "${COL_DIM}sshd_config:${COL_NC} enabling root login"
+            sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
+            sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
+            sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
+            msg_ok "${COL_DIM}sshd_config:${COL_NC} root login permitted"
             echo ""
         else
-            mkdir /root/.ssh
-            chmod 700 /root/.ssh
-            echo $rsakey1 > /root/.ssh/authorized_keys2
-            echo $rsakey2 >> /root/.ssh/authorized_keys2
-            echo $rsakey3 >> /root/.ssh/authorized_keys2
-            chmod 600 /root/.ssh/authorized_keys2
-            msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
+            msg_no "${COL_DIM}sshd_config:${COL_NC} root login not permitted"
             echo ""
-        fi
-    else
-        msg_no "${COL_DIM}ssh:${COL_NC} public keys not copied"
-        echo ""
+    fi
+
+msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
+#msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
+    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+        then
+            msg_info "${COL_DIM}ssh:${COL_NC} copying public keys"
+            if [[ -d "/root/.ssh" ]]
+                then
+                    chmod 700 /root/.ssh
+                    echo $rsakey1 > /root/.ssh/authorized_keys2
+                    echo $rsakey2 >> /root/.ssh/authorized_keys2
+                    echo $rsakey3 >> /root/.ssh/authorized_keys2
+                    chmod 600 /root/.ssh/authorized_keys2
+                    msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
+                    echo ""
+                else
+                mkdir /root/.ssh
+                chmod 700 /root/.ssh
+                echo $rsakey1 > /root/.ssh/authorized_keys2
+                echo $rsakey2 >> /root/.ssh/authorized_keys2
+                echo $rsakey3 >> /root/.ssh/authorized_keys2
+                chmod 600 /root/.ssh/authorized_keys2
+                msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
+                echo ""
+            fi
+        else
+            msg_no "${COL_DIM}ssh:${COL_NC} public keys not copied"
+            echo ""
     fi
 
     msg_quest_prompt "${COL_DIM}zabbix-agent:${COL_NC} install?${COL_DIM}"
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-        msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
-        if [[ $detected_os == "Debian" && $detected_version == "10" ]]
+        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
-        fi
+                msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
+                    if [[ $detected_os == "Debian" && $detected_version == "10" ]]
+                        then
+		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
+		                    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
+                    fi
 
-        if [[ $detected_os == "Debian" && $detected_version == "11" ]]
-            then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
-        fi
+                    if [[ $detected_os == "Debian" && $detected_version == "11" ]]
+                        then
+		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
+		                    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
+                    fi
 
-        if [[ $detected_os == "Ubuntu" && $detected_version == "20.04" ]]
-            then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
-        fi
+                    if [[ $detected_os == "Ubuntu" && $detected_version == "20.04" ]]
+                        then
+		                    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
+		                    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
+                    fi
 
-        if [[ $detected_os == "Ubuntu" && $detected_version == "22.04" ]]
-            then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
-        fi
+            if [[ $detected_os == "Ubuntu" && $detected_version == "22.04" ]]
+                then
+		            wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
+		            dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
+            fi
 
-            apt update #&>/dev/null
-            apt install zabbix-agent -y #&>/dev/null
-            msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
-            msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
-	        systemctl restart zabbix-agent #&>/dev/null
-	        systemctl enable zabbix-agent #&>/dev/null
-            sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
-            sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
-            sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agentd.conf
-            sed -i "/# StartAgents=3/ s//StartAgents=5/g" /etc/zabbix/zabbix_agentd.conf
-            sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/zabbix_agentd.conf
-            sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
-            sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
-            sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
-            systemctl restart zabbix-agent #&>/dev/null
-            msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
-            echo ""
+        apt update #&>/dev/null
+        apt install zabbix-agent -y #&>/dev/null
+        msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
+        msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
+        systemctl restart zabbix-agent #&>/dev/null
+        systemctl enable zabbix-agent #&>/dev/null
+        sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/# StartAgents=3/ s//StartAgents=5/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
+        systemctl restart zabbix-agent #&>/dev/null
+        msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
+        echo ""
         else
             msg_no "${COL_DIM}zabbix-agent:${COL_NC} not installed"
             echo ""
