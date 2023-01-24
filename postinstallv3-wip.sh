@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v14"
+    VERSION="v15"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -79,16 +79,15 @@ function header_info {
     /____/\___/_/  /_/ .___/\__/                
                     /_/    
 
-${COL_CL}
 ${COL_CL}"
     }
 header_info
 msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
+msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+echo ""
 msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
 msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
-msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-msg_info "$VERSION"
-apt update &>/dev/null
+echo ""
 msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if  grep -q "Europe/Berlin" /etc/timezone ; then
         echo -n ""
@@ -97,6 +96,9 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         chktz=`cat /etc/timezone`
         msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"        
     fi
+echo ""
+msg_info "${COL_DIM}Script Version: ${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
+apt update &>/dev/null
 echo ""
 echo ""
     if [[ "${EUID}" -ne 0 ]]; then
