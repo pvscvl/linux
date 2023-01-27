@@ -24,8 +24,8 @@
     WARN="${COL_NC}[ ${COL_YELLOW}⚠${COL_NC} ]  "
     OVER="\\r\\033[K"
     detected_architecture=`uname -m`
-    detected_os=`echo $(lsb_release -i -s)`
-    detected_version=`echo $(lsb_release -sr)`
+    detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
+    detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
     chktz=`cat /etc/timezone`
     hostsys=`hostname -f`
@@ -230,7 +230,7 @@ echo ""
             echo ""
     fi
     
-    if [[ $detected_os == "Ubuntu" && $detected_env == "kvm" ]]
+    if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
         then
             msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
             #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
@@ -248,7 +248,7 @@ echo ""
             fi
     fi
 
-    if [[ $detected_env == "kvm" && $detected_os == "Ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
+    if [[ $detected_env == "kvm" && $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
         then
             msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
             #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
@@ -326,25 +326,25 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
             then
                 msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
-                    if [[ $detected_os == "Debian" && $detected_version == "10" ]]
+                    if [[ $detected_os == "debian" && $detected_version == "10" ]]
                         then
 		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
 		                    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
                     fi
 
-                    if [[ $detected_os == "Debian" && $detected_version == "11" ]]
+                    if [[ $detected_os == "debian" && $detected_version == "11" ]]
                         then
 		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
 		                    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
                     fi
 
-                    if [[ $detected_os == "Ubuntu" && $detected_version == "20.04" ]]
+                    if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
                         then
 		                    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
 		                    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
                     fi
 
-            if [[ $detected_os == "Ubuntu" && $detected_version == "22.04" ]]
+            if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
                 then
 		            wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
 		            dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
@@ -376,25 +376,25 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
-        if [[ $detected_os == "Debian" && $detected_version == "10" ]]
+        if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
 		    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
         fi
 
-        if [[ $detected_os == "Debian" && $detected_version == "11" ]]
+        if [[ $detected_os == "debian" && $detected_version == "11" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
 		    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
         fi
 
-        if [[ $detected_os == "Ubuntu" && $detected_version == "20.04" ]]
+        if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
 		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
         fi
 
-        if [[ $detected_os == "Ubuntu" && $detected_version == "22.04" ]]
+        if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
 		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
