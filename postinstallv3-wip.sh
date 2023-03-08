@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v16"
+    VERSION="v2023-03-08"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -125,7 +125,7 @@ echo ""
         then
             msg_info "${COL_DIM}Neofetch:${COL_NC} installing"
             #apt update &>/dev/null
-            apt install neofetch -y #&>/dev/null
+            apt install neofetch -y &>/dev/null
             msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" ~/.bashrc ; then
@@ -170,7 +170,7 @@ echo ""
             then
                 msg_info "${COL_DIM}ack:${COL_NC} installing"
                 #apt update &>/dev/null
-                apt install ack -y #&>/dev/null
+                apt install ack -y &>/dev/null
                 msg_ok "${COL_DIM}ack:${COL_NC} installed"
                 echo ""
             else
@@ -191,7 +191,7 @@ echo ""
                 then
                     msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
                     #apt update &>/dev/null
-                    apt install mc -y #&>/dev/null
+                    apt install mc -y &>/dev/null
                     msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
                     echo ""
                 else
@@ -216,7 +216,7 @@ echo ""
                         then
                             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
                             #apt update &>/dev/null
-                            apt install qemu-guest-agent -y #&>/dev/null
+                            apt install qemu-guest-agent -y &>/dev/null
                             msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
                             echo ""
                         else
@@ -238,8 +238,8 @@ echo ""
                 then
                     msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
                     #apt update &>/dev/null
-                    apt install --install-recommends linux-virtual -y #&>/dev/null
-                    apt install linux-tools-virtual linux-cloud-tools-virtual -y #&>/dev/null
+                    apt install --install-recommends linux-virtual -y &>/dev/null
+                    apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
                     msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
                     echo ""
                 else
@@ -329,33 +329,33 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                     if [[ $detected_os == "debian" && $detected_version == "10" ]]
                         then
 		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
-		                    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
+		                    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
                     fi
 
                     if [[ $detected_os == "debian" && $detected_version == "11" ]]
                         then
 		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
-		                    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
+		                    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
                     fi
 
                     if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
                         then
 		                    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
-		                    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
+		                    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
                     fi
 
             if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
                 then
 		            wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
-		            dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
+		            dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
             fi
 
-        apt update #&>/dev/null
-        apt install zabbix-agent -y #&>/dev/null
+        apt update &>/dev/null
+        apt install zabbix-agent -y &>/dev/null
         msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
-        systemctl restart zabbix-agent #&>/dev/null
-        systemctl enable zabbix-agent #&>/dev/null
+        systemctl restart zabbix-agent &>/dev/null
+        systemctl enable zabbix-agent &>/dev/null
         sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agentd.conf
@@ -364,7 +364,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
         sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
-        systemctl restart zabbix-agent #&>/dev/null
+        systemctl restart zabbix-agent &>/dev/null
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
         echo ""
         else
@@ -379,32 +379,32 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian10_all.deb #&>/dev/null
+		    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "debian" && $detected_version == "11" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian11_all.deb #&>/dev/null
+		    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb #&>/dev/null
+		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
             then
 		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb #&>/dev/null
+		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
         fi    
                 apt update #&>/dev/null
-		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
+		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
                         msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
                         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
-		        systemctl restart zabbix-agent2 #&>/dev/null
-		        systemctl enable zabbix-agent2  #&>/dev/null
+		        systemctl restart zabbix-agent2 &>/dev/null
+		        systemctl enable zabbix-agent2  &>/dev/null
                 sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agent2.conf
@@ -412,8 +412,8 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
                 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
-                msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
-                systemctl restart zabbix-agent2 #&>/dev/null
+                msg_info "${COL_DIM}zabbix-agent2:${COL_NC} config modified"
+                systemctl restart zabbix-agent2 &>/dev/null
                 echo ""
                 else
                 msg_no "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
@@ -426,8 +426,8 @@ msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
-apt-get update #&>/dev/null
-apt-get -y upgrade #&>/dev/null
+apt-get update &>/dev/null
+apt-get -y upgrade &>/dev/null
 msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
 echo ""
 else
@@ -440,8 +440,8 @@ msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM}"
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
-apt-get update #&>/dev/null
-apt-get -y dist-upgrade #&>/dev/null
+apt-get update &>/dev/null
+apt-get -y dist-upgrade &>/dev/null
 msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
 echo ""
 else
