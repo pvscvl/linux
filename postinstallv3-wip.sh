@@ -15,13 +15,13 @@
     COL_ITAL='\e[3m' #italics
     COL_BOLD='\e[1m' #bold
     COL_UNDER='\e[4m' #underline
-    TICK="${COL_NC}[ ${COL_GREEN}✓${COL_NC} ]  "
-    QUEST="${COL_NC}[ ${COL_BLUE}?${COL_NC} ]  "
+    TICK="${COL_NC}[${COL_GREEN}✓${COL_NC}]  "
+    QUEST="${COL_NC}[${COL_BLUE}?${COL_NC}]  "
     col='\e[38;5;46m'
-    CROSS="${COL_NC}[ ${COL_RED}✗${COL_NC} ]  "
-    INFO="${COL_NC}[ i ]  "   
+    CROSS="${COL_NC}[${COL_RED}✗${COL_NC}]  "
+    INFO="${COL_NC}[i]  "   
     DONE="${COL_GREEN} done!${COL_NC}"
-    WARN="${COL_NC}[ ${COL_YELLOW}⚠${COL_NC} ]  "
+    WARN="${COL_NC}[${COL_YELLOW}⚠${COL_NC}]  "
     OVER="\\r\\033[K"
     detected_architecture=`uname -m`
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
