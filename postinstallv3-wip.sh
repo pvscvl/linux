@@ -27,6 +27,8 @@
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
+    zbxagent_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
+    zbxagent_latest_version="$(curl -s "https://api.github.com/repos/zabbix/zabbix/tags" | grep -oP '"name": "\K(.*)(?=")' | head -n1)"
     chktz=`cat /etc/timezone`
     hostsys=`hostname -f`
     #rsakey1 = tkm\pascal@TKM-MG-NB029
@@ -95,6 +97,23 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         chktz=`cat /etc/timezone`
         msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"        
     fi
+
+    if command -v zabbix_agentd >/dev/null 2>&1; 
+        then
+            zbxagentd_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
+            msg_info "zabbix-agent version: $zbxagentd_current_version"
+    fi
+    
+    if command -v zabbix_agent2 >/dev/null 2>&1; 
+        then
+            zbxagent2_current_version=`zabbix_agent2 --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
+            msg_info "zabbix-agent2 version: $zbxagent2_current_version"
+    fi
+
+    if [[ "$zbxagent_latest_version" \> "$zbxagentd_current_version" ] || [ "$zbxagent_latest_version" \> "$zbxagentd_current_version" ]]; then
+       msg_info "zabbix AGENTS NEW VERSION KETAMIN"
+    fi
+
 msg_info "${COL_DIM}Script Version: ${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
 apt update &>/dev/null
 echo ""
