@@ -112,7 +112,7 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
             msg_info "zabbix-agent2 version: $zbxagent2_current_version"
     fi
 
-    if [[ "$zbxagent_latest_version" gt "$zbxagentd_current_version" ] | [ "$zbxagent_latest_version" gt "$zbxagentd_current_version" ]]; then
+    if [[ "$zbxagent_latest_version" gt "$zbxagentd_current_version" || "$zbxagent_latest_version" gt "$zbxagentd_current_version" ]]; then
        msg_info "zabbix AGENTS NEW VERSION KETAMIN"
     fi
 
