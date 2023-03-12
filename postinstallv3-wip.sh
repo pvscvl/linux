@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-03-08"
+    VERSION="v2023-03-12"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -328,26 +328,26 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
                     if [[ $detected_os == "debian" && $detected_version == "10" ]]
                         then
-		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
-		                    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
+		                    wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian10_all.deb
+		                    dpkg -i zabbix-release_6.4-1+debian10_all.deb &>/dev/null
                     fi
 
                     if [[ $detected_os == "debian" && $detected_version == "11" ]]
                         then
-		                    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
-		                    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
+		                    wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
+		                    dpkg -i zabbix-release_6.4-1+debian11_all.deb &>/dev/null
                     fi
 
                     if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
                         then
-		                    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
-		                    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
+		                    wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu20.04_all.deb
+		                    dpkg -i zabbix-release_6.4-1+ubuntu20.04_all.deb &>/dev/null
                     fi
 
-            if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
-                then
-		            wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
-		            dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
+                    if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
+                            then
+		                wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
+		                dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
             fi
 
         apt update &>/dev/null
@@ -378,26 +378,26 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
         if [[ $detected_os == "debian" && $detected_version == "10" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian10_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian10_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian10_all.deb
+		    dpkg -i zabbix-release_6.4-1+debian10_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "debian" && $detected_version == "11" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/debian/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bdebian11_all.deb
-		    dpkg -i zabbix-release_6.2-4+debian11_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
+		    dpkg -i zabbix-release_6.4-1+debian11_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu20.04_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu20.04_all.deb
+		    dpkg -i zabbix-release_6.4-1+ubuntu20.04_all.deb &>/dev/null
         fi
 
         if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
             then
-		    wget -q https://repo.zabbix.com/zabbix/6.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.2-4%2Bubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.2-4+ubuntu22.04_all.deb &>/dev/null
+		    wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
+		    dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
         fi    
                 apt update &>/dev/null
 		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
