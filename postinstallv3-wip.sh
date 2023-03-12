@@ -27,7 +27,7 @@
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
-    zbxagent_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
+    #zbxagent_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
     zbxagent_latest_version="$(curl -s "https://api.github.com/repos/zabbix/zabbix/tags" | grep -oP '"name": "\K(.*)(?=")' | head -n1)"
     chktz=`cat /etc/timezone`
     hostsys=`hostname -f`
@@ -103,7 +103,7 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if command -v zabbix_agentd >/dev/null 2>&1; 
         then
             zbxagentd_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
-            msg_info "zabbix-agent version: $zbxagentd_current_version"
+            msg_info "zabbix-agentd version: $zbxagentd_current_version"
     fi
 
     if command -v zabbix_agent2 >/dev/null 2>&1; 
