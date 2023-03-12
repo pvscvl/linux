@@ -114,7 +114,7 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
 
     if [[ "$zbxagent_latest_version" > "$zbxagentd_current_version" || "$zbxagent_latest_version" > "$zbxagent2_current_version" ]]; 
         then
-            msg_info "zabbix AGENTS NEW VERSION KETAMIN"
+            msg_info "A new version of zabbix-agent is available"
     fi
 
 msg_info "${COL_DIM}Script Version: ${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
