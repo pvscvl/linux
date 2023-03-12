@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-03-12_V4"
+    VERSION="v2023-03-12_V%"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -180,7 +180,7 @@ echo ""
         fi
     else
         msg_quest "${COL_DIM}Neofetch:${COL_NC} install?"
-        echo""
+        echo ""
         msg_info "${COL_DIM}Neofetch:${COL_NC} already installed"
         echo ""
     fi
@@ -248,6 +248,7 @@ echo ""
             fi
         else
             msg_quest "${COL_DIM}qemu-guest-agent:${COL_NC} install?"
+            echo ""
             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
             echo ""
     fi
