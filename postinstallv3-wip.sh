@@ -98,19 +98,21 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"        
     fi
 
+
+    msg_info "Zabbix version available: $zbxagent_latest_version"
     if command -v zabbix_agentd >/dev/null 2>&1; 
         then
             zbxagentd_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
             msg_info "zabbix-agent version: $zbxagentd_current_version"
     fi
-    
+
     if command -v zabbix_agent2 >/dev/null 2>&1; 
         then
             zbxagent2_current_version=`zabbix_agent2 --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
             msg_info "zabbix-agent2 version: $zbxagent2_current_version"
     fi
 
-    if [[ "$zbxagent_latest_version" \> "$zbxagentd_current_version" ] || [ "$zbxagent_latest_version" \> "$zbxagentd_current_version" ]]; then
+    if [[ "$zbxagent_latest_version" gt "$zbxagentd_current_version" ] || [ "$zbxagent_latest_version" gt "$zbxagentd_current_version" ]]; then
        msg_info "zabbix AGENTS NEW VERSION KETAMIN"
     fi
 
