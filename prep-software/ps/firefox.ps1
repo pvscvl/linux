@@ -1,8 +1,12 @@
 
-$WebClient = New-Object System.Net.WebClient
-Write-Host "Aktuellstes Firefox Setup wird geladen..."
-$WebClient.DownloadFile("https://download.mozilla.org/?product=firefox-latest&os=win64&lang=de",".\setups\firefox.exe")
+$jsonUrl = 'https://product-details.mozilla.org/1.0/firefox_versions.json'
+$webClient = New-Object System.Net.WebClient
+$jsonContent = $webClient.DownloadString($jsonUrl)
+$jsonObject = ConvertFrom-Json $jsonContent
+$latestVersion = $jsonObject.LATEST_FIREFOX_VERSION
+Write-Host "Firefox Version $latestVersion wird geladen"
+$WebClient.DownloadFile("https://download.mozilla.org/?product=firefox-latest&os=win64&lang=de","C:\prep\firefox_x64_DE_$latestversion.exe")
 Write-Host "Aktuellstes Firefox Setup wurde geladen..."
 Write-Host "Starte Firefox Installation"
 
-Start-Process -FilePath ./Firefox.exe -Args "/silent" -Verb RunAs -Wait
+#Start-Process -FilePath ./Firefox.exe -Args "/silent" -Verb RunAs -Wait
