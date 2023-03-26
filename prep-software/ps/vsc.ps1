@@ -1,3 +1,4 @@
+Write-Host "#### Visual Studio Code"
 $StartDTM = (Get-Date)
  
 $Vendor = "Microsoft"

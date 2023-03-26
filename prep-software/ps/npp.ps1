@@ -1,3 +1,4 @@
+Write-Host "#### Notepad++"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $homeUrl = 'https://notepad-plus-plus.org'
 $res = Invoke-WebRequest -UseBasicParsing $homeUrl
@@ -10,7 +11,9 @@ $dlUrl = ($res.Links | Where-Object {$_.href -like "*x64.exe"})[0].href
 if ($dlUrl.StartsWith("/")) { $dlUrl = "$homeUrl$dlUrl" }
 #$installerPath = Join-Path $env:TEMP (Split-Path $dlUrl -Leaf)
 $installerPath = Join-Path C:\prep (Split-Path $dlUrl -Leaf)
+Write-Host "Downloading latest Notepad++ Setup (x64)"
 Invoke-WebRequest $dlUrl -OutFile $installerPath
+Write-Host "Download of Notepad++ Setup complete"
 #Write-Host "Start npp install now..."
 #Start-Process -FilePath $installerPath -Args "/S" -Verb RunAs -Wait
 #Remove-Item $installerPath 

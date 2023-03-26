@@ -1,3 +1,4 @@
+ Write-Host "#### PDF24 Creator"
  # Define the URL of the page containing the download links
 $url = 'https://creator.pdf24.org/listVersions.php'
 
