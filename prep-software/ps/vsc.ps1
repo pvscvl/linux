@@ -12,14 +12,14 @@ $Destination = "${env:ChocoRepository}" + "\$Vendor\$Product\$Version\$packageNa
 $UnattendedArgs = '/verysilent /suppressmsgboxes /mergetasks=!runcode'
 $url = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64"
 $ProgressPreference = 'SilentlyContinue'
-Start-Transcript $LogPS
+#Start-Transcript $LogPS
  
 #if( -Not (Test-Path -Path $Version ) )
 #{
 #    New-Item -ItemType directory -Path $Version
 #}
  
-CD ./setups
+CD C:\prep
  
 Write-Verbose "Downloading $Vendor $Product $Version" -Verbose
 If (!(Test-Path -Path $Source)) {
@@ -29,15 +29,15 @@ If (!(Test-Path -Path $Source)) {
             Write-Verbose "File exists. Skipping Download." -Verbose
          }
  
-Write-Verbose "Starting Installation of $Vendor $Product $Version" -Verbose
-(Start-Process "$PackageName.$InstallerType" $UnattendedArgs -Wait -Passthru).ExitCode
+#Write-Verbose "Starting Installation of $Vendor $Product $Version" -Verbose
+#(Start-Process "$PackageName.$InstallerType" $UnattendedArgs -Wait -Passthru).ExitCode
  
 #Write-Verbose "Customization" -Verbose
 #CD "C:\Program Files\Microsoft VS Code"
 #code --install-extension ms-vscode.powershell -force
  
-Write-Verbose "Stop logging" -Verbose
+#Write-Verbose "Stop logging" -Verbose
 $EndDTM = (Get-Date)
-Write-Verbose "Elapsed Time: $(($EndDTM-$StartDTM).TotalSeconds) Seconds" -Verbose
-Write-Verbose "Elapsed Time: $(($EndDTM-$StartDTM).TotalMinutes) Minutes" -Verbose
-Stop-Transcript
+#Write-Verbose "Elapsed Time: $(($EndDTM-$StartDTM).TotalSeconds) Seconds" -Verbose
+#Write-Verbose "Elapsed Time: $(($EndDTM-$StartDTM).TotalMinutes) Minutes" -Verbose
+#Stop-Transcript
