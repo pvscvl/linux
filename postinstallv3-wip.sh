@@ -39,7 +39,7 @@
     rsakey3="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoQKnjv/EduKIfY3tKtfCjZ8PkBJCDtE5Wc8vuK6wUQqKU5g0moZaYMVQZlBLCNKD3BvczU4kaz9JGIGJfCOq9TgBtEJbfW3rRaUlrIHrsRl+yga3EJeY0HttmZ+lDJNIaCQiaA9vtLQY/6GY+bYTaiEU8NxElFDF7NyKWbebJqJfoqQW0M5en46xXwBitqIMs1RYqXJ67YWqypjtHeOTYddwYQO0AKc4r4UZ8dNjIHe5y8sSUx4OhFoXvBxhz3BNEpsjHP9qyYCbFZl4bS9RRi2nB/meXcdlv8lKw0v5hLUijXqc5AEZ+oOi/z25MawxHaLtz/lWk7BA284odpT6i1aNEd0OvPchYpQKkQtZEJSL+a+OVFFVmBcCfA1NbJ420Ga7q0lZfnJDxIvX6tbxPfoQYWpVmJ4mCsH1Exgpw7/pH7CvulFh3j6DRI8qMeXCeH4YBttUadJE9SJCk6u2WnfnrBiLZpLWX0ZNT1msHMMO+nN22BxYangYWk+ayAeU= pascal@pascal-mba.local"
 function msg_info() {
     local msg="$1"
-    printf "%b ${msg}\\n" "${INFO}"
+    printf "%b ${msg}" "${INFO}"
     }
 function msg_quest() {
     local msg="$1"
@@ -56,15 +56,15 @@ function msg_quest() {
 
 function msg_ok() {
     local msg="$1"
-    printf "%b ${msg}\\n" "${TICK}"
+    printf "%b ${msg}" "${TICK}"
     }
 function msg_no() {
     local msg="$1"
-    printf "%b ${msg}\\n" "${CROSS}"
+    printf "%b ${msg}" "${CROSS}"
     }
 function msg_warn() {
     local msg="$1"
-    printf "%b ${msg}\\n" "${WARN}"
+    printf "%b ${msg}" "${WARN}"
     }
 function header_info {
     echo -e "${COL_GREEN}
