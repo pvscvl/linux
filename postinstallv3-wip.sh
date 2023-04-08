@@ -450,7 +450,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
 apt-get update &>/dev/null
-apt-get -y upgrade &>/dev/null
+apt-get -y upgrade #&>/dev/null
 msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
 echo ""
 else
@@ -464,7 +464,7 @@ if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]
 then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
-apt-get -y dist-upgrade &>/dev/null
+apt-get -y dist-upgrade #&>/dev/null
 msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
 echo ""
 else
