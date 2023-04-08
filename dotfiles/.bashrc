@@ -125,7 +125,7 @@ function move-video() {
     local tdir="$cdir vids"
     mv ./*.{mp4,MP4,mov,MOV,avi,AVI,mpg,MPG,mpeg,MPEG,m4v,M4V} ./"$tdir" -v 2>/dev/null
 }
-mv 2022.Q4
+
 function move-yrs() {
    mv ./2022*.* ./2022 2>/dev/null
    mv ./2021*.* ./2021 2>/dev/null
