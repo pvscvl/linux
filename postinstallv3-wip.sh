@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-08"
+    VERSION="v2023-04-11"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -34,9 +34,12 @@
     #rsakey1 = tkm\pascal@TKM-MG-NB029
     #rsakey2 = zhr@wsred
     #rsakey3 = pascal@pascal-mba.local
+    #rsakey4 = jump-srv
     rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDu4GY7aercgm2ooseWTJCJWNIdi2e0Mbf+rDSDJnG1EdBh9pUh9WQ4bxr2YWcaVkjL9Ph7mcuE01FyhRyQRsySigx543rgjHCEhpGR4XUN1R1Oz2CIduaHNMEWOCrNZ6LnYMyomhsqwjRSk7+PyW+3bzNVwqQaQGf/UwcnjaWo+N0tampJKK8ZZqnPbAEgc2VwwcjcKCET3JmE38KesBJsauEW3uyXFTnEhijhfCweyZKIwQHGApGJot+TKH3XpA2FHs8hrIbAXVLFXvuNFwu9ECQ/bw7MIzfd2zLcju2hmm7JC3NdEqah5Rni9bEFD8dwCb0EYUBpwXMEVtgSTe0nZN21Kx1IBIXRABmbljsmHFaUgp2l1gYdPiQP28PDRV7u+unQ/A3hYKxiq6Py88VdDzcplSdrcnqrBp9hL5KcX6iLPHDpmCbD+xhJyUhiUYfM/hLgRq4jG8YpbuvDnX/dNyok9q5h0VjeAD/WlqzltHFVNcLqNhUUJ2ToHylRPfU= tkm\pascal@TKM-MG-NB029"
     rsakey2="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJd7Z+LQJ9rqYoIGgVusQ2XBLsoJgW2wPbj5k+ZDOS2G9/eTuzX0RC8pXSH1ovJVVr8AxOFIeRZg4gMn2OcwIPskD1qCpNLWAv9ChoXEyn5TKW4gU+9Yngj4w+YRLUAHXjrcEaPA1zOzDwDxdasO3cNJpJ5jhwnqPtNpy7dSYg4kc5j52MNoYJYYwNUJMDBFPmPOj4bg7TW8D2DNYc2jGVsVPClhdA4IRyylW4ozJDLLlOk+nvbBUBWQs3WgpY8QsnHqaP+dz0s1TAW1Vw4YAQGcVac2/dEb+UoCuHu9D4cKSRv+ObL5FYb4TtJogZY7+00Jf3W1Bl33lEyH/AZJrhaTO7mp5HTHajYVBtwsICZQl5VH+RQ0P8ERmXF+3aSd8UQkGl2JUXQfCLaHbr39dsB7DFQd8NgoAIkzpQhCv9JH/JtTt1Luafkegn+owlhJpTd7IribzkWofLB6M+7pky2m1jTtH5cScBDHhMGse3aj28PAJ4Ywe7G4QujiLnphc= zhr@wsred"
     rsakey3="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoQKnjv/EduKIfY3tKtfCjZ8PkBJCDtE5Wc8vuK6wUQqKU5g0moZaYMVQZlBLCNKD3BvczU4kaz9JGIGJfCOq9TgBtEJbfW3rRaUlrIHrsRl+yga3EJeY0HttmZ+lDJNIaCQiaA9vtLQY/6GY+bYTaiEU8NxElFDF7NyKWbebJqJfoqQW0M5en46xXwBitqIMs1RYqXJ67YWqypjtHeOTYddwYQO0AKc4r4UZ8dNjIHe5y8sSUx4OhFoXvBxhz3BNEpsjHP9qyYCbFZl4bS9RRi2nB/meXcdlv8lKw0v5hLUijXqc5AEZ+oOi/z25MawxHaLtz/lWk7BA284odpT6i1aNEd0OvPchYpQKkQtZEJSL+a+OVFFVmBcCfA1NbJ420Ga7q0lZfnJDxIvX6tbxPfoQYWpVmJ4mCsH1Exgpw7/pH7CvulFh3j6DRI8qMeXCeH4YBttUadJE9SJCk6u2WnfnrBiLZpLWX0ZNT1msHMMO+nN22BxYangYWk+ayAeU= pascal@pascal-mba.local"
+    rsakey4="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzhxYE6WuRctmLUCqRWJZtG2nLZjbzUmT9ujDYY/zPLErrn8LgpCMRZ1C3U6avEJBGQsokZpSpPUkotNkjn7DH0B86aXYBlLipbO3qhTnZ3Z63Xg7GsI65XZt1esFSpHc6itp0BpKx8GObh4sRZiJf02tH/TZO7+FThRGcklFbKBb7w4D+I5qz1OtL35xUfKAlnk1ZYcrwze7OJ1eeOYfo0rMqlUT5QSrEQhseH6tWxDD7GJBe11jGwuynacgnQgpN0c/WMsdY6FeFpSEFaSN7qmHev1CLoNjHiLjRNsCP1wHR6HZhBc3k8+Y6Z6LD/J5M4O/D9EHHEGnH8+YzFYDAqIIzdws9wFsgGe21aH7UK5ff8i6TVUYiOCG+1H15XqeriLrOlYbu62oEMVOGdMC7DfhnI3xmobCDeRXh+dLhE9Bd/UyZrFhpDPev+7dJScguzUb/NGYv/VoQR3ZLYC/+1OEcJLr0A4R/9aDa5MM/jpooUbVjmua3xwFuudNDbQc= root@jump-srv"
+
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
@@ -324,19 +327,21 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
             if [[ -d "/root/.ssh" ]]
                 then
                     chmod 700 /root/.ssh
-                    echo $rsakey1 > /root/.ssh/authorized_keys2
-                    echo $rsakey2 >> /root/.ssh/authorized_keys2
-                    echo $rsakey3 >> /root/.ssh/authorized_keys2
-                    chmod 600 /root/.ssh/authorized_keys2
+                    echo $rsakey1 > /root/.ssh/authorized_keys
+                    echo $rsakey2 >> /root/.ssh/authorized_keys
+                    echo $rsakey3 >> /root/.ssh/authorized_keys
+                    echo $rsakey4 >> /root/.ssh/authorized_keys
+                    chmod 600 /root/.ssh/authorized_keys
                     msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
                     echo ""
                 else
                 mkdir /root/.ssh
                 chmod 700 /root/.ssh
-                echo $rsakey1 > /root/.ssh/authorized_keys2
-                echo $rsakey2 >> /root/.ssh/authorized_keys2
-                echo $rsakey3 >> /root/.ssh/authorized_keys2
-                chmod 600 /root/.ssh/authorized_keys2
+                echo $rsakey1 > /root/.ssh/authorized_keys
+                echo $rsakey2 >> /root/.ssh/authorized_keys
+                echo $rsakey3 >> /root/.ssh/authorized_keys
+                echo $rsakey4 >> /root/.ssh/authorized_keys
+                chmod 600 /root/.ssh/authorized_keys
                 msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
                 echo ""
             fi
