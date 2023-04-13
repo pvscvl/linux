@@ -142,16 +142,16 @@ echo ""
             echo ""
     fi
 
-    if [ ! -x "$(command -v neofetch)" ]
+    if [ ! -x "$(command -v pfetch)" ]
     then
-        msg_quest_prompt "${COL_DIM}Neofetch:${COL_NC} install?${COL_DIM}"
-        #msg_quest "Install neofetch? <y/N> "; read -r -p "" prompt
+        msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}Neofetch:${COL_NC} installing"
-            #apt update &>/dev/null
-            apt install neofetch -y &>/dev/null
-            msg_ok "${COL_DIM}Neofetch:${COL_NC} installed"
+            msg_info "${COL_DIM}pfetch:${COL_NC} installing"
+            wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
+            unzip master.zip &>/dev/null
+            sudo install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
+            msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" ~/.bashrc ; then
                 echo -n ""
@@ -159,11 +159,11 @@ echo ""
                 echo " " >> ~/.bashrc
                 echo "clear" >> ~/.bashrc
             fi
-            if  grep -q "neofetch" ~/.bashrc ; then
+            if  grep -q "pfetch" ~/.bashrc ; then
                 echo -n ""
             else
                 echo " " >> ~/.bashrc
-                echo "neofetch" >> ~/.bashrc
+                echo "pfetch" >> ~/.bashrc
             fi
             if  grep -q "clear" /root/.bashrc ; then
                 echo -n ""
@@ -171,22 +171,23 @@ echo ""
                 echo " " >> /root/.bashrc
                 echo "clear" >> /root/.bashrc
             fi
-            if  grep -q "neofetch" /root/.bashrc ; then
+            if  grep -q "pfetch" /root/.bashrc ; then
                 echo -n ""
             else
                 echo " " >> /root/.bashrc
-                echo "neofetch" >> /root/.bashrc
+                echo "pfetch" >> /root/.bashrc
             fi
         else
-            msg_no "${COL_DIM}Neofetch:${COL_NC} not installed"
+            msg_no "${COL_DIM}pfetch:${COL_NC} not installed"
             echo ""
         fi
     else
-        msg_quest "${COL_DIM}Neofetch:${COL_NC} install?"
+        msg_quest "${COL_DIM}pfetch:${COL_NC} install?"
         echo ""
-        msg_info "${COL_DIM}Neofetch:${COL_NC} already installed"
+        msg_info "${COL_DIM}pfetch:${COL_NC} already installed"
         echo ""
     fi
+    
     
     if [ ! -x "$(command -v ack)" ]
     then
