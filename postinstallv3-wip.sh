@@ -187,8 +187,13 @@ echo ""
         msg_info "${COL_DIM}pfetch:${COL_NC} already installed"
         echo ""
     fi
-    
-    
+
+    if  grep -q "neofetch" /root/.bashrc
+        then
+            sed -i "/neofetch/ s//#neofetch/g" /etc/ssh/sshd_config
+            msg_info "Removed neofetch from .bashrc"
+    fi
+
     if [ ! -x "$(command -v ack)" ]
     then
         msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
@@ -336,15 +341,15 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                     msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
                     echo ""
                 else
-                mkdir /root/.ssh
-                chmod 700 /root/.ssh
-                echo $rsakey1 > /root/.ssh/authorized_keys
-                echo $rsakey2 >> /root/.ssh/authorized_keys
-                echo $rsakey3 >> /root/.ssh/authorized_keys
-                echo $rsakey4 >> /root/.ssh/authorized_keys
-                chmod 600 /root/.ssh/authorized_keys
-                msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
-                echo ""
+                    mkdir /root/.ssh
+                    chmod 700 /root/.ssh
+                    echo $rsakey1 > /root/.ssh/authorized_keys
+                    echo $rsakey2 >> /root/.ssh/authorized_keys
+                    echo $rsakey3 >> /root/.ssh/authorized_keys
+                    echo $rsakey4 >> /root/.ssh/authorized_keys
+                    chmod 600 /root/.ssh/authorized_keys
+                    msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
+                    echo ""
             fi
         else
             msg_no "${COL_DIM}ssh:${COL_NC} public keys not copied"

@@ -3,8 +3,9 @@ export LS_COLORS="no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 export LSCOLORS="BxBxhxDxfxhxhxhxhxcxcx"
 export colorflag="-G"
 
+chpwd () ls --color=always --group-directories-first -AF
 
-alias ls="ls -alhFX --color=always" 
+#alias ls="ls -alhFX --color=always" 
 alias _update="apt-get update && apt-get upgrade -y"
 alias _updatedist="apt-get update && apt-get dist-upgrade -y"
 #alias _update-dotfiles="wget -O $HOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc && wget -O $HOME/.dotfiles/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports && wget -O $HOME/.dotfiles/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions && wget -O $HOME/.dotfiles/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases"
