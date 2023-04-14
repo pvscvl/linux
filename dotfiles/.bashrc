@@ -3,7 +3,6 @@ export LS_COLORS="no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 export LSCOLORS="BxBxhxDxfxhxhxhxhxcxcx"
 export colorflag="-G"
 
-chpwd () ls --color=always --group-directories-first -AF
 
 #alias ls="ls -alhFX --color=always" 
 alias _update="apt-get update && apt-get upgrade -y"
