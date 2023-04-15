@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-14v2"
+    VERSION="v2023-04-15"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -23,6 +23,7 @@
     DONE="${COL_GREEN} done!${COL_NC}"
     WARN="${COL_NC}[${COL_YELLOW}⚠${COL_NC}]  "
     OVER="\\r\\033[K"
+    
     detected_architecture=`uname -m`
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
@@ -69,19 +70,23 @@ function msg_warn() {
     local msg="$1"
     printf "%b ${msg}" "${WARN}"
     }
+
+
+
+                                 
+     
+
+
+
+
+
 function header_info {
     echo -e "${COL_GREEN}
- _    ____  ___   ___        __   _  ________   
-| |  / /  |/  /  ( _ )      / /  | |/ / ____/   
-| | / / /|_/ /  / __ \/|   / /   |   / /        
-| |/ / /  / /  / /_/  <   / /___/   / /___      
-|___/_/  /_/   \____/\/  /_____/_/|_\____/      
-       _____           _       __               
-      / ___/__________(_____  / /_              
-      \__ \/ ___/ ___/ / __ \/ __/              
-     ___/ / /__/ /  / / /_/ / /_                
-    /____/\___/_/  /_/ .___/\__/                
-                    /_/    
+    pascal's    ____  ____  _____
+    prepare    / __ \/ __ \/ ___/
+    script    / /_/ / /_/ (__  ) 
+ ____________/ .___/ .___/____/  
+/_____________/   /_/       
 
 ${COL_CL}"
     }
