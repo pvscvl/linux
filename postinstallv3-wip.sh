@@ -23,7 +23,7 @@
     DONE="${COL_GREEN} done!${COL_NC}"
     WARN="${COL_NC}[${COL_YELLOW}⚠${COL_NC}]  "
     OVER="\\r\\033[K"
-    
+    OSTYPE=`uname`
     detected_architecture=`uname -m`
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
@@ -133,6 +133,13 @@ echo ""
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
         printf "%b Root privileges are needed for this script\\n" "${INFO}"
         printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_RED}"
+        exit 1
+    fi
+    
+    if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
+        #printf "\\n\\n"
+        msg_no "Can't execute sript"
+        msg_info "This script is for linux machines, not macOS machines"
         exit 1
     fi
 
