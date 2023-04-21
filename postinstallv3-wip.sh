@@ -365,7 +365,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
                 ;;
             *)
-                msg_no "${COL_DIM}zabbix-agent2:${COL_NC} Unsupported OS version: $detected_os $detected_version"
+                msg_no "${COL_DIM}zabbix-agent:${COL_NC} Unsupported OS version: $detected_os $detected_version"
                 #exit 1
                 ;;
         esac
