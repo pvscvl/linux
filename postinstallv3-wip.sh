@@ -179,7 +179,7 @@ echo ""
 
     if  grep -q "neofetch" /root/.bashrc
         then
-            sed -i "/neofetch/ s//#neofetch/g" /etc/ssh/sshd_config
+            sed -i "/neofetch/ s//#neofetch/g" /root/.bashrc
             msg_info "Removed neofetch from .bashrc"
     fi
 
@@ -324,29 +324,13 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 mkdir /root/.ssh
             fi
                 chmod 700 /root/.ssh
-                if ! grep -q "$rsakey1" /root/.ssh/authorized_keys; then
-                    echo "$rsakey1" >> /root/.ssh/authorized_keys
-                    msg_info "${COL_DIM}ssh:${COL_NC} copied ssh key for TKM-MG-NB029"
-                fi
-        
-                if ! grep -q "$rsakey2" /root/.ssh/authorized_keys; then
-                    echo "$rsakey2" >> /root/.ssh/authorized_keys
-                    msg_info "${COL_DIM}ssh:${COL_NC} copied ssh key for ZBX01"
-                fi
-
-                if ! grep -q "$rsakey3" /root/.ssh/authorized_keys; then
-                    echo "$rsakey3" >> /root/.ssh/authorized_keys
-                    msg_info "${COL_DIM}ssh:${COL_NC} copied ssh key for pascal-mba"
-                fi
-
-                if ! grep -q "$rsakey4" /root/.ssh/authorized_keys; then
-                    echo "$rsakey4" >> /root/.ssh/authorized_keys
-                fi
-
+                echo "$rsakey1" > /root/.ssh/authorized_keys
+                echo "$rsakey2" >> /root/.ssh/authorized_keys
+                echo "$rsakey3" >> /root/.ssh/authorized_keys
+                echo "$rsakey4" >> /root/.ssh/authorized_keys
                 chmod 600 /root/.ssh/authorized_keys
                 msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
                 echo ""
-            
         else
             msg_no "${COL_DIM}ssh:${COL_NC} public keys not copied"
             echo ""
