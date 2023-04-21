@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-15"
+    VERSION="v2023-04-21"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -162,7 +162,7 @@ echo ""
             msg_info "${COL_DIM}pfetch:${COL_NC} installing"
             wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
             unzip master.zip &>/dev/null
-            sudo install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
+            sinstall pfetch-master/pfetch /usr/local/bin/ &>/dev/null
             msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" ~/.bashrc ; then
@@ -445,6 +445,10 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
 		    wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
 		    dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
         fi    
+
+
+
+
                 apt update &>/dev/null
 		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
                         msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
@@ -465,6 +469,57 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 msg_no "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
                 echo ""
                 fi
+
+
+    msg_quest_prompt "${COL_DIM}zabbix-agent3:${COL_NC} install?${COL_DIM}"
+    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+    then
+        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
+        case "$detected_os-$detected_version" in
+            debian-10)
+                msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
+                #wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian10_all.deb
+                #dpkg -i zabbix-release_6.4-1+debian10_all.deb &>/dev/null
+                ;;
+            debian-11)
+            msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
+                #wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
+                #dpkg -i zabbix-release_6.4-1+debian11_all.deb &>/dev/null
+                ;;
+            ubuntu-20.04)
+            msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
+                #wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu20.04_all.deb
+                #dpkg -i zabbix-release_6.4-1+ubuntu20.04_all.deb &>/dev/null
+                ;;
+            ubuntu-22.04)
+                msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
+                #wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
+                #dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
+                ;;
+            *)
+                msg_error "${COL_DIM}zabbix-agent2:${COL_NC} Unsupported OS version: $detected_os $detected_version"
+                exit 1
+                ;;
+        esac
+        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} not installing"
+        ;;
+esac
+
+Explanation:
+
+    The first case statement checks the value of the $prompt variable.
+    The | symbol separates different values that should be matched.
+    The ) symbol closes the first case statement.
+    The case statement inside the first if statement is replaced with a new case statement that checks the combination of $detected_os and $detected_version.
+    The | symbol separates different cases that should be matched.
+    The ) symbol closes the second case statement.
+    The ;; symbol separates different cases and signifies the end of a case block.
+    The *) pattern matches any unsupported OS version, and outputs an error message before exiting with status code 1.
+
+Make sure to save the modified script as a file (e.g. install-zabbix-agent.sh) and make it executable with chmod +x install-zabbix-agent.sh before running it.
+
+
+
 
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
