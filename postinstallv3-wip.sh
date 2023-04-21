@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-21v4"
+    VERSION="v2023-04-21v5"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -151,7 +151,7 @@ echo ""
             msg_info "${COL_DIM}pfetch:${COL_NC} installing"
             wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
             unzip master.zip &>/dev/null
-            sinstall pfetch-master/pfetch /usr/local/bin/ &>/dev/null
+            install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
             msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
             echo ""
             if  grep -q "clear" /root/.bashrc ; then
