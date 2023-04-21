@@ -502,25 +502,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 ;;
         esac
         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} not installing"
-        ;;
-esac
-
-Explanation:
-
-    The first case statement checks the value of the $prompt variable.
-    The | symbol separates different values that should be matched.
-    The ) symbol closes the first case statement.
-    The case statement inside the first if statement is replaced with a new case statement that checks the combination of $detected_os and $detected_version.
-    The | symbol separates different cases that should be matched.
-    The ) symbol closes the second case statement.
-    The ;; symbol separates different cases and signifies the end of a case block.
-    The *) pattern matches any unsupported OS version, and outputs an error message before exiting with status code 1.
-
-Make sure to save the modified script as a file (e.g. install-zabbix-agent.sh) and make it executable with chmod +x install-zabbix-agent.sh before running it.
-
-
-
-
+fi
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 #msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
