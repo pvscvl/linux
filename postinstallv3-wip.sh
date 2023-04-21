@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-21v2"
+    VERSION="v2023-04-21v4"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -346,7 +346,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 chmod 600 /root/.ssh/authorized_keys
                 msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
                 echo ""
-            fi
+            
         else
             msg_no "${COL_DIM}ssh:${COL_NC} public keys not copied"
             echo ""
