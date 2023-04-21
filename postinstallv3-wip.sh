@@ -57,7 +57,6 @@ function msg_quest() {
     local msg="$1"
     printf "%b ${msg}" "${QUEST}"
 	}
-
 function msg_ok() {
     local msg="$1"
     printf "%b ${msg}\\n" "${TICK}"
@@ -70,15 +69,6 @@ function msg_warn() {
     local msg="$1"
     printf "%b ${msg}" "${WARN}"
     }
-
-
-
-                                 
-     
-
-
-
-
 
 function header_info {
     echo -e "${COL_GREEN}
@@ -422,35 +412,30 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
     then
         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
-        if [[ $detected_os == "debian" && $detected_version == "10" ]]
-            then
-		    wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian10_all.deb
-		    dpkg -i zabbix-release_6.4-1+debian10_all.deb &>/dev/null
-        fi
-
-        if [[ $detected_os == "debian" && $detected_version == "11" ]]
-            then
-		    wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
-		    dpkg -i zabbix-release_6.4-1+debian11_all.deb &>/dev/null
-        fi
-
-        if [[ $detected_os == "ubuntu" && $detected_version == "20.04" ]]
-            then
-		    wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu20.04_all.deb
-		    dpkg -i zabbix-release_6.4-1+ubuntu20.04_all.deb &>/dev/null
-        fi
-
-        if [[ $detected_os == "ubuntu" && $detected_version == "22.04" ]]
-            then
-		    wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
-		    dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
-        fi    
-
-
-
-
-                apt update &>/dev/null
-		        apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
+        case "$detected_os-$detected_version" in
+            debian-10)
+                wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian10_all.deb
+                dpkg -i zabbix-release_6.4-1+debian10_all.deb &>/dev/null
+            ;;
+            debian-11)
+                wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
+                dpkg -i zabbix-release_6.4-1+debian11_all.deb &>/dev/null
+            ;;
+            ubuntu-20.04)
+                wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu20.04_all.deb
+                dpkg -i zabbix-release_6.4-1+ubuntu20.04_all.deb &>/dev/null
+            ;;
+            ubuntu-22.04)
+                wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
+                dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
+            ;;
+            *)
+                msg_error "${COL_DIM}zabbix-agent2:${COL_NC} Unsupported OS version: $detected_os $detected_version"
+                exit 1
+            ;;
+        esac
+        apt update &>/dev/null
+		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
                         msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
                         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
 		        systemctl restart zabbix-agent2 &>/dev/null
