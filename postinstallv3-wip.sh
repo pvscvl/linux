@@ -413,39 +413,6 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 fi
 
 
-    msg_quest_prompt "${COL_DIM}zabbix-agent3:${COL_NC} install?${COL_DIM}"
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
-        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
-        case "$detected_os-$detected_version" in
-            debian-10)
-                msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
-                #wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian10_all.deb
-                #dpkg -i zabbix-release_6.4-1+debian10_all.deb &>/dev/null
-                ;;
-            debian-11)
-            msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
-                #wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
-                #dpkg -i zabbix-release_6.4-1+debian11_all.deb &>/dev/null
-                ;;
-            ubuntu-20.04)
-            msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
-                #wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu20.04_all.deb
-                #dpkg -i zabbix-release_6.4-1+ubuntu20.04_all.deb &>/dev/null
-                ;;
-            ubuntu-22.04)
-                msg_info "${COL_DIM}zabbix-agent3:${COL_NC} OS version: $detected_os $detected_version"
-                #wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
-                #dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
-                ;;
-            *)
-                msg_no "${COL_DIM}zabbix-agent2:${COL_NC} Unsupported OS version: $detected_os $detected_version"
-                exit 1
-                ;;
-        esac
-        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} not installing"
-fi
-
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 #msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
