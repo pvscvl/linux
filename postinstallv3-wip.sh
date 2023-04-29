@@ -14,7 +14,7 @@
     COL_DIM='\e[2m' #dimmed
     COL_ITAL='\e[3m' #italics
     COL_BOLD='\e[1m' #bold
-    COL_UNDER='\e[4m' #underline
+    COL_UNDER='\e[4m' #unde
     TICK="${COL_NC}[${COL_GREEN}✓${COL_NC}]  "
     QUEST="${COL_NC}[${COL_BLUE}?${COL_NC}]  "
     col='\e[38;5;46m'
