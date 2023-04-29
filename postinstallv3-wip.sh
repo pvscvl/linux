@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v4"
+    VERSION="v2023-04-29v5"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -36,10 +36,10 @@
     #rsakey2 = root@zbx
     #rsakey3 = pascal@pascal-mba.local
     #rsakey4 = jump-srv
-    rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCypjxXe3QRnMC1dl+GF7lvCjs8dWYnzLTxzNlB0z8kgeow7cSmOfNspPVYk27XWH4k3r+NJruj41A25s1xQ+s5bFdhgCQCMDNAEu/L5KI1il7GkS5/o+dtu2qGHBpj03c0GCmgT2d7eog7yeQQVDT2V/IEObYpD34HATWoyMs4saUEwtochh2lYfgFcdWf+jnhZgIt2LBG8LIy7BWQYfAix/ciFxgrfCFN9FlJdWtMwrhcZSIeYyZHjys2B8Ayjn8LM2oD6vxSRLaCXJHj7joYOMMyBVYZYeYzTQw/hamzkJZ/4t/jtGyJ7vQooykUHhaH/s+Pb5u4AH1yGTsbC+pwgLfKOAB8vp2BSUEqziBLTrRMvVxj4yVIb1vUiEQlVtCkGUprJW0UjPc9w7WjYyf4QfWBDl+ukaZRUOARvdgxxeKOCavhqoWJmfszMdMBSD8fXQxfdiY5rT/JHxeVvpAvPQtdw8xG+L1Tm1tco6vHhwUruxmRZBVdbarWxl0dfbs= tkm\pascal@TKM-MG-NB029"
-    rsakey2="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDa9mIOvb7SfQH65IzxwzkaUUTrDvbzURwKbHbIL6ngDHnuRaipZ6nEXhRetAoPR6M3xJa0jEo2st767eQP9yhWuYGNL4644JFKWk6reZ95j4jSbkOk7YvKMcph8ZsamAYKMfzNNf9MZkCNFM0uQYbVdIx1IqB6xFdnicFivVicouN1eLNGvm2956+zUVwXZOSB4BPtZ3gwgzC5EGRvwXXYSi58vJ/UPyVLsKzQ0hB0I/0CDKlesNiqfN9pxy5YkAY6kgWxa/kFsVIpLOydtTF+BMo8ZGOs5+dgGfLqUMp3O1oA8KKb0Ko1kREK4Q2dKQ6V127wX2SS6qx/lJ4u+JwVn4FiA7vAeP1NZZ6THfFw8E+5O7ezbIv2Tf62PZg1M5nMd2/wZ0PM3yVyRQBcjLukQ7ejN/755+uRwcndncsJX5ahK2f2nfk1qWyiJsu2/CpzubX4okNnympV+PwcyR5oZufNbhtW2Njf5y2jsEsZO0ABaM9MedGP8ye6/LJSzW0= root@zbx01"
-    rsakey3="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoQKnjv/EduKIfY3tKtfCjZ8PkBJCDtE5Wc8vuK6wUQqKU5g0moZaYMVQZlBLCNKD3BvczU4kaz9JGIGJfCOq9TgBtEJbfW3rRaUlrIHrsRl+yga3EJeY0HttmZ+lDJNIaCQiaA9vtLQY/6GY+bYTaiEU8NxElFDF7NyKWbebJqJfoqQW0M5en46xXwBitqIMs1RYqXJ67YWqypjtHeOTYddwYQO0AKc4r4UZ8dNjIHe5y8sSUx4OhFoXvBxhz3BNEpsjHP9qyYCbFZl4bS9RRi2nB/meXcdlv8lKw0v5hLUijXqc5AEZ+oOi/z25MawxHaLtz/lWk7BA284odpT6i1aNEd0OvPchYpQKkQtZEJSL+a+OVFFVmBcCfA1NbJ420Ga7q0lZfnJDxIvX6tbxPfoQYWpVmJ4mCsH1Exgpw7/pH7CvulFh3j6DRI8qMeXCeH4YBttUadJE9SJCk6u2WnfnrBiLZpLWX0ZNT1msHMMO+nN22BxYangYWk+ayAeU= pascal@pascal-mba.local"
-    rsakey4="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzhxYE6WuRctmLUCqRWJZtG2nLZjbzUmT9ujDYY/zPLErrn8LgpCMRZ1C3U6avEJBGQsokZpSpPUkotNkjn7DH0B86aXYBlLipbO3qhTnZ3Z63Xg7GsI65XZt1esFSpHc6itp0BpKx8GObh4sRZiJf02tH/TZO7+FThRGcklFbKBb7w4D+I5qz1OtL35xUfKAlnk1ZYcrwze7OJ1eeOYfo0rMqlUT5QSrEQhseH6tWxDD7GJBe11jGwuynacgnQgpN0c/WMsdY6FeFpSEFaSN7qmHev1CLoNjHiLjRNsCP1wHR6HZhBc3k8+Y6Z6LD/J5M4O/D9EHHEGnH8+YzFYDAqIIzdws9wFsgGe21aH7UK5ff8i6TVUYiOCG+1H15XqeriLrOlYbu62oEMVOGdMC7DfhnI3xmobCDeRXh+dLhE9Bd/UyZrFhpDPev+7dJScguzUb/NGYv/VoQR3ZLYC/+1OEcJLr0A4R/9aDa5MM/jpooUbVjmua3xwFuudNDbQc= root@jump-srv"
+    #rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCypjxXe3QRnMC1dl+GF7lvCjs8dWYnzLTxzNlB0z8kgeow7cSmOfNspPVYk27XWH4k3r+NJruj41A25s1xQ+s5bFdhgCQCMDNAEu/L5KI1il7GkS5/o+dtu2qGHBpj03c0GCmgT2d7eog7yeQQVDT2V/IEObYpD34HATWoyMs4saUEwtochh2lYfgFcdWf+jnhZgIt2LBG8LIy7BWQYfAix/ciFxgrfCFN9FlJdWtMwrhcZSIeYyZHjys2B8Ayjn8LM2oD6vxSRLaCXJHj7joYOMMyBVYZYeYzTQw/hamzkJZ/4t/jtGyJ7vQooykUHhaH/s+Pb5u4AH1yGTsbC+pwgLfKOAB8vp2BSUEqziBLTrRMvVxj4yVIb1vUiEQlVtCkGUprJW0UjPc9w7WjYyf4QfWBDl+ukaZRUOARvdgxxeKOCavhqoWJmfszMdMBSD8fXQxfdiY5rT/JHxeVvpAvPQtdw8xG+L1Tm1tco6vHhwUruxmRZBVdbarWxl0dfbs= tkm\pascal@TKM-MG-NB029"
+    #rsakey2="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDa9mIOvb7SfQH65IzxwzkaUUTrDvbzURwKbHbIL6ngDHnuRaipZ6nEXhRetAoPR6M3xJa0jEo2st767eQP9yhWuYGNL4644JFKWk6reZ95j4jSbkOk7YvKMcph8ZsamAYKMfzNNf9MZkCNFM0uQYbVdIx1IqB6xFdnicFivVicouN1eLNGvm2956+zUVwXZOSB4BPtZ3gwgzC5EGRvwXXYSi58vJ/UPyVLsKzQ0hB0I/0CDKlesNiqfN9pxy5YkAY6kgWxa/kFsVIpLOydtTF+BMo8ZGOs5+dgGfLqUMp3O1oA8KKb0Ko1kREK4Q2dKQ6V127wX2SS6qx/lJ4u+JwVn4FiA7vAeP1NZZ6THfFw8E+5O7ezbIv2Tf62PZg1M5nMd2/wZ0PM3yVyRQBcjLukQ7ejN/755+uRwcndncsJX5ahK2f2nfk1qWyiJsu2/CpzubX4okNnympV+PwcyR5oZufNbhtW2Njf5y2jsEsZO0ABaM9MedGP8ye6/LJSzW0= root@zbx01"
+    #rsakey3="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoQKnjv/EduKIfY3tKtfCjZ8PkBJCDtE5Wc8vuK6wUQqKU5g0moZaYMVQZlBLCNKD3BvczU4kaz9JGIGJfCOq9TgBtEJbfW3rRaUlrIHrsRl+yga3EJeY0HttmZ+lDJNIaCQiaA9vtLQY/6GY+bYTaiEU8NxElFDF7NyKWbebJqJfoqQW0M5en46xXwBitqIMs1RYqXJ67YWqypjtHeOTYddwYQO0AKc4r4UZ8dNjIHe5y8sSUx4OhFoXvBxhz3BNEpsjHP9qyYCbFZl4bS9RRi2nB/meXcdlv8lKw0v5hLUijXqc5AEZ+oOi/z25MawxHaLtz/lWk7BA284odpT6i1aNEd0OvPchYpQKkQtZEJSL+a+OVFFVmBcCfA1NbJ420Ga7q0lZfnJDxIvX6tbxPfoQYWpVmJ4mCsH1Exgpw7/pH7CvulFh3j6DRI8qMeXCeH4YBttUadJE9SJCk6u2WnfnrBiLZpLWX0ZNT1msHMMO+nN22BxYangYWk+ayAeU= pascal@pascal-mba.local"
+    #rsakey4="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzhxYE6WuRctmLUCqRWJZtG2nLZjbzUmT9ujDYY/zPLErrn8LgpCMRZ1C3U6avEJBGQsokZpSpPUkotNkjn7DH0B86aXYBlLipbO3qhTnZ3Z63Xg7GsI65XZt1esFSpHc6itp0BpKx8GObh4sRZiJf02tH/TZO7+FThRGcklFbKBb7w4D+I5qz1OtL35xUfKAlnk1ZYcrwze7OJ1eeOYfo0rMqlUT5QSrEQhseH6tWxDD7GJBe11jGwuynacgnQgpN0c/WMsdY6FeFpSEFaSN7qmHev1CLoNjHiLjRNsCP1wHR6HZhBc3k8+Y6Z6LD/J5M4O/D9EHHEGnH8+YzFYDAqIIzdws9wFsgGe21aH7UK5ff8i6TVUYiOCG+1H15XqeriLrOlYbu62oEMVOGdMC7DfhnI3xmobCDeRXh+dLhE9Bd/UyZrFhpDPev+7dJScguzUb/NGYv/VoQR3ZLYC/+1OEcJLr0A4R/9aDa5MM/jpooUbVjmua3xwFuudNDbQc= root@jump-srv"
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
@@ -337,10 +337,26 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 mkdir /root/.ssh
             fi
                 chmod 700 /root/.ssh
-                echo "$rsakey1" > /root/.ssh/authorized_keys
-                echo "$rsakey2" >> /root/.ssh/authorized_keys
-                echo "$rsakey3" >> /root/.ssh/authorized_keys
-                echo "$rsakey4" >> /root/.ssh/authorized_keys
+                URL="download.local"
+                FILE_LIST=$(curl -s $URL)
+
+                # Extract the URLs for the public key files
+                KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
+
+                # Loop through the URLs and add the public keys to authorized_keys
+                for KEY_URL in $KEY_URLS; do
+                    KEY=$(curl -s "${URL}${KEY_URL}")
+                    msg_info "${COL_DIM}ssh:${COL_NC} adding key from ${URL}${KEY_URL}"
+                    #echo "Adding key from ${URL}${KEY_URL}"
+                    # Check if the key already exists in authorized_keys
+                    if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
+                        echo "$KEY" >> ~/.ssh/authorized_keys
+                    fi
+                done
+                #echo "$rsakey1" > /root/.ssh/authorized_keys
+               # echo "$rsakey2" >> /root/.ssh/authorized_keys
+               # echo "$rsakey3" >> /root/.ssh/authorized_keys
+              #  echo "$rsakey4" >> /root/.ssh/authorized_keys
                 chmod 600 /root/.ssh/authorized_keys
                 msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
                 echo ""
