@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v7"
+    VERSION="v2023-04-29v8"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -366,28 +366,36 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
     fi
 
 
-        case "$detected_os-$detected_version" in
-            debian-10)
-                wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian10_all.deb
-                dpkg -i zabbix-release_6.4-1+debian10_all.deb &>/dev/null
-                ;;
-            debian-11)
-                wget -q https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
-                dpkg -i zabbix-release_6.4-1+debian11_all.deb &>/dev/null
-                ;;
-            ubuntu-20.04)
-                wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu20.04_all.deb
-                dpkg -i zabbix-release_6.4-1+ubuntu20.04_all.deb &>/dev/null
-                ;;
-            ubuntu-22.04)
-                wget -q https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
-                dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb &>/dev/null
-                ;;
-            *)
-                msg_no "${COL_DIM}zabbix-agent:${COL_NC} Unsupported OS version: $detected_os $detected_version"
-                #exit 1
-                ;;
-        esac
+case "$detected_os-$detected_version" in
+    debian-10)
+        deb_file=zabbix-release_6.4-1+debian10_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/$deb_file
+        ;;
+    debian-11)
+        deb_file=zabbix-release_6.4-1+debian11_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/$deb_file
+        ;;
+    ubuntu-20.04)
+        deb_file=zabbix-release_6.4-1+ubuntu20.04_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/$deb_file
+        ;;
+    ubuntu-22.04)
+        deb_file=zabbix-release_6.4-1+ubuntu22.04_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/$deb_file
+        ;;
+    *)
+        msg_no "${COL_DIM}zabbix-agent:${COL_NC} Unsupported OS version: $detected_os $detected_version"
+        #exit 1
+        ;;
+esac
+
+if [ -f "$deb_file" ]; then
+    msg_ok "${COL_DIM}zabbix-agent:${COL_NC} $deb_file already exists, skipping download."
+else
+    wget -q "$deb_url"
+fi
+
+dpkg -i "$deb_file" &>/dev/null
 
     msg_quest_prompt "${COL_DIM}zabbix-agent:${COL_NC} install?${COL_DIM}"
         if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
