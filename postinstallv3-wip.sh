@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v2"
+    VERSION="v2023-04-29v3"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -66,7 +66,7 @@ function msg_no() {
     }
 function msg_warn() {
     local msg="$1"
-    printf "%b ${msg}" "${WARN}"
+    printf "%b ${msg}\\n" "${WARN}"
     }
 
 function header_info {
@@ -181,7 +181,7 @@ echo ""
     if  grep -q "neofetch" /root/.bashrc
         then
             sed -i "/neofetch/ s//#neofetch/g" /root/.bashrc
-            msg_info "Removed neofetch from .bashrc"
+            msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
     fi
 
     if [ ! -x "$(command -v ack)" ]
@@ -312,14 +312,14 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             echo ""
             
             if [ "$detected_env" == "lxc" ]; then
-                msg_warn "LXC Env detected. Edit SFTP Module of sshd conf."
                 cp /etc/ssh/sshd_config /root/sshd_config.bckup
                 # Look for the sftp subsystem line and comment it out
                 sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
                 # Insert a new line above the commented out sftp subsystem line
                 sed -i '/^#Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
                 # Restart the sshd service to apply the changes
-                msg_warn "SFTP should now work"
+                msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
+                echo ""
             fi
 
         else
