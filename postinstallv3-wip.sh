@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v10"
+    VERSION="v2023-04-29v11"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -347,10 +347,10 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 for KEY_URL in $KEY_URLS; do
                     KEY=$(curl -s "${URL}${KEY_URL}")
                     # Check if the keyalready exists in authorized_keys
-                    echo "_____________ from ${URL}${KEY_URL}"
+                    #echo "_____________ from ${URL}${KEY_URL}"
                     if ! grep -q -F "$KEY" /root/.ssh/authorized_keys; then
                         echo "$KEY" >> /root/.ssh/authorized_keys
-                        echo "Adding key from ${URL}${KEY_URL}"
+                        #echo "Adding key from ${URL}${KEY_URL}"
                         msg_info "${COL_DIM}ssh:${COL_NC} public key copied: ${URL}${KEY_URL}"
                     fi
                 done
