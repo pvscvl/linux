@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v9"
+    VERSION="v2023-04-29v10"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -337,7 +337,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 mkdir /root/.ssh
             fi
                 chmod 700 /root/.ssh
-                URL="download.local"
+                URL="download.local/"
                 FILE_LIST=$(curl -s $URL)
 
                 # Extract the URLs for the public key files
