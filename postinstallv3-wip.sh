@@ -313,6 +313,7 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             echo ""
             msg_warn "LXC Env detected. Edit SFTP Module of sshd conf."
             if [ "$detected_env" == "lxc" ]; then
+                cp /etc/ssh/sshd_config /root/sshd_config.bckup
                 # Look for the sftp subsystem line and comment it out
                 sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
                 # Insert a new line above the commented out sftp subsystem line
