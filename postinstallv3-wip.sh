@@ -95,7 +95,6 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
         msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"        
     fi
 
-
     msg_info "Zabbix version available: $zbxagent_latest_version"
     if command -v zabbix_agentd >/dev/null 2>&1; 
         then
