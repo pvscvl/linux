@@ -150,7 +150,9 @@ echo ""
         then
             msg_info "${COL_DIM}pfetch:${COL_NC} installing"
             wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
+            apt install unzip &>/dev/null
             unzip master.zip &>/dev/null
+            sleep 1
             install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
             msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
             echo ""
@@ -309,6 +311,16 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
             msg_ok "${COL_DIM}sshd_config:${COL_NC} root login permitted"
             echo ""
+            msg_warn "LXC Env detected. Edit SFTP Module of sshd conf."
+            if [ "$detected_env" == "lxc" ]; then
+                # Look for the sftp subsystem line and comment it out
+                sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
+                # Insert a new line above the commented out sftp subsystem line
+                sed -i '/^#Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
+                # Restart the sshd service to apply the changes
+                msg_warn "SFTP should now work"
+            fi
+
         else
             msg_no "${COL_DIM}sshd_config:${COL_NC} root login not permitted"
             echo ""
