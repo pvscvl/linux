@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v1"
+    VERSION="v2023-04-29v2"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -311,8 +311,9 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
             msg_ok "${COL_DIM}sshd_config:${COL_NC} root login permitted"
             echo ""
-            msg_warn "LXC Env detected. Edit SFTP Module of sshd conf."
+            
             if [ "$detected_env" == "lxc" ]; then
+                msg_warn "LXC Env detected. Edit SFTP Module of sshd conf."
                 cp /etc/ssh/sshd_config /root/sshd_config.bckup
                 # Look for the sftp subsystem line and comment it out
                 sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
