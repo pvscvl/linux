@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-21v5"
+    VERSION="v2023-04-29v1"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
