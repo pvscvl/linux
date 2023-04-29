@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v11"
+    VERSION="v2023-04-29v12"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -331,7 +331,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
 #msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_info "${COL_DIM}ssh:${COL_NC} copying public keys"
+            #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys"
             if ! [[ -d "/root/.ssh" ]]
                 then
                 mkdir /root/.ssh
@@ -347,11 +347,12 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 for KEY_URL in $KEY_URLS; do
                     KEY=$(curl -s "${URL}${KEY_URL}")
                     # Check if the keyalready exists in authorized_keys
+                    msg_info "${COL_DIM}ssh:${COL_NC} public key copied: ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
                     #echo "_____________ from ${URL}${KEY_URL}"
                     if ! grep -q -F "$KEY" /root/.ssh/authorized_keys; then
                         echo "$KEY" >> /root/.ssh/authorized_keys
                         #echo "Adding key from ${URL}${KEY_URL}"
-                        msg_info "${COL_DIM}ssh:${COL_NC} public key copied: ${URL}${KEY_URL}"
+                        msg_info "${COL_DIM}ssh:${COL_NC} public key copied: ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
                     fi
                 done
                 #echo "$rsakey1" > /root/.ssh/authorized_keys
