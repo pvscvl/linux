@@ -346,9 +346,10 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 # Loop through the URLs and add the public keys to authorized_keys
                 for KEY_URL in $KEY_URLS; do
                     KEY=$(curl -s "${URL}${KEY_URL}")
-                    # Check if the key already exists in authorized_keys
-                    if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
-                        echo "$KEY" >> ~/.ssh/authorized_keys
+                    # Check if the keyalready exists in authorized_keys
+                    echo "_____________ from ${URL}${KEY_URL}"
+                    if ! grep -q -F "$KEY" /root/.ssh/authorized_keys; then
+                        echo "$KEY" >> /root/.ssh/authorized_keys
                         echo "Adding key from ${URL}${KEY_URL}"
                         msg_info "${COL_DIM}ssh:${COL_NC} public key copied: ${URL}${KEY_URL}"
                     fi
