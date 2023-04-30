@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v30"
+    VERSION="v2023-04-30v31"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -461,7 +461,7 @@ dpkg -i "$deb_file" &>/dev/null
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
         echo ""
         else
-            echo ""
+            
             msg_no "${COL_DIM}zabbix-agent:${COL_NC} not installed"
             echo ""
     fi
@@ -487,7 +487,7 @@ dpkg -i "$deb_file" &>/dev/null
                 systemctl restart zabbix-agent2 &>/dev/null
                 echo ""
                 else
-                echo ""
+                
                 msg_no "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
                 echo ""
                 fi
