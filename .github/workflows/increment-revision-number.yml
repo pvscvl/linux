@@ -7,6 +7,8 @@ jobs:
   increment-revision-number:
     runs-on: ubuntu-20.04
     steps:
+      - name: Print script contents
+        run: cat script.sh
       - name: Set up Node.js 16.x
         uses: actions/setup-node@v2
         with:
