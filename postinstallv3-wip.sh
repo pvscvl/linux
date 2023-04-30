@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v5"
+    VERSION="v2023-04-30v6"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -398,7 +398,8 @@ case "$detected_os-$detected_version" in
 esac
 
 if [ -f "$deb_file" ]; then
-    msg_ok "${COL_DIM}zabbix-agent:${COL_NC} $deb_file already exists, skipping download."
+    sleep 1
+    #msg_ok "${COL_DIM}zabbix-agent:${COL_NC} $deb_file already exists, skipping download."
 else
     wget -q "$deb_url"
 fi
