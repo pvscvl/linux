@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v16x"
+    VERSION="v2023-04-30v18x"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -46,7 +46,7 @@ function msg_info() {
     }
 function msg_quest() {
     local msg="$1"
-    printf "%b ${msg}${COL_NC}" "${QUEST}${COL_NC}"
+    printf "%b ${msg}${COL_NC}\\n" "${QUEST}${COL_NC}"
     }
 function msg_quest_prompt() {
     local msg="$1"
@@ -54,7 +54,7 @@ function msg_quest_prompt() {
 	}
 function msg_quest() {
     local msg="$1"
-    printf "%b ${msg}" "${QUEST}"
+    printf "%b ${msg}\\n" "${QUEST}"
 	}
 function msg_ok() {
     local msg="$1"
@@ -145,7 +145,6 @@ echo ""
             wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
             apt install unzip &>/dev/null
             unzip master.zip &>/dev/null
-            sleep 1
             install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
             msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
             echo ""
