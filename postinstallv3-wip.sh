@@ -287,6 +287,7 @@ fi
 
 if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $detected_env == "kvm" && $detected_os == "ubuntu" && ($detected_version == "22.04" || $detected_version == "20.04") ]] ; then
     if grep -q "^After=systemd-remount-fs.service" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service ; then
+         msg_quest "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
         msg_info "${COL_DIM}KVP daemon bug:${COL_NC} workaround already applied"
         echo ""
     else
