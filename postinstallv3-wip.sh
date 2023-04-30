@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v10"
+    VERSION="v2023-04-30v11"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -284,8 +284,8 @@ if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]; then
         read -r -p "" prompt
         if [[ $prompt =~ ^[Yy][Ee]?[Ss]?$ ]]; then
             msg_info "${COL_DIM}__linux-virtual-packages:${COL_NC} installing"
-            apt install --install-recommends linux-virtual -y &>/dev/null
-            apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
+            apt install --install-recommends linux-virtual -y
+            apt install linux-tools-virtual linux-cloud-tools-virtual -y 
             msg_ok "${COL_DIM}__linux-virtual-packages:${COL_NC} installed"
             echo ""
         else
