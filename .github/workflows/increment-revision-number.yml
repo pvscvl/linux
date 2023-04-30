@@ -19,11 +19,11 @@ jobs:
       - name: Increment revision number
         run: |
           # read the current revision number from the file
-          REVISION=$(grep '^REVISION=' /github/workspace/linux/pps.sh | cut -d= -f2)
+          REVISION=$(grep '^REVISION=' ../../pps.sh | cut -d= -f2)
           # increment the revision number
           NEW_REVISION=$((REVISION + 1))
           # write the new revision number back to the file
-          sed -i "s/^REVISION=$REVISION\$/REVISION=$NEW_REVISION/" /github/workspace/linux/pps.sh
+          sed -i "s/^REVISION=$REVISION\$/REVISION=$NEW_REVISION/" ../../pps.sh
       - name: Commit changes
         run: |
           git config --global user.name 'pvscvl'
