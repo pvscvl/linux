@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v13x"
+    VERSION="v2023-04-30v14x"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -96,27 +96,24 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     fi
 
     msg_info "Zabbix version available: $zbxagent_latest_version"
-    if command -v zabbix_agentd >/dev/null 2>&1; 
-        then
+    if command -v zabbix_agentd >/dev/null 2>&1; then
             zbxagentd_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
             msg_info "zabbix-agentd version: $zbxagentd_current_version"
     fi
 
-    if command -v zabbix_agent2 >/dev/null 2>&1; 
-        then
+    if command -v zabbix_agent2 >/dev/null 2>&1; then
             zbxagent2_current_version=`zabbix_agent2 --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
             msg_info "zabbix-agent2 version: $zbxagent2_current_version"
     fi
 
-    if [[ "$zbxagent_latest_version" > "$zbxagentd_current_version" || "$zbxagent_latest_version" > "$zbxagent2_current_version" ]]; 
-        then
+    if [[ "$zbxagent_latest_version" > "$zbxagentd_current_version" || "$zbxagent_latest_version" > "$zbxagent2_current_version" ]]; then
             msg_info "A new version of zabbix-agent is available"
     fi
 
 msg_info "${COL_DIM}Script Version: ${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
 apt update &>/dev/null
 echo ""
-    if [[ "${EUID}" -ne 0 ]]; then
+    if [[ "${EUID}" -ne 0 ]] ; then
         #printf "\\n\\n"
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
         printf "%b Root privileges are needed for this script\\n" "${INFO}"
@@ -132,8 +129,7 @@ echo ""
     fi
 
     msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-        then
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
             wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
             msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
             echo ""
@@ -142,11 +138,9 @@ echo ""
             echo ""
     fi
 
-    if [ ! -x "$(command -v pfetch)" ]
-    then
+    if [ ! -x "$(command -v pfetch)" ] ; then
         msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-        then
+        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             msg_info "${COL_DIM}pfetch:${COL_NC} installing"
             wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
             apt install unzip &>/dev/null
@@ -178,17 +172,14 @@ echo ""
         echo ""
     fi
 
-    if  grep -q "neofetch" /root/.bashrc
-        then
+    if  grep -q "neofetch" /root/.bashrc ; then
             sed -i "/neofetch/ s//#neofetch/g" /root/.bashrc
             msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
     fi
 
-    if [ ! -x "$(command -v ack)" ]
-    then
+    if [ ! -x "$(command -v ack)" ] ; then
         msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-            then
+        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
                 msg_info "${COL_DIM}ack:${COL_NC} installing"
                 #apt update &>/dev/null
                 apt install ack -y &>/dev/null
@@ -205,11 +196,9 @@ echo ""
         echo ""
     fi
 
-    if [ ! -x "$(command -v mc)" ]
-        then
+    if [ ! -x "$(command -v mc)" ] ; then
             msg_quest_prompt "${COL_DIM}Midnight Commander:${COL_NC} install?${COL_DIM}"
-            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-                then
+            if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
                     msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
                     #apt update &>/dev/null
                     apt install mc -y &>/dev/null
@@ -227,14 +216,11 @@ echo ""
     fi    
     
 
-    if [ ! -x "$(command -v qemu-ga)" ]
-        then
-            if [[ $detected_env == "kvm" ]]
-                then
+    if [ ! -x "$(command -v qemu-ga)" ] ; then
+            if [[ $detected_env == "kvm" ]] ; then
                     msg_quest_prompt "${COL_DIM}qemu-guest-agent:${COL_NC} install?${COL_DIM}"
                     #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
-                    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-                        then
+                    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
                             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
                             #apt update &>/dev/null
                             apt install qemu-guest-agent -y &>/dev/null
@@ -280,12 +266,12 @@ echo ""
 
 if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]; then
     if ! dpkg -s linux-virtual >/dev/null 2>&1; then
-        msg_quest_prompt "${COL_DIM}__linux-virtual-packages:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?$ ]]; then
-            msg_info "${COL_DIM}__linux-virtual-packages:${COL_NC} installing"
+        msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
+        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+            msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
             apt install --install-recommends linux-virtual -y &>/dev/null
             apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-            msg_ok "${COL_DIM}__linux-virtual-packages:${COL_NC} installed"
+            msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
             echo ""
         else
             msg_no "${COL_DIM}__linux-virtual-packages:${COL_NC} not installed"
@@ -299,17 +285,13 @@ fi
 
 
 
-if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $detected_env == "kvm" && $detected_os == "ubuntu" && ($detected_version == "22.04" || $detected_version == "20.04") ]]
-then
-    if grep -q "^After=systemd-remount-fs.service" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
-    then
+if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $detected_env == "kvm" && $detected_os == "ubuntu" && ($detected_version == "22.04" || $detected_version == "20.04") ]] ; then
+    if grep -q "^After=systemd-remount-fs.service" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service ; then
         msg_info "${COL_DIM}KVP daemon bug:${COL_NC} workaround already applied"
         echo ""
     else
         msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
-        read -r -p "" prompt
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-        then
+        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
             sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
             systemctl daemon-reload
@@ -343,8 +325,7 @@ fi
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 #msg_quest "Set root password? <y/N> "; read -r -p "" prompt
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-        then
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             msg_info "${COL_DIM}root login:${COL_NC} setting password"
             echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
             msg_ok "${COL_DIM}root login:${COL_NC} password set"
@@ -356,8 +337,7 @@ msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 
 msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
 #msg_quest "Allow r"Allow root login via SSH?"oot login via SSH? <y/N> "; read -r -p "" prompt
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-        then
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             msg_info "${COL_DIM}sshd_config:${COL_NC} enabling root login"
             sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
             sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
@@ -384,11 +364,9 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
 
 msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
 #msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-        then
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys."
-            if ! [[ -d "/root/.ssh" ]]
-                then
+            if ! [[ -d "/root/.ssh" ]] ; then
                 mkdir /root/.ssh
             fi
                 chmod 700 /root/.ssh
@@ -462,8 +440,7 @@ fi
 dpkg -i "$deb_file" &>/dev/null
 
     msg_quest_prompt "${COL_DIM}zabbix-agent:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-            then
+        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
                 msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
         apt update &>/dev/null
         apt install zabbix-agent -y #&>/dev/null
@@ -489,8 +466,7 @@ dpkg -i "$deb_file" &>/dev/null
 
 
     msg_quest_prompt "${COL_DIM}zabbix-agent2:${COL_NC} install?${COL_DIM}"
-    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-    then
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
         apt update &>/dev/null
 		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
@@ -516,8 +492,7 @@ dpkg -i "$deb_file" &>/dev/null
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 #msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
 apt-get update &>/dev/null
 apt-get -y upgrade #&>/dev/null
@@ -530,8 +505,7 @@ fi
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM}"
 #msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
 apt-get -y dist-upgrade #&>/dev/null
@@ -543,8 +517,7 @@ echo ""
 fi
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} reboot now?${COL_DIM}"
 #msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} rebooting"
 sleep 1
 msg_ok "Completed post-installation routines"
