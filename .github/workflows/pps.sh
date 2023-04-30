@@ -2,7 +2,7 @@
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
     debug_var=1
     REVISION=2
-    VERSION="v2023-04-30v37"
+    VERSION="v2023-04-30v38"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
