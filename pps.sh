@@ -15,7 +15,7 @@
     COL_DIM='\e[2m' #dim
     COL_ITAL='\e[3m' #ita
     COL_BOLD='\e[1m' #b
-    COL_UNDER='\e[4m' #un
+    COL_UNDER='\e[4m' #u
     TICK="${COL_NC}[${COL_GREEN}✓${COL_NC}]  "
     QUEST="${COL_NC}[${COL_BLUE}?${COL_NC}]  "
     col='\e[38;5;46m'
