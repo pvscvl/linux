@@ -404,6 +404,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
             fi
     else    
         msg_info "${COL_DIM}ssh:${COL_NC} Didn't attempt to add public keys"
+        echo ""
 fi
 
 
