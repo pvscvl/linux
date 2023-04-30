@@ -139,7 +139,6 @@ msg_info "${COL_DIM}Script Version: ${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
 apt update &>/dev/null
 echo ""
     if [[ "${EUID}" -ne 0 ]] ; then
-        #printf "\\n\\n"
         printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
         printf "%b Root privileges are needed for this script\\n" "${INFO}"
         printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_RED}"
@@ -147,7 +146,6 @@ echo ""
     fi
     
     if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
-        #printf "\\n\\n"
         msg_no "Can't execute sript"
         msg_info "This script is for linux machines, not macOS machines"
         exit 1
