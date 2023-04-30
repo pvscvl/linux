@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v9"
+    VERSION="v2023-04-30v10"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -231,7 +231,7 @@ echo ""
         then
             if [[ $detected_env == "kvm" ]]
                 then
-                    msg_quest_prompt "${COL_DIM}qemu-guest-agent: ${COL_NC} install?${COL_DIM}"
+                    msg_quest_prompt "${COL_DIM}qemu-guest-agent:${COL_NC} install?${COL_DIM}"
                     #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
                     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
                         then
@@ -300,25 +300,47 @@ fi
 
 
 
-
-
-
-    if [[ $detected_env == "kvm" && $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
+if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $detected_env == "kvm" && $detected_os == "ubuntu" && ($detected_version == "22.04" || $detected_version == "20.04") ]]
+then
+    if grep -q "^After=systemd-remount-fs.service" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
+    then
+        msg_info "${COL_DIM}KVP daemon bug:${COL_NC} workaround already applied"
+        echo ""
+    else
+        msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
+        read -r -p "" prompt
+        if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
-            #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
-            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-                then
-                    msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
-                    sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
-                    systemctl daemon-reload
-                    msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
-                    echo ""
-                else
-                    msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
-                    echo ""
-            fi
+            msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
+            sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
+            systemctl daemon-reload
+            msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
+            echo ""
+        else
+            msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
+            echo ""
+        fi
+    fi
 fi
+
+
+
+   # if [[ $detected_env == "kvm" && $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
+   #     then
+   #         msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
+  #          #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
+  #          if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+ #               then
+ #                   msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
+ #                   sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
+ #                   systemctl daemon-reload
+ #                   msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
+#                    echo ""
+#                else
+#                    msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
+#                    echo ""
+#            fi
+#fi
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 #msg_quest "Set root password? <y/N> "; read -r -p "" prompt
@@ -342,6 +364,7 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
             sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
             msg_ok "${COL_DIM}sshd_config:${COL_NC} root login permitted"
+            echo ""
             
             
             if [ "$detected_env" == "lxc" ]; then
