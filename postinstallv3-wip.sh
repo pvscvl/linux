@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v31"
+    VERSION="v2023-04-30v32"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -393,7 +393,6 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                             #msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
                             msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
                         fi
-                        msg_info "${COL_DIM}ssh1:${COL_NC} Didn't attempt to add public keys"
                         echo ""
                     done
                     echo ""
