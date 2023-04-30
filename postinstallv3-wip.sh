@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v34"
+    VERSION="v2023-04-30v35"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -467,7 +467,7 @@ dpkg -i "$deb_file" &>/dev/null
         if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
                 msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
         apt update &>/dev/null
-        apt install zabbix-agent -y #&>/dev/null
+        apt install zabbix-agent -y &>/dev/null
         apt-helper
         msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
@@ -495,7 +495,7 @@ dpkg -i "$deb_file" &>/dev/null
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
         apt update &>/dev/null
-		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
+		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
         apt-helper
                         msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
                         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
@@ -523,7 +523,7 @@ msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
 apt-get update &>/dev/null
-apt-get -y upgrade #&>/dev/null
+apt-get -y upgrade &>/dev/null
 apt-helper
 msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
 echo ""
@@ -537,7 +537,7 @@ msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
-apt-get -y dist-upgrade #&>/dev/null
+apt-get -y dist-upgrade &>/dev/null
 apt-helper
 msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
 echo ""
