@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-29v12"
+    VERSION="v2023-04-30v1"
     COL_NC='\e[0m' # No Color
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -337,35 +337,39 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                 mkdir /root/.ssh
             fi
                 chmod 700 /root/.ssh
-                URL="download.local/"
-                FILE_LIST=$(curl -s $URL)
 
-                # Extract the URLs for the public key files
-                KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
 
-                # Loop through the URLs and add the public keys to authorized_keys
-                for KEY_URL in $KEY_URLS; do
-                    KEY=$(curl -s "${URL}${KEY_URL}")
-                    # Check if the keyalready exists in authorized_keys
-                    msg_info "${COL_DIM}ssh:${COL_NC} public key copied: ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
-                    #echo "_____________ from ${URL}${KEY_URL}"
-                    if ! grep -q -F "$KEY" /root/.ssh/authorized_keys; then
-                        echo "$KEY" >> /root/.ssh/authorized_keys
-                        #echo "Adding key from ${URL}${KEY_URL}"
-                        msg_info "${COL_DIM}ssh:${COL_NC} public key copied: ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
-                    fi
-                done
-                #echo "$rsakey1" > /root/.ssh/authorized_keys
-               # echo "$rsakey2" >> /root/.ssh/authorized_keys
-               # echo "$rsakey3" >> /root/.ssh/authorized_keys
-              #  echo "$rsakey4" >> /root/.ssh/authorized_keys
-                chmod 600 /root/.ssh/authorized_keys
-                msg_ok "${COL_DIM}ssh:${COL_NC} public keys copied"
-                echo ""
+            URL="download.local/"
+            if ! curl --head --silent --fail "$URL" >/dev/null; then
+            msg_no "Webserver for public keys not reachable."
+            WEBSITE_AVAILABLE=false
+            else
+                WEBSITE_AVAILABLE=true
+            fi
+
+    if [ "$WEBSITE_AVAILABLE" = true ]; then
+    FILE_LIST=$(curl -s $URL)
+    # Extract the URLs for the public key files
+    KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
+    # Loop through the URLs and add the public keys to authorized_keys
+    for KEY_URL in $KEY_URLS; do
+        KEY=$(curl -s "${URL}${KEY_URL}")
+        echo "Adding key from ${URL}${KEY_URL}"
+        # Check if the key already exists in authorized_keys
+        if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
+            echo "$KEY" >> ~/.ssh/authorized_keys
+            msg_ok "${COL_DIM}ssh:${COL_NC} copied ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
         else
-            msg_no "${COL_DIM}ssh:${COL_NC} public keys not copied"
+        msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
+        fi
+    done
+     echo ""
+    chmod 600 /root/.ssh/authorized_keys
+            else
+            msg_no "${COL_DIM}ssh:${COL_NC} Didn't attempt to add public keys"
             echo ""
-    fi
+fi
+
 
 
 case "$detected_os-$detected_version" in
