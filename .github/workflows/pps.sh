@@ -104,6 +104,8 @@ if [ "$debug_var" = "1" ]; then
   msg_info "${COL_DIM}VERSION:\\t\\t${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
   sleep 3
   echo "\\n\\n\\n"
+  else 
+  msg_no "DEBUG KAPOOT"
 fi
 
 msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
