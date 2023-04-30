@@ -100,7 +100,7 @@ function apt-helper {
             exit 1
         fi
     done
-    msg_info "All updates complete!"
+    #msg_info "All updates complete!"
 }
 
 header_info
