@@ -13,7 +13,7 @@
     COL_CYAN='\e[0;36m'
     COL_CL=`echo "\033[m"` 
     COL_DIM='\e[2m' #dim
-    COL_ITAL='\e[3m' #ita
+    COL_ITAL='\e[3m' #it
     COL_BOLD='\e[1m' #b
     COL_UNDER='\e[4m' #un
     TICK="${COL_NC}[${COL_GREEN}✓${COL_NC}]  "
