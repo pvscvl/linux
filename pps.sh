@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-    #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
+    #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
     VERSION="v2023-04-30v36"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
