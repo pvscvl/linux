@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
     debug_var=1
-    REVISION=2
+    REVISION=3
     VERSION="v2023-04-30v38"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
@@ -96,19 +96,22 @@ function apt-helper {
     done
     #msg_info "All updates complete!"
 }
-
+clear
 header_info
 if [ "$debug_var" = "1" ]; then
-  echo "\\n\\n\\n"
-  msg_info "${COL_DIM}REVISION:\\t\\t${COL_NC}${COL_BOLD}$REVISION ${COL_NC}"
-  msg_info "${COL_DIM}VERSION:\\t\\t${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
-  sleep 3
-  echo "\\n\\n\\n"
-  else 
-  msg_no "DEBUG KAPOOT"
-fi
-
 msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
+  echo ""
+  echo ""
+  echo ""
+  msg_info "${COL_ITAL}${COL_GREEN}REVISION:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$REVISION ${COL_NC}"
+  msg_info "${COL_ITAL}${COL_GREEN}VERSION:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+   echo ""
+  echo ""
+  echo ""
+  sleep 3
+ 
+  else 
+  msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
 msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
 echo ""
 msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
@@ -137,8 +140,11 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if [[ "$zbxagent_latest_version" > "$zbxagentd_current_version" || "$zbxagent_latest_version" > "$zbxagent2_current_version" ]]; then
             msg_info "A new version of zabbix-agent is available"
     fi
-
 msg_info "${COL_DIM}Script Version: ${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
+
+fi
+
+
 apt update &>/dev/null
 echo ""
     if [[ "${EUID}" -ne 0 ]] ; then
