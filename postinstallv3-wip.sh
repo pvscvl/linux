@@ -331,7 +331,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
 #msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
     if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
         then
-            #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys"
+            #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys."
             if ! [[ -d "/root/.ssh" ]]
                 then
                 mkdir /root/.ssh
