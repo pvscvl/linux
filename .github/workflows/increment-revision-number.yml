@@ -5,8 +5,12 @@ on:
       - main
 jobs:
   increment-revision-number:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
+    - name: Set up Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Increment revision number
