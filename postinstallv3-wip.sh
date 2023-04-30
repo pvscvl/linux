@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v3"
+    VERSION="v2023-04-30v4"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -341,7 +341,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
 
             URL="download.local/"
             if ! curl --head --silent --fail "$URL" >/dev/null; then
-            msg_no "Webserver for public keys not reachable."
+            msg_no "${COL_DIM}ssh:${COL_NC} Webserver for public keys not reachable."
             WEBSITE_AVAILABLE=false
             else
                 WEBSITE_AVAILABLE=true
@@ -360,13 +360,15 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
             echo "$KEY" >> ~/.ssh/authorized_keys
             msg_ok "${COL_DIM}ssh:${COL_NC} copied ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
         else
-        msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
+        #msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
+        msg_info "${COL_DIM}ssh:${COL_NC} already exists in authorized_keys: ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
+
         fi
     done
      echo ""
     chmod 600 /root/.ssh/authorized_keys
             else
-            msg_no "${COL_DIM}ssh:${COL_NC} Didn't attempt to add public keys"
+            msg_info "${COL_DIM}ssh:${COL_NC} Didn't attempt to add public keys"
             echo ""
 fi
 fi
