@@ -232,7 +232,6 @@ echo ""
             fi
         else
             msg_quest "${COL_DIM}qemu-guest-agent:${COL_NC} install?"
-            echo ""
             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
             echo ""
     fi
