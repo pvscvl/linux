@@ -166,7 +166,6 @@ echo ""
         fi
     else
         msg_quest "${COL_DIM}pfetch:${COL_NC} install?"
-        echo ""
         msg_info "${COL_DIM}pfetch:${COL_NC} already installed"
         echo ""
     fi
@@ -190,7 +189,6 @@ echo ""
         fi
     else
         msg_quest "${COL_DIM}ack:${COL_NC} install?"
-        echo ""
         msg_info "${COL_DIM}ack:${COL_NC} already installed"
         echo ""
     fi
@@ -209,7 +207,6 @@ echo ""
             fi
         else
             msg_quest "${COL_DIM}Midnight Commander:${COL_NC} install?"
-            echo ""
             msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
             echo ""
     fi    
