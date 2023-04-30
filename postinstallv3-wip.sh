@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v8"
+    VERSION="v2023-04-30v9"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -251,40 +251,31 @@ echo ""
             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
             echo ""
     fi
-    
-
-if dpkg -s linux-virtual >/dev/null 2>&1; then
-    echo "The linux-virtual-packages are installed."
-else
-    echo "The linux-virtual-packages are not installed."
-fi
 
 
-
-
-    if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
-        then
-            if ! dpkg -s linux-virtual >/dev/null 2>&1; then
-            msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
-            #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
-            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-                then
-                    msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
-                    #apt update &>/dev/null
-                    apt install --install-recommends linux-virtual -y &>/dev/null
-                    apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-                    msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
-                    echo ""
-                else
-                    msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
-                    echo ""
-            fi
-        else
-        msg_quest "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
-        msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} already installed"
-        echo ""
-        fi
-    fi
+#    if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
+#        then
+#            if ! dpkg -s linux-virtual >/dev/null 2>&1; then
+#            msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
+#            #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
+#            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+#                then
+#                    msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
+#                    #apt update &>/dev/null
+#                    apt install --install-recommends linux-virtual -y &>/dev/null
+#                    apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
+#                    msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
+#                    echo ""
+#                else
+#                    msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
+#                    echo ""
+#            fi
+#        else
+#        msg_quest "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
+#        msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} already installed"
+#        echo ""
+#        fi
+#    fi
 
 
 if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]; then
