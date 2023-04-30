@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    VERSION="v2023-04-30v36"
+    VERSION="v2023-04-30v37"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -158,7 +158,7 @@ echo ""
             msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
             echo ""
         else
-            msg_no "${COL_DIM}.bashrc:${COL_NC} not modified"
+            msg_no "${COL_DIM}.bashrc:${COL_NC} unchanged"
             echo ""
     fi
 
@@ -380,7 +380,7 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             fi
 
         else
-            msg_no "${COL_DIM}sshd_config:${COL_NC} root login not permitted"
+            msg_no "${COL_DIM}sshd_config:${COL_NC} unchanged"
             echo ""
     fi
 
@@ -422,11 +422,11 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                     echo ""
                 chmod 600 /root/.ssh/authorized_keys
             else
-                    msg_info "${COL_DIM}ssh:${COL_NC} Didn't attempt to add public keys"
+                    msg_info "${COL_DIM}ssh:${COL_NC} unchanged"
                     echo ""
             fi
     else    
-        msg_info "${COL_DIM}ssh:${COL_NC} Didn't attempt to add public keys"
+        msg_info "${COL_DIM}ssh:${COL_NC} unchanged"
         echo ""
 fi
 
