@@ -1,0 +1,25 @@
+name: Increment Revision Number
+on:
+  push:
+    branches:
+      - main
+jobs:
+  increment-revision-number:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Increment revision number
+      run: |
+        # read the current revision number from the file
+        REVISION=$(grep '^REVISION=' pps.sh | cut -d= -f2)
+        # increment the revision number
+        NEW_REVISION=$((REVISION + 1))
+        # write the new revision number back to the file
+        sed -i "s/^REVISION=$REVISION\$/REVISION=$NEW_REVISION/" pps.sh
+    - name: Commit changes
+      run: |
+        git config --global user.name 'pvscvl'
+        git config --global user.email 'pascalschoofs@icloud.com'
+        git commit -am 'Increment revision number'
+        git push
