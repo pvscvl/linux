@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v6"
+    VERSION="v2023-04-30v7"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -252,8 +252,19 @@ echo ""
             echo ""
     fi
     
+
+if dpkg -s linux-virtual >/dev/null 2>&1; then
+    echo "The linux-virtual-packages are installed."
+else
+    echo "The linux-virtual-packages are not installed."
+fi
+
+
+
+
     if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
         then
+            if ! dpkg -s linux-virtual >/dev/null 2>&1; then
             msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
             #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
             if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
@@ -268,6 +279,9 @@ echo ""
                     msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
                     echo ""
             fi
+        else
+        msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} already installed"
+        fi
     fi
 
     if [[ $detected_env == "kvm" && $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
@@ -361,7 +375,7 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
             msg_ok "${COL_DIM}ssh:${COL_NC} copied ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
         else
         #msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
-        msg_info "${COL_DIM}ssh:${COL_NC} public key already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
+        msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
 
         fi
     done
