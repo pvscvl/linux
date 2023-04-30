@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    REVISION=1
+    debug_var=1
+    REVISION=2
     VERSION="v2023-04-30v37"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
@@ -33,14 +34,6 @@
     zbxagent_latest_version="$(curl -s "https://api.github.com/repos/zabbix/zabbix/tags" | grep -oP '"name": "\K(.*)(?=")' | head -n1)"
     chktz=`cat /etc/timezone`
     hostsys=`hostname -f`
-    #rsakey1 = tkm\pascal@TKM-MG-NB029
-    #rsakey2 = root@zbx
-    #rsakey3 = pascal@pascal-mba.local
-    #rsakey4 = jump-srv
-    #rsakey1="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCypjxXe3QRnMC1dl+GF7lvCjs8dWYnzLTxzNlB0z8kgeow7cSmOfNspPVYk27XWH4k3r+NJruj41A25s1xQ+s5bFdhgCQCMDNAEu/L5KI1il7GkS5/o+dtu2qGHBpj03c0GCmgT2d7eog7yeQQVDT2V/IEObYpD34HATWoyMs4saUEwtochh2lYfgFcdWf+jnhZgIt2LBG8LIy7BWQYfAix/ciFxgrfCFN9FlJdWtMwrhcZSIeYyZHjys2B8Ayjn8LM2oD6vxSRLaCXJHj7joYOMMyBVYZYeYzTQw/hamzkJZ/4t/jtGyJ7vQooykUHhaH/s+Pb5u4AH1yGTsbC+pwgLfKOAB8vp2BSUEqziBLTrRMvVxj4yVIb1vUiEQlVtCkGUprJW0UjPc9w7WjYyf4QfWBDl+ukaZRUOARvdgxxeKOCavhqoWJmfszMdMBSD8fXQxfdiY5rT/JHxeVvpAvPQtdw8xG+L1Tm1tco6vHhwUruxmRZBVdbarWxl0dfbs= tkm\pascal@TKM-MG-NB029"
-    #rsakey2="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDa9mIOvb7SfQH65IzxwzkaUUTrDvbzURwKbHbIL6ngDHnuRaipZ6nEXhRetAoPR6M3xJa0jEo2st767eQP9yhWuYGNL4644JFKWk6reZ95j4jSbkOk7YvKMcph8ZsamAYKMfzNNf9MZkCNFM0uQYbVdIx1IqB6xFdnicFivVicouN1eLNGvm2956+zUVwXZOSB4BPtZ3gwgzC5EGRvwXXYSi58vJ/UPyVLsKzQ0hB0I/0CDKlesNiqfN9pxy5YkAY6kgWxa/kFsVIpLOydtTF+BMo8ZGOs5+dgGfLqUMp3O1oA8KKb0Ko1kREK4Q2dKQ6V127wX2SS6qx/lJ4u+JwVn4FiA7vAeP1NZZ6THfFw8E+5O7ezbIv2Tf62PZg1M5nMd2/wZ0PM3yVyRQBcjLukQ7ejN/755+uRwcndncsJX5ahK2f2nfk1qWyiJsu2/CpzubX4okNnympV+PwcyR5oZufNbhtW2Njf5y2jsEsZO0ABaM9MedGP8ye6/LJSzW0= root@zbx01"
-    #rsakey3="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoQKnjv/EduKIfY3tKtfCjZ8PkBJCDtE5Wc8vuK6wUQqKU5g0moZaYMVQZlBLCNKD3BvczU4kaz9JGIGJfCOq9TgBtEJbfW3rRaUlrIHrsRl+yga3EJeY0HttmZ+lDJNIaCQiaA9vtLQY/6GY+bYTaiEU8NxElFDF7NyKWbebJqJfoqQW0M5en46xXwBitqIMs1RYqXJ67YWqypjtHeOTYddwYQO0AKc4r4UZ8dNjIHe5y8sSUx4OhFoXvBxhz3BNEpsjHP9qyYCbFZl4bS9RRi2nB/meXcdlv8lKw0v5hLUijXqc5AEZ+oOi/z25MawxHaLtz/lWk7BA284odpT6i1aNEd0OvPchYpQKkQtZEJSL+a+OVFFVmBcCfA1NbJ420Ga7q0lZfnJDxIvX6tbxPfoQYWpVmJ4mCsH1Exgpw7/pH7CvulFh3j6DRI8qMeXCeH4YBttUadJE9SJCk6u2WnfnrBiLZpLWX0ZNT1msHMMO+nN22BxYangYWk+ayAeU= pascal@pascal-mba.local"
-    #rsakey4="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzhxYE6WuRctmLUCqRWJZtG2nLZjbzUmT9ujDYY/zPLErrn8LgpCMRZ1C3U6avEJBGQsokZpSpPUkotNkjn7DH0B86aXYBlLipbO3qhTnZ3Z63Xg7GsI65XZt1esFSpHc6itp0BpKx8GObh4sRZiJf02tH/TZO7+FThRGcklFbKBb7w4D+I5qz1OtL35xUfKAlnk1ZYcrwze7OJ1eeOYfo0rMqlUT5QSrEQhseH6tWxDD7GJBe11jGwuynacgnQgpN0c/WMsdY6FeFpSEFaSN7qmHev1CLoNjHiLjRNsCP1wHR6HZhBc3k8+Y6Z6LD/J5M4O/D9EHHEGnH8+YzFYDAqIIzdws9wFsgGe21aH7UK5ff8i6TVUYiOCG+1H15XqeriLrOlYbu62oEMVOGdMC7DfhnI3xmobCDeRXh+dLhE9Bd/UyZrFhpDPev+7dJScguzUb/NGYv/VoQR3ZLYC/+1OEcJLr0A4R/9aDa5MM/jpooUbVjmua3xwFuudNDbQc= root@jump-srv"
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
@@ -105,6 +98,14 @@ function apt-helper {
 }
 
 header_info
+if [ "$debug_var" = "1" ]; then
+  echo "\\n\\n\\n"
+  msg_info "${COL_DIM}REVISION:\\t\\t${COL_NC}${COL_BOLD}$REVISION ${COL_NC}"
+  msg_info "${COL_DIM}VERSION:\\t\\t${COL_NC}${COL_BOLD}$VERSION ${COL_NC}"
+  sleep 3
+  echo "\\n\\n\\n"
+fi
+
 msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
 msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
 echo ""
@@ -239,7 +240,6 @@ echo ""
     if [ ! -x "$(command -v qemu-ga)" ] ; then
             if [[ $detected_env == "kvm" ]] ; then
                     msg_quest_prompt "${COL_DIM}qemu-guest-agent:${COL_NC} install?${COL_DIM}"
-                    #msg_quest "Install qemu-guest-agent? <y/N> " ; read -r -p "" prompt
                     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
                             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
                             #apt update &>/dev/null
@@ -345,7 +345,6 @@ fi
 #fi
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
-#msg_quest "Set root password? <y/N> "; read -r -p "" prompt
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             msg_info "${COL_DIM}root login:${COL_NC} setting password"
             echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
@@ -357,7 +356,6 @@ msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
     fi
 
 msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
-#msg_quest "Allow r"Allow root login via SSH?"oot login via SSH? <y/N> "; read -r -p "" prompt
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             msg_info "${COL_DIM}sshd_config:${COL_NC} enabling root login"
             sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
@@ -384,7 +382,6 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
     fi
 
 msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
-#msg_quest "Copy public keys for root login <y/N> "; read -r -p "" prompt
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys."
             if ! [[ -d "/root/.ssh" ]] ; then
@@ -518,7 +515,6 @@ dpkg -i "$deb_file" &>/dev/null
 
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
-#msg_quest "Update $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
 apt-get update &>/dev/null
@@ -532,7 +528,6 @@ echo ""
 fi
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM}"
-#msg_quest "Perform dist-upgrade on $HOSTNAME? <y/N> "; read -r -p "" prompt
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
@@ -545,7 +540,6 @@ msg_no "${COL_DIM}$hostsys:${COL_NC} no updates installed"
 echo ""
 fi
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} reboot now?${COL_DIM}"
-#msg_quest "Reboot $HOSTNAME now? <y/N> "; read -r -p "" prompt
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} rebooting"
 sleep 1
