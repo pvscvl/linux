@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh)"
-    VERSION="v2023-04-30v33"
+    VERSION="v2023-04-30v34"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
@@ -205,6 +205,7 @@ echo ""
                 msg_info "${COL_DIM}ack:${COL_NC} installing"
                 #apt update &>/dev/null
                 apt install ack -y &>/dev/null
+                apt-helper
                 msg_ok "${COL_DIM}ack:${COL_NC} installed"
                 echo ""
             else
@@ -467,6 +468,7 @@ dpkg -i "$deb_file" &>/dev/null
                 msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
         apt update &>/dev/null
         apt install zabbix-agent -y #&>/dev/null
+        apt-helper
         msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
         systemctl restart zabbix-agent &>/dev/null
@@ -494,6 +496,7 @@ dpkg -i "$deb_file" &>/dev/null
         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} installing"
         apt update &>/dev/null
 		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y #&>/dev/null
+        apt-helper
                         msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
                         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
 		        systemctl restart zabbix-agent2 &>/dev/null
@@ -521,6 +524,7 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
 apt-get update &>/dev/null
 apt-get -y upgrade #&>/dev/null
+apt-helper
 msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
 echo ""
 else
@@ -534,6 +538,7 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
 apt-get update &>/dev/null
 apt-get -y dist-upgrade #&>/dev/null
+apt-helper
 msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
 echo ""
 else
