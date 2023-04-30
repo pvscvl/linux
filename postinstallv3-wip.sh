@@ -79,6 +79,30 @@ function header_info {
 
 ${COL_CL}"
     }
+
+function apt-helper {
+        # Check if either command needs input and prompt the user
+    while [ -n "$(fuser /var/lib/dpkg/lock)" ]; do
+        msg_info "Waiting for another package manager to finish..."
+       # sleep 5
+    done
+    while debconf-communicate --list >/dev/null 2>&1; do
+        msg_warn "Configuration files have changed. Please review and press Enter to continue."
+        read -p ""
+    done
+    while systemctl status --no-pager -l "systemd-services-shutdown" >/dev/null 2>&1; do
+        msg_warn "System services need to be restarted. Please enter 'y' to continue, or 'n' to cancel."
+        read -p "" input
+        if [ "$input" = "y" ]; then
+            systemctl daemon-reexec
+        else
+            msg_no "Script cancelled."
+            exit 1
+        fi
+    done
+    msg_info "All updates complete!"
+}
+
 header_info
 msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
 msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
