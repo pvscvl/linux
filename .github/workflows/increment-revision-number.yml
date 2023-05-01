@@ -1,31 +1,5 @@
-name: Increment Revision Number
-on:
-  push:
-    branches:
-      - main
-jobs:
-  increment-revision-number:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Set up Node.js 16.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: main
-          submodules: 'recursive'
-      - name: Increment revision number
-        run: |
-          # read the current revision number from the file
-          REVISION=$(grep '^REVISION=' pps.sh | cut -d= -f2)
-          # increment the revision number
-          NEW_REVISION=$((REVISION + 1))
-          # write the new revision number back to the file
-          sed -i "s/^REVISION=$REVISION\$/REVISION=$NEW_REVISION/" pps.sh
-      - name: Commit changes
-        run: |
-          git config --global user.name 'pvscvl'
-          git commit -am 'Increment revision number'
-          git push
+#!/bin/sh
+VERSION=`expr $VERSION + 1`
+sed -i "s/VERSION=[0-9]*/VERSION=$VERSION/" pps.sh
+git add pps.sh
+git commit -m "Increment version number to $VERSION"
