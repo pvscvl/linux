@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
     debug_var=1
-    REVISION=3
-    VERSION="v2023-04-30v38"
+    REVISION=4
+    VERSION="v2023-05-01v01"
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
