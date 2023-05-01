@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    REVISION=2
+    REVISION=3
     VERSION="2023-05-01_v${REVISION}"
 source <(curl -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
-clear
 header_info
 
     msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
@@ -38,7 +37,7 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if [[ "$zbxagent_latest_version" > "$zbxagentd_current_version" || "$zbxagent_latest_version" > "$zbxagent2_current_version" ]]; then
             msg_info "A new version of zabbix-agent is available"
     fi
-  msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+ # msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 
 
 
