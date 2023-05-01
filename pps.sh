@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    REVISION=5
+    REVISION=6
     VERSION="2023-05-01_v${REVISION}"
 source <(curl -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -258,12 +258,12 @@ msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
             echo ""
     fi
 
-msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
+msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
             sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
             sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-            msg_ok "${COL_DIM}sshd_config:${COL_NC} root login permitted"
+            msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
             echo ""
             
             
@@ -279,7 +279,7 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             fi
 
         else
-            msg_info "${COL_DIM}sshd_config:${COL_NC} unchanged"
+            msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
             echo ""
     fi
 
