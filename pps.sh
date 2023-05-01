@@ -1,25 +1,11 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    debug_var=0
-    REVISION=5
-    VERSION="2023-05-01_v1"
+    REVISION=2
+    VERSION="2023-05-01_v${REVISION}"
 source <(curl -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 clear
 header_info
-if [ "$debug_var" = "1" ]; then
-msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
-  echo ""
-  echo ""
-  echo ""
-  msg_info "${COL_ITAL}${COL_GREEN}REVISION:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$REVISION ${COL_NC}"
-  msg_info "${COL_ITAL}${COL_GREEN}VERSION:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
-   echo ""
-  echo ""
-  echo ""
-  sleep 3
- 
-  else 
-  echo ""
+
     msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
     echo ""
     echo ""
@@ -53,7 +39,7 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
             msg_info "A new version of zabbix-agent is available"
     fi
   msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
-fi
+
 
 
 apt update &>/dev/null
