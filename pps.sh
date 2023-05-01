@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    REVISION=7
+    REVISION=8
     VERSION="2023-05-01_v${REVISION}"
 source <(curl -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -367,7 +367,6 @@ dpkg -i "$deb_file" &>/dev/null
         apt update &>/dev/null
         apt install zabbix-agent -y &>/dev/null
         apt-helper
-        msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} modify config"
         systemctl restart zabbix-agent &>/dev/null
         systemctl enable zabbix-agent &>/dev/null
@@ -381,6 +380,7 @@ dpkg -i "$deb_file" &>/dev/null
         sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
         systemctl restart zabbix-agent &>/dev/null
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
+	msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
         echo ""
         else
             
@@ -395,7 +395,6 @@ dpkg -i "$deb_file" &>/dev/null
         apt update &>/dev/null
 		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
         apt-helper
-                        msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
                         msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
 		        systemctl restart zabbix-agent2 &>/dev/null
 		        systemctl enable zabbix-agent2  &>/dev/null
@@ -408,6 +407,7 @@ dpkg -i "$deb_file" &>/dev/null
                 sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
                 msg_info "${COL_DIM}zabbix-agent2:${COL_NC} config modified"
                 systemctl restart zabbix-agent2 &>/dev/null
+		msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
                 echo ""
                 else
                 
