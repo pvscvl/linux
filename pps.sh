@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    REVISION=3
+    REVISION=4
     VERSION="2023-05-01_v${REVISION}"
 source <(curl -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -62,7 +62,7 @@ echo ""
             msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
             echo ""
         else
-            msg_no "${COL_DIM}.bashrc:${COL_NC} unchanged"
+            msg_info "${COL_DIM}.bashrc:${COL_NC} unchanged"
             echo ""
     fi
 
@@ -151,7 +151,7 @@ echo ""
                             msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
                             echo ""
                         else
-                        msg_no "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
+                        msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
                         echo ""
                     fi
             fi
@@ -223,7 +223,7 @@ if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $d
             msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
             echo ""
         else
-            msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
+            msg_info "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
             echo ""
         fi
     fi
@@ -254,7 +254,7 @@ msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
             msg_ok "${COL_DIM}root login:${COL_NC} password set"
             echo ""
         else
-            msg_no "${COL_DIM}root login:${COL_NC} password not set"
+            msg_info "${COL_DIM}root login:${COL_NC} unchanged"
             echo ""
     fi
 
@@ -279,7 +279,7 @@ msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login?${COL_DIM}"
             fi
 
         else
-            msg_no "${COL_DIM}sshd_config:${COL_NC} unchanged"
+            msg_info "${COL_DIM}sshd_config:${COL_NC} unchanged"
             echo ""
     fi
 
