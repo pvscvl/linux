@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
-    #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    REVISION=8
-    VERSION="2023-05-01_v${REVISION}"
-source <(curl -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
+#    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
+REVISION=9
+VERSION="2023-05-01_v${REVISION}"
+source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
-
     msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
     echo ""
     echo ""
-  msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
-msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-echo ""
-msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
-echo ""
-msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+    msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
+    msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+    echo ""
+    msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+    msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
+    echo ""
+    msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
     if  grep -q "Europe/Berlin" /etc/timezone ; then
         echo -n ""
     else
@@ -39,35 +38,33 @@ msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
 #    fi
  # msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 
-
-
 apt update &>/dev/null
 echo ""
-    if [[ "${EUID}" -ne 0 ]] ; then
-        printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
-        printf "%b Root privileges are needed for this script\\n" "${INFO}"
-        printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_RED}"
-        exit 1
-    fi
+if [[ "${EUID}" -ne 0 ]] ; then
+    printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
+    printf "%b Root privileges are needed for this script\\n" "${INFO}"
+    printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_RED}"
+    exit 1
+fi
     
-    if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
-        msg_no "Can't execute sript"
-        msg_info "This script is for linux machines, not macOS machines"
-        exit 1
-    fi
+if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
+    msg_no "Can't execute sript"
+    msg_info "This script is for linux machines, not macOS machines"
+    exit 1
+fi
 
-    msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
-    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-            wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-            msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
-            echo ""
-        else
-            msg_info "${COL_DIM}.bashrc:${COL_NC} unchanged"
-            echo ""
-    fi
+msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+    wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+    msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
+    echo ""
+else
+    msg_info "${COL_DIM}.bashrc:${COL_NC} unchanged"
+    echo ""
+fi
 
-    if [ ! -x "$(command -v pfetch)" ] ; then
-        msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
+if [ ! -x "$(command -v pfetch)" ] ; then
+    msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
         if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
             msg_info "${COL_DIM}pfetch:${COL_NC} installing"
             wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
@@ -103,63 +100,63 @@ echo ""
             msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
     fi
 
-    if [ ! -x "$(command -v ack)" ] ; then
-        msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
+if [ ! -x "$(command -v ack)" ] ; then
+    msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
         if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-                msg_info "${COL_DIM}ack:${COL_NC} installing"
-                #apt update &>/dev/null
-                apt install ack -y &>/dev/null
-                apt-helper
-                msg_ok "${COL_DIM}ack:${COL_NC} installed"
-                echo ""
-            else
-                msg_no "${COL_DIM}ack:${COL_NC} not installed"
-                echo ""
+            msg_info "${COL_DIM}ack:${COL_NC} installing"
+            #apt update &>/dev/null
+            apt install ack -y &>/dev/null
+            apt-helper
+            msg_ok "${COL_DIM}ack:${COL_NC} installed"
+            echo ""
+        else
+            msg_info "${COL_DIM}ack:${COL_NC} not installed"
+            echo ""
         fi
-    else
+else
         msg_quest "${COL_DIM}ack:${COL_NC} install?"
         msg_info "${COL_DIM}ack:${COL_NC} already installed"
         echo ""
-    fi
+fi
 
-    if [ ! -x "$(command -v mc)" ] ; then
-            msg_quest_prompt "${COL_DIM}Midnight Commander:${COL_NC} install?${COL_DIM}"
-            if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-                    msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
-                    #apt update &>/dev/null
-                    apt install mc -y &>/dev/null
-                    msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
-                    echo ""
-                else
-                msg_no "${COL_DIM}Midnight Commander:${COL_NC} not installed"
-                echo ""
-            fi
-        else
-            msg_quest "${COL_DIM}Midnight Commander:${COL_NC} install?"
-            msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
-            echo ""
-    fi    
+if [ ! -x "$(command -v mc)" ] ; then
+    msg_quest_prompt "${COL_DIM}Midnight Commander:${COL_NC} install?${COL_DIM}"
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+        msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
+        #apt update &>/dev/null
+        apt install mc -y &>/dev/null
+        msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
+        echo ""
+    else
+        msg_info "${COL_DIM}Midnight Commander:${COL_NC} not installed"
+        echo ""
+    fi
+else
+    msg_quest "${COL_DIM}Midnight Commander:${COL_NC} install?"
+    msg_info "${COL_DIM}Midnight Commander:${COL_NC} already installed"
+    echo ""
+fi    
     
 
-    if [ ! -x "$(command -v qemu-ga)" ] ; then
-            if [[ $detected_env == "kvm" ]] ; then
-                    msg_quest_prompt "${COL_DIM}qemu-guest-agent:${COL_NC} install?${COL_DIM}"
-                    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-                            msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
-                            #apt update &>/dev/null
-                            apt install qemu-guest-agent -y &>/dev/null
-                            msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
-                            echo ""
-                        else
-                        msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
-                        echo ""
-                    fi
-            fi
-        else
-            msg_quest "${COL_DIM}qemu-guest-agent:${COL_NC} install?"
-            msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
+if [ ! -x "$(command -v qemu-ga)" ] ; then
+    if [[ $detected_env == "kvm" ]] ; then
+        msg_quest_prompt "${COL_DIM}qemu-guest-agent:${COL_NC} install?${COL_DIM}"
+        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+            msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
+            #apt update &>/dev/null
+            apt install qemu-guest-agent -y &>/dev/null
+            msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
             echo ""
+        else
+            msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} not installed"
+            echo ""
+        fi
     fi
+else
+    msg_quest "${COL_DIM}qemu-guest-agent:${COL_NC} install?"
+    msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
+    echo ""
+fi
 
 
 #    if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
@@ -201,13 +198,11 @@ if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]; then
             echo ""
         fi
     else
-    msg_quest "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
+        msg_quest "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
         msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} already installed"
         echo ""
     fi
 fi
-
-
 
 if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $detected_env == "kvm" && $detected_os == "ubuntu" && ($detected_version == "22.04" || $detected_version == "20.04") ]] ; then
     if grep -q "^After=systemd-remount-fs.service" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service ; then
@@ -249,83 +244,77 @@ fi
 #fi
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
-    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-            echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-            msg_ok "${COL_DIM}root login:${COL_NC} password set"
-            echo ""
-        else
-            msg_info "${COL_DIM}root login:${COL_NC} unchanged"
-            echo ""
-    fi
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+    echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
+    msg_ok "${COL_DIM}root login:${COL_NC} password set"
+    echo ""
+else
+    msg_info "${COL_DIM}root login:${COL_NC} unchanged"
+    echo ""
+fi
 
 msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
-    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-            sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
-            sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
-            sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-            msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
-            echo ""
-            
-            
-            if [ "$detected_env" == "lxc" ]; then
-                cp /etc/ssh/sshd_config /root/sshd_config.bckup
-                # Look for the sftp subsystem line and comment it out
-                sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
-                # Insert a new line above the commented out sftp subsystem line
-                sed -i '/^#Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
-                # Restart the sshd service to apply the changes
-                msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
-                echo ""
-            fi
-
-        else
-            msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
-            echo ""
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+    sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
+    sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
+    sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
+    msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
+    echo ""
+    if [ "$detected_env" == "lxc" ]; then
+        cp /etc/ssh/sshd_config /root/sshd_config.bckup
+        # Look for the sftp subsystem line and comment it out
+        sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
+        # Insert a new line above the commented out sftp subsystem line
+        sed -i '/^#Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
+        # Restart the sshd service to apply the changes
+        msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
+        echo ""
     fi
+else
+    msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
+    echo ""
+fi
 
 msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
-    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-            #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys."
-            if ! [[ -d "/root/.ssh" ]] ; then
-                mkdir /root/.ssh
-            fi
-                chmod 700 /root/.ssh
-
-        URL="download.local/"
-
-            if ! curl --head --silent --fail "$URL" >/dev/null; then
-                msg_no "${COL_DIM}ssh:${COL_NC} Webserver for public keys not reachable."
-                WEBSITE_AVAILABLE=false
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+    #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys."
+    if ! [[ -d "/root/.ssh" ]] ; then
+        mkdir /root/.ssh
+    fi
+    chmod 700 /root/.ssh
+    URL="download.local/"
+    if ! curl --head --silent --fail "$URL" >/dev/null; then
+        msg_no "${COL_DIM}ssh:${COL_NC} Webserver for public keys not reachable."
+        WEBSITE_AVAILABLE=false
+    else
+        WEBSITE_AVAILABLE=true
+    fi
+    if [ "$WEBSITE_AVAILABLE" = true ]; then
+        FILE_LIST=$(curl -s $URL)
+        # Extract the URLs for the public key files
+        KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
+        # Loop through the URLs and add the public keys to authorized_keys
+        for KEY_URL in $KEY_URLS; do
+            KEY=$(curl -s "${URL}${KEY_URL}")
+            #echo "Adding key from ${URL}${KEY_URL}"
+            # Check if the key already exists in authorized_keys
+            if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
+                echo "$KEY" >> ~/.ssh/authorized_keys
+                msg_ok "${COL_DIM}ssh:${COL_NC} copied ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             else
-                WEBSITE_AVAILABLE=true
+                #msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
+                msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             fi
-
-            if [ "$WEBSITE_AVAILABLE" = true ]; then
-                FILE_LIST=$(curl -s $URL)
-                # Extract the URLs for the public key files
-                KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
-                # Loop through the URLs and add the public keys to authorized_keys
-                    for KEY_URL in $KEY_URLS; do
-                    KEY=$(curl -s "${URL}${KEY_URL}")
-                    #echo "Adding key from ${URL}${KEY_URL}"
-                    # Check if the key already exists in authorized_keys
-                        if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
-                            echo "$KEY" >> ~/.ssh/authorized_keys
-                            msg_ok "${COL_DIM}ssh:${COL_NC} copied ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
-                        else
-                            #msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
-                            msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
-                        fi
-                    done
-                    echo ""
-                chmod 600 /root/.ssh/authorized_keys
-            else
-                    msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
-                    echo ""
-            fi
-    else    
-         msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
+        done
+    echo ""
+        chmod 600 /root/.ssh/authorized_keys
+    else
+        msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
         echo ""
+    fi
+else    
+    msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
+    echo ""
 fi
 
 
