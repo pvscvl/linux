@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
     #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-    REVISION=6
+    REVISION=7
     VERSION="2023-05-01_v${REVISION}"
 source <(curl -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -320,11 +320,11 @@ msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_
                     echo ""
                 chmod 600 /root/.ssh/authorized_keys
             else
-                    msg_info "${COL_DIM}ssh:${COL_NC} unchanged"
+                    msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
                     echo ""
             fi
     else    
-        msg_info "${COL_DIM}ssh:${COL_NC} unchanged"
+         msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
         echo ""
 fi
 
@@ -384,7 +384,7 @@ dpkg -i "$deb_file" &>/dev/null
         echo ""
         else
             
-            msg_no "${COL_DIM}zabbix-agent:${COL_NC} not installed"
+            msg_info "${COL_DIM}zabbix-agent:${COL_NC} not installed"
             echo ""
     fi
 
@@ -411,7 +411,7 @@ dpkg -i "$deb_file" &>/dev/null
                 echo ""
                 else
                 
-                msg_no "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
+                msg_info "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
                 echo ""
                 fi
 
@@ -425,7 +425,7 @@ apt-helper
 msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
 echo ""
 else
-msg_no "${COL_DIM}$hostsys:${COL_NC} no updates installed"
+msg_info "${COL_DIM}$hostsys:${COL_NC} no updates installed"
 echo ""
 fi
 
@@ -438,7 +438,7 @@ apt-helper
 msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
 echo ""
 else
-msg_no "${COL_DIM}$hostsys:${COL_NC} no updates installed"
+msg_info "${COL_DIM}$hostsys:${COL_NC} no updates installed"
 echo ""
 fi
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} reboot now?${COL_DIM}"
@@ -449,5 +449,5 @@ msg_ok "Completed post-installation routines"
 sleep 1
 reboot
 else
-msg_no "${COL_DIM}$hostsys:${COL_NC} not rebooted"
+msg_info "${COL_DIM}$hostsys:${COL_NC} not rebooted"
 fi
