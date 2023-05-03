@@ -1,42 +1,26 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=9
-VERSION="2023-05-01_v${REVISION}"
+REVISION=10
+VERSION="v3.2.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
-    msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
-    echo ""
-    echo ""
-    msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
-    msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
-    echo ""
-    msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
-    msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
-    echo ""
-    msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
-    if  grep -q "Europe/Berlin" /etc/timezone ; then
-        echo -n ""
-    else
-        timedatectl set-timezone Europe/Berlin
-        chktz=`cat /etc/timezone`
-        msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"        
+msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+echo ""
+echo ""
+msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
+msg_info "${COL_DIM}Virtual environment: ${COL_NC}${COL_BOLD}$detected_env${COL_NC}"
+echo ""
+msg_info "${COL_DIM}Detected OS: ${COL_NC}${COL_BOLD}$detected_os $detected_version${COL_NC}"
+msg_info "${COL_DIM}Detected architecture: ${COL_NC}${COL_BOLD}${detected_architecture}${COL_NC}"
+echo ""
+msg_info "${COL_DIM}Timezone: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"
+if  grep -q "Europe/Berlin" /etc/timezone ; then
+    echo -n ""
+else
+    timedatectl set-timezone Europe/Berlin
+    chktz=`cat /etc/timezone`
+    msg_ok "${COL_DIM}Timezone set to: ${COL_NC}${COL_BOLD}$chktz${COL_NC}"        
     fi
-
-#    msg_info "Zabbix version available: $zbxagent_latest_version"
-#    if command -v zabbix_agentd >/dev/null 2>&1; then
-#            zbxagentd_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
-#            msg_info "zabbix-agentd version: $zbxagentd_current_version"
-#    fi
-#
-#    if command -v zabbix_agent2 >/dev/null 2>&1; then
-#            zbxagent2_current_version=`zabbix_agent2 --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
-#            msg_info "zabbix-agent2 version: $zbxagent2_current_version"
-#    fi
-#
-#    if [[ "$zbxagent_latest_version" > "$zbxagentd_current_version" || "$zbxagent_latest_version" > "$zbxagent2_current_version" ]]; then
-#            msg_info "A new version of zabbix-agent is available"
-#    fi
- # msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 
 apt update &>/dev/null
 echo ""
@@ -65,45 +49,45 @@ fi
 
 if [ ! -x "$(command -v pfetch)" ] ; then
     msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-            msg_info "${COL_DIM}pfetch:${COL_NC} installing"
-            wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
-            apt install unzip &>/dev/null
-            unzip master.zip &>/dev/null
-            install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
-            msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
-            echo ""
-            if  grep -q "clear" /root/.bashrc ; then
-                echo -n ""
-            else
-                echo " " >> /root/.bashrc
-                echo "clear" >> /root/.bashrc
-            fi
-            if  grep -q "pfetch" /root/.bashrc ; then
-                echo -n ""
-            else
-                echo " " >> /root/.bashrc
-                echo "pfetch" >> /root/.bashrc
-            fi
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+        msg_info "${COL_DIM}pfetch:${COL_NC} installing"
+        wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
+        apt install unzip &>/dev/null
+        unzip master.zip &>/dev/null
+        install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
+        msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
+        echo ""
+        if  grep -q "clear" /root/.bashrc ; then
+            echo -n ""
         else
-            msg_no "${COL_DIM}pfetch:${COL_NC} not installed"
-            echo ""
+            echo " " >> /root/.bashrc
+            echo "clear" >> /root/.bashrc
+        fi
+        if  grep -q "pfetch" /root/.bashrc ; then
+            echo -n ""
+        else
+            echo " " >> /root/.bashrc
+            echo "pfetch" >> /root/.bashrc
         fi
     else
-        msg_quest "${COL_DIM}pfetch:${COL_NC} install?"
-        msg_info "${COL_DIM}pfetch:${COL_NC} already installed"
+        msg_no "${COL_DIM}pfetch:${COL_NC} not installed"
         echo ""
     fi
+else
+    msg_quest "${COL_DIM}pfetch:${COL_NC} install?"
+    msg_info "${COL_DIM}pfetch:${COL_NC} already installed"
+    echo ""
+fi
 
-    if  grep -q "neofetch" /root/.bashrc ; then
-            sed -i "/neofetch/ s//#neofetch/g" /root/.bashrc
-            msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
-    fi
+if  grep -q "neofetch" /root/.bashrc ; then
+    sed -i "/neofetch/ s//#neofetch/g" /root/.bashrc
+    msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
+fi
 
 if [ ! -x "$(command -v ack)" ] ; then
     msg_quest_prompt "${COL_DIM}ack:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-            msg_info "${COL_DIM}ack:${COL_NC} installing"
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+        msg_info "${COL_DIM}ack:${COL_NC} installing"
             #apt update &>/dev/null
             apt install ack -y &>/dev/null
             apt-helper
@@ -123,7 +107,7 @@ if [ ! -x "$(command -v mc)" ] ; then
     msg_quest_prompt "${COL_DIM}Midnight Commander:${COL_NC} install?${COL_DIM}"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
         msg_info "${COL_DIM}Midnight Commander:${COL_NC} installing"
-        #apt update &>/dev/null
+    #apt update &>/dev/null
         apt install mc -y &>/dev/null
         msg_ok "${COL_DIM}Midnight Commander:${COL_NC} installed"
         echo ""
@@ -137,13 +121,11 @@ else
     echo ""
 fi    
     
-
 if [ ! -x "$(command -v qemu-ga)" ] ; then
     if [[ $detected_env == "kvm" ]] ; then
         msg_quest_prompt "${COL_DIM}qemu-guest-agent:${COL_NC} install?${COL_DIM}"
         if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
             msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} installing"
-            #apt update &>/dev/null
             apt install qemu-guest-agent -y &>/dev/null
             msg_ok "${COL_DIM}qemu-guest-agent:${COL_NC} installed"
             echo ""
@@ -157,32 +139,6 @@ else
     msg_info "${COL_DIM}qemu-guest-agent:${COL_NC} already installed"
     echo ""
 fi
-
-
-#    if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]
-#        then
-#            if ! dpkg -s linux-virtual >/dev/null 2>&1; then
-#            msg_quest_prompt "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
-#            #msg_quest "Install linux-virtual packages? <y/N> "; read -r -p "" prompt
-#            if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
-#                then
-#                    msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} installing"
-#                    #apt update &>/dev/null
-#                    apt install --install-recommends linux-virtual -y &>/dev/null
-#                    apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
-#                    msg_ok "${COL_DIM}linux-virtual-packages:${COL_NC} installed"
-#                    echo ""
-#                else
-#                    msg_no "${COL_DIM}linux-virtual-packages:${COL_NC} not installed"
-#                    echo ""
-#            fi
-#        else
-#        msg_quest "${COL_DIM}linux-virtual-packages:${COL_NC} install?${COL_DIM}"
-#        msg_info "${COL_DIM}linux-virtual-packages:${COL_NC} already installed"
-#        echo ""
-#        fi
-#    fi
-
 
 if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]; then
     if ! dpkg -s linux-virtual >/dev/null 2>&1; then
@@ -206,7 +162,7 @@ fi
 
 if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $detected_env == "kvm" && $detected_os == "ubuntu" && ($detected_version == "22.04" || $detected_version == "20.04") ]] ; then
     if grep -q "^After=systemd-remount-fs.service" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service ; then
-         msg_quest "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
+        msg_quest "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
         msg_info "${COL_DIM}KVP daemon bug:${COL_NC} workaround already applied"
         echo ""
     else
@@ -223,25 +179,6 @@ if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $d
         fi
     fi
 fi
-
-
-
-   # if [[ $detected_env == "kvm" && $detected_os == "ubuntu" &&  $detected_version == "22.04" || $detected_version == "20.04" ]]
-   #     then
-   #         msg_quest_prompt "${COL_DIM}KVP daemon bug:${COL_NC} apply workaround?${COL_DIM}"
-  #          #msg_quest "Apply workaround for KVP daemon bug? <y/N> "; read -r -p "" prompt
-  #          if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
- #               then
- #                   msg_info "${COL_DIM}KVP daemon bug:${COL_NC} applying workaround"
- #                   sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
- #                   systemctl daemon-reload
- #                   msg_ok "${COL_DIM}KVP daemon bug:${COL_NC} workaround applied"
-#                    echo ""
-#                else
-#                    msg_no "${COL_DIM}KVP daemon bug:${COL_NC} workaround not applied"
-#                    echo ""
-#            fi
-#fi
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
@@ -262,11 +199,8 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     echo ""
     if [ "$detected_env" == "lxc" ]; then
         cp /etc/ssh/sshd_config /root/sshd_config.bckup
-        # Look for the sftp subsystem line and comment it out
         sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
-        # Insert a new line above the commented out sftp subsystem line
         sed -i '/^#Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
-        # Restart the sshd service to apply the changes
         msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
         echo ""
     fi
@@ -277,32 +211,29 @@ fi
 
 msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-    #msg_info "${COL_DIM}ssh:${COL_NC} copying public keys."
     if ! [[ -d "/root/.ssh" ]] ; then
         mkdir /root/.ssh
     fi
     chmod 700 /root/.ssh
-    URL="download.local/"
-    if ! curl --head --silent --fail "$URL" >/dev/null; then
-        msg_no "${COL_DIM}ssh:${COL_NC} Webserver for public keys not reachable."
-        WEBSITE_AVAILABLE=false
-    else
+    WEBSITE_AVAILABLE=false
+if curl --head --silent http://download.local &> /dev/null; then
+    URL="http://download.local/"
+    WEBSITE_AVAILABLE=true
+else
+    if curl --head --silent http://10.0.0.254 &> /dev/null; then
+        URL="http://10.0.0.254/"
         WEBSITE_AVAILABLE=true
     fi
+fi
     if [ "$WEBSITE_AVAILABLE" = true ]; then
         FILE_LIST=$(curl -s $URL)
-        # Extract the URLs for the public key files
         KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
-        # Loop through the URLs and add the public keys to authorized_keys
         for KEY_URL in $KEY_URLS; do
             KEY=$(curl -s "${URL}${KEY_URL}")
-            #echo "Adding key from ${URL}${KEY_URL}"
-            # Check if the key already exists in authorized_keys
             if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
                 echo "$KEY" >> ~/.ssh/authorized_keys
                 msg_ok "${COL_DIM}ssh:${COL_NC} copied ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             else
-                #msg_info "${COL_DIM}ssh:${COL_NC} ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC} already exists in authorized_keys"
                 msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             fi
         done
@@ -316,7 +247,6 @@ else
     msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
     echo ""
 fi
-
 
 case "$detected_os-$detected_version" in
     debian-10)
@@ -340,19 +270,16 @@ case "$detected_os-$detected_version" in
         #exit 1
         ;;
 esac
-
 if [ -f "$deb_file" ]; then
     sleep 1
-    #msg_ok "${COL_DIM}zabbix-agent:${COL_NC} $deb_file already exists, skipping download."
 else
     wget -q "$deb_url"
 fi
-
 dpkg -i "$deb_file" &>/dev/null
 
     msg_quest_prompt "${COL_DIM}zabbix-agent:${COL_NC} install?${COL_DIM}"
-        if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-                msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+        msg_info "${COL_DIM}zabbix-agent:${COL_NC} installing"
         apt update &>/dev/null
         apt install zabbix-agent -y &>/dev/null
         apt-helper
@@ -369,14 +296,12 @@ dpkg -i "$deb_file" &>/dev/null
         sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
         systemctl restart zabbix-agent &>/dev/null
         msg_info "${COL_DIM}zabbix-agent:${COL_NC} config modified"
-	msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
+        msg_ok "${COL_DIM}zabbix-agent:${COL_NC} installed"
         echo ""
-        else
-            
-            msg_info "${COL_DIM}zabbix-agent:${COL_NC} not installed"
-            echo ""
+    else
+        msg_info "${COL_DIM}zabbix-agent:${COL_NC} not installed"
+        echo ""
     fi
-
 
     msg_quest_prompt "${COL_DIM}zabbix-agent2:${COL_NC} install?${COL_DIM}"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
@@ -384,59 +309,58 @@ dpkg -i "$deb_file" &>/dev/null
         apt update &>/dev/null
 		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
         apt-helper
-                        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
-		        systemctl restart zabbix-agent2 &>/dev/null
-		        systemctl enable zabbix-agent2  &>/dev/null
-                sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
-                sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agent2.conf
-                sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agent2.conf
-                sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/zabbix_agent2.conf
-                sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agent2.conf
-                sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
-                sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
-                msg_info "${COL_DIM}zabbix-agent2:${COL_NC} config modified"
-                systemctl restart zabbix-agent2 &>/dev/null
+        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} modify config"
+        systemctl restart zabbix-agent2 &>/dev/null
+        systemctl enable zabbix-agent2  &>/dev/null
+        sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
+        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} config modified"
+        systemctl restart zabbix-agent2 &>/dev/null
 		msg_ok "${COL_DIM}zabbix-agent2:${COL_NC} installed"
-                echo ""
-                else
-                
-                msg_info "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
-                echo ""
-                fi
-
+        echo ""
+    else            
+        msg_info "${COL_DIM}zabbix-agent2:${COL_NC} not installed"
+        echo ""
+    fi
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install updates?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
-apt-get update &>/dev/null
-apt-get -y upgrade &>/dev/null
-apt-helper
-msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
-echo ""
+    msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
+    apt-get update &>/dev/null
+    apt-get -y upgrade &>/dev/null
+    apt-helper
+    msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
+    echo ""
 else
-msg_info "${COL_DIM}$hostsys:${COL_NC} no updates installed"
-echo ""
+    msg_info "${COL_DIM}$hostsys:${COL_NC} no updates installed"
+    echo ""
 fi
 
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
-apt-get update &>/dev/null
-apt-get -y dist-upgrade &>/dev/null
-apt-helper
-msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
-echo ""
+    msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
+    apt-get update &>/dev/null
+    apt-get -y dist-upgrade &>/dev/null
+    apt-helper
+    msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
+    echo ""
 else
-msg_info "${COL_DIM}$hostsys:${COL_NC} no updates installed"
-echo ""
+    msg_info "${COL_DIM}$hostsys:${COL_NC} no updates installed"
+    echo ""
 fi
+
 msg_quest_prompt "${COL_DIM}$hostsys:${COL_NC} reboot now?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-msg_info "${COL_DIM}$hostsys:${COL_NC} rebooting"
-sleep 1
-msg_ok "Completed post-installation routines"
-sleep 1
-reboot
+    msg_info "${COL_DIM}$hostsys:${COL_NC} rebooting"
+    sleep 1
+    msg_ok "Completed post-installation routines"
+    sleep 1
+    reboot
 else
-msg_info "${COL_DIM}$hostsys:${COL_NC} not rebooted"
+    msg_info "${COL_DIM}$hostsys:${COL_NC} not rebooted"
 fi
