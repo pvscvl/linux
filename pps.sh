@@ -57,18 +57,16 @@ if [ ! -x "$(command -v pfetch)" ] ; then
         install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
         msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
         echo ""
-        if  grep -q "clear" /root/.bashrc ; then
-            echo -n ""
-        else
+        if ! grep -q "clear" /root/.bashrc; then
             echo " " >> /root/.bashrc
             echo "clear" >> /root/.bashrc
         fi
-        if  grep -q "pfetch" /root/.bashrc ; then
-            echo -n ""
-        else
+
+        if ! grep -q "pfetch" /root/.bashrc; then
             echo " " >> /root/.bashrc
             echo "pfetch" >> /root/.bashrc
         fi
+
     else
         msg_no "${COL_DIM}pfetch:${COL_NC} not installed"
         echo ""
