@@ -232,7 +232,7 @@ fi
                 echo "$KEY" >> ~/.ssh/authorized_keys
                 msg_ok "${COL_DIM}ssh:${COL_NC} copied\\t\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             else
-                msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
+                msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${KEY_URL}${COL_NC}"
             fi
         done
     echo ""
