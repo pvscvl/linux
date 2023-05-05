@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=10
+REVISION=11
 VERSION="v3.2.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -230,7 +230,7 @@ fi
             KEY=$(curl -s "${URL}${KEY_URL}")
             if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
                 echo "$KEY" >> ~/.ssh/authorized_keys
-                msg_ok "${COL_DIM}ssh:${COL_NC} copied ${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
+                msg_ok "${COL_DIM}ssh:${COL_NC} copied\\t\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             else
                 msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             fi
@@ -358,7 +358,19 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
     sleep 1
     msg_ok "Completed post-installation routines"
     sleep 1
+if [ "$WEBSITE_AVAILABLE" = false ]; then
+    echo ""
+    msg_no "${COL_DIM}public keys:${COL_NC} not copied"
+fi
+sleep 2
     reboot
 else
     msg_info "${COL_DIM}$hostsys:${COL_NC} not rebooted"
 fi
+
+
+if [ "$WEBSITE_AVAILABLE" = false ]; then
+    echo ""
+    msg_no "${COL_DIM}public keys:${COL_NC} not copied"
+fi
+sleep 2
