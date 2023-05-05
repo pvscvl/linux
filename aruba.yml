@@ -1,0 +1,16 @@
+- name: Download Aruba CX 6100 Switch Configuration
+  hosts: 10.0.0.3
+  gather_facts: no
+  connection: network_cli
+  vars:
+    save_path: "/root/ansible/runningconfig.txt"
+  tasks:
+    - name: Gather Aruba CX 6100 Switch Running Configuration
+      aruba_cx_command:
+        command_string: show running-config
+      register: running_config
+
+    - name: Save Aruba CX 6100 Switch Running Configuration
+      copy:
+        content: "{{ running_config.stdout_lines | join('\n') }}"
+        dest: "{{ save_path }}/running-config.txt"
