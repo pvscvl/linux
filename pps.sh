@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=13
+REVISION=14
 VERSION="v3.2.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -196,10 +196,10 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
     echo ""
     if [ "$detected_env" == "lxc" ]; then
-        cp /etc/ssh/sshd_config /root/sshd_config.bckup
-        sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
-        sed -i '/^#Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
-        msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
+        #cp /etc/ssh/sshd_config /root/sshd_config.bckup
+        #sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
+        sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
+        #msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
         echo ""
     fi
 else
