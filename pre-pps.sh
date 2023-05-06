@@ -28,11 +28,21 @@
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_env=`systemd-detect-virt`
-    #zbxagent_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
+    zbxagent_current_version=`zabbix_agentd --version | head -n1 | sed -e 's/ +$//' -e 's/.* //'`
     zbxagent_latest_version="$(curl -s "https://api.github.com/repos/zabbix/zabbix/tags" | grep -oP '"name": "\K(.*)(?=")' | head -n1)"
     chktz=`cat /etc/timezone`
     hostsys=`hostname -f`
 
+    WEBSITE_AVAILABLE=false
+    if curl --head --silent http://download.local &> /dev/null; then
+        URL="http://download.local/"
+        WEBSITE_AVAILABLE=true
+    else
+        if curl --head --silent http://10.0.0.254 &> /dev/null; then
+            URL="http://10.0.0.254/"
+            WEBSITE_AVAILABLE=true
+        fi
+    fi
     # Functions
 function msg_info() {
     local msg="$1"

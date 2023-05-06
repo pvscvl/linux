@@ -207,23 +207,13 @@ else
     echo ""
 fi
 
-msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-    if ! [[ -d "/root/.ssh" ]] ; then
-        mkdir /root/.ssh
-    fi
-    chmod 700 /root/.ssh
-    WEBSITE_AVAILABLE=false
-if curl --head --silent http://download.local &> /dev/null; then
-    URL="http://download.local/"
-    WEBSITE_AVAILABLE=true
-else
-    if curl --head --silent http://10.0.0.254 &> /dev/null; then
-        URL="http://10.0.0.254/"
-        WEBSITE_AVAILABLE=true
-    fi
-fi
-    if [ "$WEBSITE_AVAILABLE" = true ]; then
+if [ "$WEBSITE_AVAILABLE" = true ]; then
+    msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+        if ! [[ -d "/root/.ssh" ]] ; then
+            mkdir /root/.ssh
+        fi
+        chmod 700 /root/.ssh
         FILE_LIST=$(curl -s $URL)
         KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
         for KEY_URL in $KEY_URLS; do
@@ -235,15 +225,12 @@ fi
                 msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${KEY_URL}${COL_NC}"
             fi
         done
-    echo ""
+        echo ""
         chmod 600 /root/.ssh/authorized_keys
-    else
+    else    
         msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
         echo ""
     fi
-else    
-    msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
-    echo ""
 fi
 
 case "$detected_os-$detected_version" in
