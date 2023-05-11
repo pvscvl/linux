@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=14
-VERSION="v3.2.${REVISION}"
+REVISION=15
+VERSION="v3.4.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
 msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
@@ -36,6 +36,64 @@ if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
     msg_info "This script is for linux machines, not macOS machines"
     exit 1
 fi
+
+
+
+msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+    echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
+    msg_ok "${COL_DIM}root login:${COL_NC} password set"
+    echo ""
+else
+    msg_info "${COL_DIM}root login:${COL_NC} unchanged"
+    echo ""
+fi
+
+msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+    sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
+    sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
+    sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
+    msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
+    echo ""
+    if [ "$detected_env" == "lxc" ]; then
+        #cp /etc/ssh/sshd_config /root/sshd_config.bckup
+        #sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
+        sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
+        #msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
+        echo ""
+    fi
+else
+    msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
+    echo ""
+fi
+
+if [ "$WEBSITE_AVAILABLE" = true ]; then
+    msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
+    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+        if ! [[ -d "/root/.ssh" ]] ; then
+            mkdir /root/.ssh
+        fi
+        chmod 700 /root/.ssh
+        FILE_LIST=$(curl -s $URL)
+        KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
+        for KEY_URL in $KEY_URLS; do
+            KEY=$(curl -s "${URL}${KEY_URL}")
+            if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
+                echo "$KEY" >> ~/.ssh/authorized_keys
+                msg_ok "${COL_DIM}ssh:${COL_NC} copied\\t\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
+            else
+                msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${KEY_URL}${COL_NC}"
+            fi
+        done
+        echo ""
+        chmod 600 /root/.ssh/authorized_keys
+    else    
+        msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
+        echo ""
+    fi
+fi
+
 
 msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
@@ -178,60 +236,6 @@ if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $d
     fi
 fi
 
-msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-    echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-    msg_ok "${COL_DIM}root login:${COL_NC} password set"
-    echo ""
-else
-    msg_info "${COL_DIM}root login:${COL_NC} unchanged"
-    echo ""
-fi
-
-msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-    sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
-    sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
-    sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-    msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
-    echo ""
-    if [ "$detected_env" == "lxc" ]; then
-        #cp /etc/ssh/sshd_config /root/sshd_config.bckup
-        #sed -i 's/^Subsystem    sftp    \/usr\/lib\/openssh\/sftp-server$/#&/' /etc/ssh/sshd_config
-        sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
-        #msg_info "${COL_DIM}sshd_config:${COL_NC} changed sftp subsystem to internal"
-        echo ""
-    fi
-else
-    msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
-    echo ""
-fi
-
-if [ "$WEBSITE_AVAILABLE" = true ]; then
-    msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
-    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-        if ! [[ -d "/root/.ssh" ]] ; then
-            mkdir /root/.ssh
-        fi
-        chmod 700 /root/.ssh
-        FILE_LIST=$(curl -s $URL)
-        KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
-        for KEY_URL in $KEY_URLS; do
-            KEY=$(curl -s "${URL}${KEY_URL}")
-            if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
-                echo "$KEY" >> ~/.ssh/authorized_keys
-                msg_ok "${COL_DIM}ssh:${COL_NC} copied\\t\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
-            else
-                msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${KEY_URL}${COL_NC}"
-            fi
-        done
-        echo ""
-        chmod 600 /root/.ssh/authorized_keys
-    else    
-        msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
-        echo ""
-    fi
-fi
 
 case "$detected_os-$detected_version" in
     debian-10)
