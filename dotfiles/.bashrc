@@ -3,7 +3,7 @@ export LS_COLORS="no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 export LSCOLORS="BxBxhxDxfxhxhxhxhxcxcx"
 export colorflag="-G"
 
-
+alias ..="cd .."
 #alias ls="ls -alhFX --color=always" 
 alias _update="apt-get update && apt-get upgrade -y"
 alias _updatedist="apt-get update && apt-get dist-upgrade -y"
@@ -68,111 +68,40 @@ function generate-password() {
     echo ""
 }
 
-function create-folders() {
-    local cdir=`echo "${PWD##*/}"`
-    mkdir "$cdir pics"
-    mkdir "$cdir vids"
-}
-
-function create-yrssub-folders() {
-mkdir -p 2022/Q1
-mkdir -p 2022/Q2
-mkdir -p 2022/Q3
-mkdir -p 2022/Q4
-mkdir -p 2021/Q1
-mkdir -p 2021/Q2
-mkdir -p 2021/Q3
-mkdir -p 2021/Q4
-mkdir -p 2020/Q1
-mkdir -p 2020/Q2
-mkdir -p 2020/Q3
-mkdir -p 2020/Q4
-mkdir -p 2019/Q1
-mkdir -p 2019/Q2
-mkdir -p 2019/Q3
-mkdir -p 2019/Q4
-mkdir -p 2018/Q1
-mkdir -p 2018/Q2
-mkdir -p 2018/Q3
-mkdir -p 2018/Q4
-mkdir -p 2017/Q1
-mkdir -p 2017/Q2
-mkdir -p 2017/Q3
-mkdir -p 2017/Q4
-}
 
 
-function move-pics-quiet() {
-    local cdir=`echo "${PWD##*/}"`
-        local tdir="$cdir pics"
-        mv ./*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF} ./"$tdir" 2>/dev/null
-}
-
-function move-pics() {
-    local cdir=`echo "${PWD##*/}"`
-        local tdir="$cdir pics"
-        mv ./*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF} ./"$tdir" -v 2>/dev/null
-}
-
-function move-video-quiet() {
-    local cdir=`echo "${PWD##*/}"`
-    local tdir="$cdir vids"
-    mv ./*.{mp4,MP4,mov,MOV,avi,AVI,mpg,MPG,mpeg,MPEG,m4v,M4V} ./"$tdir" 2>/dev/null
-}
-
-function move-video() {
-    local cdir=`echo "${PWD##*/}"`
-    local tdir="$cdir vids"
-    mv ./*.{mp4,MP4,mov,MOV,avi,AVI,mpg,MPG,mpeg,MPEG,m4v,M4V} ./"$tdir" -v 2>/dev/null
-}
-
-function move-yrs() {
-   mv ./2022*.* ./2022 2>/dev/null
-   mv ./2021*.* ./2021 2>/dev/null
-   mv ./2020*.* ./2020 2>/dev/null
-   mv ./2019*.* ./2019 2>/dev/null
-   mv ./2018*.* ./2018 2>/dev/null
-   mv ./2017*.* ./2017 2>/dev/null
-}
-
-
-function move-yrs-sub() {
-   mv ./2022.Q1* ./2022/Q1 2>/dev/null
-   mv ./2022.Q2* ./2022/Q2 2>/dev/null
-   mv ./2022.Q3* ./2022/Q3 2>/dev/null
-   mv ./2022.Q4* ./2022/Q4 2>/dev/null
-   mv ./2021.Q1* ./2021/Q1 2>/dev/null
-   mv ./2021.Q2* ./2021/Q2 2>/dev/null
-   mv ./2021.Q3* ./2021/Q3 2>/dev/null
-   mv ./2021.Q4* ./2021/Q4 2>/dev/null
-   mv ./2020.Q1* ./2020/Q1 2>/dev/null
-   mv ./2020.Q2* ./2020/Q2 2>/dev/null
-   mv ./2020.Q3* ./2020/Q3 2>/dev/null
-   mv ./2020.Q4* ./2020/Q4 2>/dev/null
-   mv ./2019.Q1* ./2019/Q1 2>/dev/null
-   mv ./2019.Q2* ./2019/Q2 2>/dev/null
-   mv ./2019.Q3* ./2019/Q3 2>/dev/null
-   mv ./2019.Q4* ./2019/Q4 2>/dev/null
-   mv ./2018.Q1* ./2018/Q1 2>/dev/null
-   mv ./2018.Q2* ./2018/Q2 2>/dev/null
-   mv ./2018.Q3* ./2018/Q3 2>/dev/null
-   mv ./2018.Q4* ./2018/Q4 2>/dev/null
-   mv ./2017.Q1* ./2017/Q1 2>/dev/null
-   mv ./2017.Q2* ./2017/Q2 2>/dev/null
-   mv ./2017.Q3* ./2017/Q3 2>/dev/null
-   mv ./2017.Q4* ./2017/Q4 2>/dev/null
-   mv ./2016.Q1* ./2016/Q1 2>/dev/null
-   mv ./2016.Q2* ./2016/Q2 2>/dev/null
-   mv ./2016.Q3* ./2016/Q3 2>/dev/null
-   mv ./2016.Q4* ./2016/Q4 2>/dev/null
-}
-
-function move-qrtr() {
-   mv ./20??.Q1* ./Q1 2>/dev/null
-   mv ./20??.Q2* ./Q2 2>/dev/null
-    mv ./20??.Q3* ./Q3 2>/dev/null
-    mv ./20??.Q4* ./Q4 2>/dev/null
-}
+  function gdl-cmplete3() {
+      local ccdir=`echo "${PWD##*/}"`
+      mkdir "$ccdir pics"
+      mkdir "$ccdir vids"
+      local cdir="${PWD##*/}"
+      local pics_dir="$cdir pics"
+      local vids_dir="$cdir vids"
+  
+      setopt null_glob
+      for ext in jpg jpeg gif png bmp svg; do
+          mv -- *."${(U)ext}" *."${ext}" ./"$pics_dir" 2>/dev/null
+      done
+      
+      for ext in mp4; do
+          mv -- *."${(U)ext}" *."${ext}" ./"$vids_dir" 2>/dev/null
+      done
+  
+      cd ./$pics_dir
+      
+      for f in ./*.*; do
+          fn=$(basename "$f")
+          mv "$fn" "$(gdate -r "$f" +"%Y.Q%q-%m%d_%H%M").$fn"
+      done
+  
+      for year in {2014..2023}; do
+          for quarter in Q1 Q2 Q3 Q4; do
+              mkdir -p $year/$quarter
+              mv ./$year*.$quarter* ./$year/$quarter/ 2>/dev/null
+          done
+      done
+        
+      find ./{2014..2023} -type d -empty -delete
 
 function rename-timestamp-prefix() {
     for f in ./*.*; do   fn=$(basename "$f");   mv "$fn" "$(date -r "$f" +"%Y.Q%q-%m%d_%H%M").$fn" -v; done
