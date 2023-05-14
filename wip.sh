@@ -37,7 +37,7 @@ function msg_no() {
     local msg="$1"
     printf "%b ${msg}\\n" "${CROSS}"
 }
-
+echo "1"
 # Define dialog boxes
 cmd=(dialog --separate-output --checklist "Select options:" 22 76 16)
 options=(1 "install updates" off
