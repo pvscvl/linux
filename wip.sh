@@ -1,22 +1,27 @@
 #!/bin/bash
-
+#   bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/wip.sh)"
 # Define an array of option names
-options=("Option 1: apt-get update" "Option 2: apt-get upgrade" "Option 3: wget URL" "Option 4" "Option 5")
+options=("Option 1: apt-get update" "Option 2: apt-get upgrade" "Option 4" "Option 5")
 
 # Define an array to track the status of each option
-status=("not selected" "not selected" "not selected" "not selected" "not selected")
+status=("not selected" "not selected" "not selected" "not selected")
 
-# Function to display the welcome text and options
+# Define an array to track the checked status of each option
+checked=("false" "false" "false" "false")
+
+# Function to display the options
 show_menu() {
   clear
-  echo "Welcome! Please select an option (use arrow keys to navigate and spacebar to select):"
-  echo
 
-  # Loop through the options array and display each option with its status
+  # Loop through the options array and display each option with its status and checkbox
   for ((i=0; i<${#options[@]}; i++)); do
     option="${options[i]}"
     current_status="${status[i]}"
-    printf "%d. %s \t %s\n" "$((i+1))" "$option" "$current_status"
+    checkbox="[ ]"
+    if [[ ${checked[i]} == "true" ]]; then
+      checkbox="[x]"
+    fi
+    printf "%s %d. %s \t %s\n" "$checkbox" "$((i+1))" "$option" "$current_status"
   done
 }
 
@@ -50,6 +55,16 @@ update_status() {
   status[$((selected-1))]="$2"
 }
 
+# Function to update the checked status of a selected option
+update_checked() {
+  selected=$1
+  if [[ ${checked[selected-1]} == "true" ]]; then
+    checked[$((selected-1))]="$2"
+  else
+    checked[$((selected-1))]="$3"
+  fi
+}
+
 # Function to execute the command for option 1
 execute_option1() {
   echo "Executing option 1: apt-get update"
@@ -62,13 +77,6 @@ execute_option2() {
   sudo apt-get upgrade -y > /dev/null 2>&1
 }
 
-# Function to execute the command for option 3
-execute_option3() {
-  echo "Executing option 3: wget URL"
-  # Replace "URL" with the desired URL
-  wget "URL" > /dev/null 2>&1
-}
-
 # Main script logic
 selected=1
 show_menu
@@ -79,21 +87,21 @@ while true; do
   case $key in
     ' ')  # Spacebar
       case $selected in
-        1) update_status $selected "in progress"
-           execute_option1
-           update_status $selected "done"
+        1) if [[ ${checked[selected-1]} == "true" ]]; then
+             update_checked $selected "false"
+           else
+             update_checked $selected "true" "false"
+           fi
            ;;
-        2) update_status $selected "in progress"
-           execute_option2
-           update_status $selected "done"
+        2) if [[ ${checked[selected-1]} == "true" ]]; then
+             update_checked $selected "false"
+           else
+             update_checked $selected "true" "false"
+           fi
            ;;
-        3) update_status $selected "in progress"
-           execute_option3
-           update_status $selected "done"
+        3) update_checked $selected "not selected"
            ;;
-        4) update_status $selected "not selected"
-           ;;
-        5) update_status $selected "not selected"
+        4) update_checked $selected "not selected"
            ;;
       esac
       show_menu
@@ -101,14 +109,5 @@ while true; do
     '')  # Enter key
       break
       ;;
-  esac
-done
-
-echo "Selected options:"
-
-# Loop through the options and print the selected options
-for ((i=0; i<${#options[@]}; i++)); do
-  if [[ ${status[i]} == "done" ]]; then
-    echo "${options[i]} - ${status[i]}"
-  fi
-done
+    $'\e')  # Escape key
+      exit 0
