@@ -1,4 +1,5 @@
-# Define functions
+#!/bin/bash
+
 
     #   bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/wip.sh)"
     COL_NC='\e[0m' # 
