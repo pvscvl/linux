@@ -1,81 +1,114 @@
-#!/usr/bin/env bash
-#   bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/wip.sh)"
-    COL_NC='\e[0m' # 
-    COL_GREEN='\e[1;32m'
-    COL_RED='\e[1;31m'
-    COL_GREY='\e[0;37m'
-    COL_DARK_GREY='\e[1;30m'
-    COL_PURPLE='\e[0;35m'
-    COL_BLUE='\e[0;34m'
-    COL_YELLOW='\e[0;33m'
-    COL_CYAN='\e[0;36m'
-    COL_CL=`echo "\033[m"` 
-    COL_DIM='\e[2m' #dim
-    COL_ITAL='\e[3m' #it
-    COL_BOLD='\e[1m' #b
-    COL_UNDER='\e[4m' #un
-    TICK="${COL_NC}[${COL_GREEN}✓${COL_NC}]  "
-    QUEST="${COL_NC}[${COL_BLUE}?${COL_NC}]  "
-    col='\e[38;5;46m'
-    CROSS="${COL_NC}[${COL_RED}✗${COL_NC}]  "
-    INFO="${COL_NC}[i]  "   
-    DONE="${COL_GREEN} done!${COL_NC}"
-    WARN="${COL_NC}[${COL_YELLOW}⚠${COL_NC}]  "
-    OVER="\\r\\033[K"
+#!/bin/bash
 
-function msg_info() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${INFO}"
+# Define an array of option names
+options=("Option 1: apt-get update" "Option 2: apt-get upgrade" "Option 3: wget URL" "Option 4" "Option 5")
+
+# Define an array to track the status of each option
+status=("not selected" "not selected" "not selected" "not selected" "not selected")
+
+# Function to display the welcome text and options
+show_menu() {
+  clear
+  echo "Welcome! Please select an option (use arrow keys to navigate and spacebar to select):"
+  echo
+
+  # Loop through the options array and display each option with its status
+  for ((i=0; i<${#options[@]}; i++)); do
+    option="${options[i]}"
+    current_status="${status[i]}"
+    printf "%d. %s \t %s\n" "$((i+1))" "$option" "$current_status"
+  done
 }
 
-function msg_ok() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${TICK}"
-}
+# Function to handle arrow key navigation
+arrow_navigation() {
+  ESC=$(printf "\033")
+  read -rsn1 key
 
-function msg_no() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${CROSS}"
-}
-echo "1"
-# Define dialog boxes
-cmd=(dialog --separate-output --checklist "Select options:" 22 76 16)
-options=(1 "install updates" off
-         2 "install dist-upgrades" off
-         3 "reboot now" off)
-choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-
-# Check the options and perform the tasks
-for choice in $choices
-do
-    case $choice in
-        1)
-            msg_info "${COL_DIM}$hostsys:${COL_NC} installing updates"
-            apt-get update &>/dev/null
-            apt-get -y upgrade &>/dev/null
-            apt-helper
-            msg_ok "${COL_DIM}$hostsys:${COL_NC} updates installed"
-            echo "Complete"
-            ;;
-        2)
-            msg_info "${COL_DIM}$hostsys:${COL_NC} installing dist-upgrades"
-            apt-get update &>/dev/null
-            apt-get -y dist-upgrade &>/dev/null
-            apt-helper
-            msg_ok "${COL_DIM}$hostsys:${COL_NC} dist-upgrades installed"
-            echo "Complete"
-            ;;
-        3)
-            msg_info "${COL_DIM}$hostsys:${COL_NC} rebooting"
-            sleep 1
-            msg_ok "Completed post-installation routines"
-            sleep 1
-            if [ "$WEBSITE_AVAILABLE" = false ]; then
-                echo "Failed"
-                msg_no "${COL_DIM}public keys:${COL_NC} not copied"
-            fi
-            sleep 2
-            reboot
-            ;;
+  if [[ $key == $ESC ]]; then
+    read -rsn2 key
+    case $key in
+      '[A')  # Up arrow
+        selected=$((selected - 1))
+        if [[ $selected -lt 1 ]]; then
+          selected=${#options[@]}
+        fi
+        ;;
+      '[B')  # Down arrow
+        selected=$((selected + 1))
+        if [[ $selected -gt ${#options[@]} ]]; then
+          selected=1
+        fi
+        ;;
     esac
+  fi
+}
+
+# Function to update the status of a selected option
+update_status() {
+  selected=$1
+  status[$((selected-1))]="$2"
+}
+
+# Function to execute the command for option 1
+execute_option1() {
+  echo "Executing option 1: apt-get update"
+  sudo apt-get update > /dev/null 2>&1
+}
+
+# Function to execute the command for option 2
+execute_option2() {
+  echo "Executing option 2: apt-get upgrade"
+  sudo apt-get upgrade -y > /dev/null 2>&1
+}
+
+# Function to execute the command for option 3
+execute_option3() {
+  echo "Executing option 3: wget URL"
+  # Replace "URL" with the desired URL
+  wget "URL" > /dev/null 2>&1
+}
+
+# Main script logic
+selected=1
+show_menu
+
+while true; do
+  arrow_navigation
+
+  case $key in
+    ' ')  # Spacebar
+      case $selected in
+        1) update_status $selected "in progress"
+           execute_option1
+           update_status $selected "done"
+           ;;
+        2) update_status $selected "in progress"
+           execute_option2
+           update_status $selected "done"
+           ;;
+        3) update_status $selected "in progress"
+           execute_option3
+           update_status $selected "done"
+           ;;
+        4) update_status $selected "not selected"
+           ;;
+        5) update_status $selected "not selected"
+           ;;
+      esac
+      show_menu
+      ;;
+    '')  # Enter key
+      break
+      ;;
+  esac
+done
+
+echo "Selected options:"
+
+# Loop through the options and print the selected options
+for ((i=0; i<${#options[@]}; i++)); do
+  if [[ ${status[i]} == "done" ]]; then
+    echo "${options[i]} - ${status[i]}"
+  fi
 done
