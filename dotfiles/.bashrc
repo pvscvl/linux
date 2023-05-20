@@ -102,7 +102,7 @@ function generate-password() {
       done
         
       find ./{2014..2023} -type d -empty -delete
-
+}
 function rename-timestamp-prefix() {
     for f in ./*.*; do   fn=$(basename "$f");   mv "$fn" "$(date -r "$f" +"%Y.Q%q-%m%d_%H%M").$fn" -v; done
 }
