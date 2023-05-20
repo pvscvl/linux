@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=17
+REVISION=18
 VERSION="v0.5.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -105,6 +105,12 @@ else
     msg_info "${COL_DIM}.bashrc:${COL_NC} unchanged"
     echo ""
 fi
+
+        if ! grep -q "BASHVERSION=2" /root/.bashrc; then
+            wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+            echo "bashrcDLLLL"
+        fi
+
 
 if [ ! -x "$(command -v pfetch)" ] ; then
     msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
