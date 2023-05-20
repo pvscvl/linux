@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=16
-VERSION="v0.4.${REVISION}"
+REVISION=17
+VERSION="v0.5.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
 msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
@@ -71,8 +71,9 @@ fi
 if [ "$WEBSITE_AVAILABLE" = true ]; then
     msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-        if ! [[ -d "/root/.ssh" ]] ; then
+        if ! [[ -f "/root/.ssh/authorized_keys" ]] ; then
             mkdir /root/.ssh
+            echo "" > /root/.ssh/authorized_keys
         fi
         chmod 700 /root/.ssh
         FILE_LIST=$(curl -s $URL)
