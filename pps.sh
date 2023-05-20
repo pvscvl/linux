@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=15
-VERSION="v3.4.${REVISION}"
+REVISION=16
+VERSION="v0.4.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
 msg_info "${COL_ITAL}${COL_GREEN}Script Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
