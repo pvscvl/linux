@@ -15,10 +15,9 @@ alias _updatedist="apt-get update && apt-get dist-upgrade -y"
 #alias _update-dotfiles2="curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc > $HOME/.bashrc && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports > $HOME/.dotfiles/.exports && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions > $HOME/.dotfiles/.functions  && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases > $HOME/.dotfiles/.aliases"
 
 alias show-externalip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias show-internalip="hostname -I"
+alias show-ip='hostname -I | tr " " "\n"'
+#alias show-internalip="hostname -I"
 alias pwgen="generate-password"
-alias repeatscript="rm postinstallv3-wip.sh; wget https://raw.githubusercontent.com/pvscvl/linux/main/postinstallv3-wip.sh; chmod +x postinstallv3-wip.sh; ./postinstallv3-wip.sh"
-
 
 # Copy w/ progress
 cp_p (){
@@ -26,14 +25,14 @@ cp_p (){
 }
 
 
-function update-dotfiles () {
-    local DOTFILESHOME=$HOME
-    local DOTFILESFOLDER=$HOME/.dotfiles/
-    wget -q -O $DOTFILESHOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-    wget -q -O $DOTFILESFOLDER/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports
-    wget -q -O $DOTFILESFOLDER/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions
-    wget -q -O $DOTFILESFOLDER/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases
-}
+#function update-dotfiles () {
+#    local DOTFILESHOME=$HOME
+#    local DOTFILESFOLDER=$HOME/.dotfiles/
+#    wget -q -O $DOTFILESHOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+#    wget -q -O $DOTFILESFOLDER/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports
+#    wget -q -O $DOTFILESFOLDER/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions
+#    wget -q -O $DOTFILESFOLDER/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases
+#}
 
 
 function generate-mac() {
