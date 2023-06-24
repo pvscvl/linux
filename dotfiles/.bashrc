@@ -97,45 +97,46 @@ function rename-timestamp-prefix() {
     for f in ./*.*; do   fn=$(basename "$f");   mv "$fn" "$(date -r "$f" +"%Y.Q%q-%m%d_%H%M").$fn" -v; done
 }
 
-movetoext() {
-    if [ $# -lt 2 ]; then
-        echo "Usage: move_files_by_extension <extension> <directory>"
+move2extension() {
+    if [ $# -lt 1 ]; then
+        echo "Usage: move_files_by_extension <extension>"
         return 1
     fi
 
     extension=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-    directory="$2"
+    directory=`echo "${PWD##*/}"`
 
     # Get the parent folder name
     parent_folder=$(basename "$directory")
 
     # Create the target directory with the parent folder name and extension
-    target_directory="${parent_folder}_${extension}_files"
+    target_directory="${parent_folder} ${extension}"
     mkdir -p "$target_directory"
 
     # Move files with the specified extension from the current directory to the target directory
-    find . -maxdepth 1 -type f -iname "*.$extension" -exec mv -t "$target_directory" {} +
+    find . -maxdepth 1 -type f -iname "*.$extension" -exec gmv -t "$target_directory" {} +
 }
 
 mv2ext() {
-    if [ $# -lt 2 ]; then
-        echo "Usage: move_files_by_extension <extension> <directory>"
+    if [ $# -lt 1 ]; then
+        echo "Usage: move_files_by_extension <extension>"
         return 1
     fi
 
     extension=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-    directory="$2"
+    directory=`echo "${PWD##*/}"`
 
     # Get the parent folder name
     parent_folder=$(basename "$directory")
 
     # Create the target directory with the parent folder name and extension
-    target_directory="${parent_folder}_${extension}_files"
+    target_directory="${parent_folder} ${extension}"
     mkdir -p "$target_directory"
 
     # Move files with the specified extension from the current directory to the target directory
-    find . -maxdepth 1 -type f -iname "*.$extension" -exec mv -t "$target_directory" {} +
+    find . -maxdepth 1 -type f -iname "*.$extension" -exec gmv -t "$target_directory" {} +
 }
+
 
 clear
 pfetch
