@@ -15,6 +15,22 @@
     COL_ITAL='\e[3m' #it
     COL_BOLD='\e[1m' #b
     COL_UNDER='\e[4m' #un
+    #########################################
+    RESET_COLOR='\e[0m' # 
+    GREEN='\e[1;32m'
+    RED='\e[1;31m'
+    GREY='\e[0;37m'
+    DARK_GREY='\e[1;30m'
+    PURPLE='\e[0;35m'
+    BLUE='\e[0;34m'
+    YELLOW='\e[0;33m'
+    CYAN='\e[0;36m'
+    NEW_LINE=`echo "\033[m"` 
+    DIMMED='\e[2m' #dim
+    ITALICS='\e[3m' #it
+    BOLD='\e[1m' #b
+    UNDERLINE='\e[4m' #un
+    ########################################
     TICK="${COL_NC}[${COL_GREEN}✓${COL_NC}]  "
     QUEST="${COL_NC}[${COL_BLUE}?${COL_NC}]  "
     col='\e[38;5;46m'
