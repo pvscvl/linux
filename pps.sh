@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=04
+REVISION=05
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -39,8 +39,7 @@ if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
 fi
 
 install_package curl
-install_package BCDedjhfgedjs
-
+install_package wget
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
