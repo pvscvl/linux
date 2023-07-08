@@ -66,10 +66,35 @@ PREPPSVERSION="Q3.${PREPPSREVISION}"
         fi
     fi
 
+output_text() {
+  local arg1="$1"  # First argument
+  local arg2="$2"  # Second argument
+
+  printf "[%02d] [i] %s\n" "$arg1" "$arg2"
+}
+
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
     }
+
+function msg_info2 {
+    local arg1="$1"
+    local msg="$2"
+    printf "\\t [%02d] %b ${msg}\\n" "${INFO}"
+    }
+
+function msg_info4() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+
+  printf "\\t [%02d]\\t %b ${INFO} %s\n" "$number" "$msg"
+}
+echo "######"
+msg_info4 7 "Test info4"
+echo "######"
+msg_info2 5 "test info 2"
+
 function msg_quest() {
     local msg="$1"
     printf "%b ${msg}${COL_NC}\\n" "${QUEST}${COL_NC}"
