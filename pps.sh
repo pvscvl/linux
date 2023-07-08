@@ -70,13 +70,14 @@ else
     echo ""
 fi
 
-msg_lquest_prompt 2 "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
+#msg_lquest_prompt 2 "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
+msg_lquest_prompt 2 "$sshd_config: permit root login?"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
     sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
     sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
     msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
-    msg_lok" 2 "sshd_config: root login permitted"
+    msg_lok 2 "sshd_config: root login permitted"
     echo ""
     if [ "$detected_env" == "lxc" ]; then
         #cp /etc/ssh/sshd_config /root/sshd_config.bckup
