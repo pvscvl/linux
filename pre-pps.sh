@@ -220,21 +220,21 @@ CR=$(tput cr)
   echo -ne "${EL}$1"
 }
 
-function zreplace-prevline() {
+function remove-prevline() {
 CUU1=$(tput cuu1)    
 EL=$(tput el)       
 CR=$(tput cr) 
   echo -ne "${CUU1}${EL}"
 }
 
-function zreplace-prevlineCR() {
+function remove-prevlineCR() {
 CUU1=$(tput cuu1)    
 EL=$(tput el)       
 CR=$(tput cr) 
   echo -ne "${CUU1}${EL}${CR}"
 }
 
-function zreplace-line() {
+function remove-line() {
 CUU1=$(tput cuu1)    
 EL=$(tput el)       
 CR=$(tput cr) 
