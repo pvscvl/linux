@@ -79,13 +79,14 @@ function msg_linfo() {
   local msg="$2"     # Message text
   printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
-export LISTVALUE=00
+export POS=00
 function msg_infov2() {
   number=$(< <(echo $POS))
   local msg="$1"     # Message text
-  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
+  #printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
+printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
-
+msg_infov2 "${COL_DIM}root login:${COL_NC} unchanged"
 #function msg_linfo() {
 #  local number="$1"  # Number in digits
 #  local msg="$2"     # Message text
