@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="28"
+PREPPSREVISION="29"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 export POS=0
 echo "________________________________"
@@ -197,5 +197,16 @@ function replace-prevline() {
   echo -ne "${CUU1}${EL}$1"
 }
 
+
+ESC="\033"           # Escape character
+CSI="${ESC}["        # Control Sequence Introducer
+SAVE_POS="${ESC}s"   # Save current cursor position
+RESTORE_POS="${ESC}u"   # Restore saved cursor position
+ERASE_LINE="${CSI}2K"   # Erase entire line
+
+# Function to delete line and replace with new line
+delete_and_replace_line() {
+  echo -ne "${SAVE_POS}${ERASE_LINE}${RESTORE_POS}$1"
+}
 
 
