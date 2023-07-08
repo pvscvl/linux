@@ -246,20 +246,24 @@ fi
 
 case "$detected_os-$detected_version" in
     debian-10)
-        deb_file=zabbix-release_6.4-1+debian10_all.deb
-        deb_url=https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/$deb_file
+        deb_file=zabbix-release_6.5-1+debian10_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.5/debian/pool/main/z/zabbix-release/$deb_file
         ;;
     debian-11)
-        deb_file=zabbix-release_6.4-1+debian11_all.deb
-        deb_url=https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/$deb_file
+        deb_file=zabbix-release_6.5-1+debian11_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.5/debian/pool/main/z/zabbix-release/$deb_file
+        ;;
+    debian-12)
+        deb_file=zabbix-release_6.5-1+debian12_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.5/debian/pool/main/z/zabbix-release/$deb_file
         ;;
     ubuntu-20.04)
-        deb_file=zabbix-release_6.4-1+ubuntu20.04_all.deb
-        deb_url=https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/$deb_file
+        deb_file=zabbix-release_6.5-1+ubuntu20.04_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.5/ubuntu/pool/main/z/zabbix-release/$deb_file
         ;;
     ubuntu-22.04)
-        deb_file=zabbix-release_6.4-1+ubuntu22.04_all.deb
-        deb_url=https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/$deb_file
+        deb_file=zabbix-release_6.5-1+ubuntu22.04_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/6.5/ubuntu/pool/main/z/zabbix-release/$deb_file
         ;;
     *)
         msg_no "${COL_DIM}zabbix-agent:${COL_NC} Unsupported OS version: $detected_os $detected_version"
