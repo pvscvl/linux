@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=01
+REVISION=02
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -110,7 +110,7 @@ fi
 
         if ! grep -q "BASHVERSION=2" /root/.bashrc; then
             wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-            echo "bashrcDLLLL"
+            echo "PLACEHOLDER!"
         fi
 
 
