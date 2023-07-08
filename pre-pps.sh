@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="27"
+PREPPSREVISION="28"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 export POS=0
 echo "________________________________"
@@ -193,7 +193,7 @@ function apt-helper {
     fi
 }
 
-function line-delete() {
+function replace-prevline() {
   echo -ne "${CUU1}${EL}$1"
 }
 
