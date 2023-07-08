@@ -57,7 +57,7 @@ msg_list 13 "Upgrade"
 msg_list 14 "Dist-Upgrade"
 msg_list 15 "reboot system"
 
-msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
+msg_lquest_prompt 1 "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
     msg_ok "${COL_DIM}root login:${COL_NC} password set"
@@ -67,7 +67,7 @@ else
     echo ""
 fi
 
-msg_quest_prompt "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
+msg_lquest_prompt 2 "${COL_DIM}sshd_config:${COL_NC} permit root login via SSH?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
     sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
@@ -87,7 +87,7 @@ else
 fi
 
 if [ "$WEBSITE_AVAILABLE" = true ]; then
-    msg_quest_prompt "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
+    msg_lquest_prompt 3 "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
         if ! [[ -f "/root/.ssh/authorized_keys" ]] ; then
             mkdir /root/.ssh
