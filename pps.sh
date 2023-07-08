@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=12
+REVISION=13
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -67,13 +67,14 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
     #msg_ok "${COL_DIM}root login:${COL_NC} password set"
     sleep 5
-    line-delete
+    replace-prevline $(msg_lok 1 "root login: password set")
+    
     msg_lok 1 "root login: password set"
     echo ""
 else
     #msg_info "${COL_DIM}root login:${COL_NC} unchanged"
     sleep 5
-    line-delete
+    replace-prevline $(msg_linfo 1 "root login: unchanged")
     msg_linfo 1 "root login: unchanged"
     echo ""
 fi
