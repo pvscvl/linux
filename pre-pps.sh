@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION=01
+PREPPSREVISION=02
 PREPPSVERSION="Q3.${REVISION}"
 
     # Variables
@@ -69,13 +69,15 @@ PREPPSVERSION="Q3.${REVISION}"
     # Functions
     # Function to check if a package is installed
 function package_installed() {
-    dpkg -s "$1" >/dev/null 2>&1
+    local package="$1"
+    dpkg -s "$package" >/dev/null 2>&1
 }
 
 function package_installer() {
-    if ! package_installed "$1" then
-    echo "$1 installing"
-    apt install -y "$1" &> /dev/null
+    local package="$1"
+    if ! package_installed "$package" then
+    echo "$package installing"
+    apt install -y "$package" &> /dev/null
 }
 
 function msg_info() {
