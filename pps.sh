@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=16
+REVISION=17
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -58,8 +58,15 @@ install_package wget
 #msg_list 15 "reboot system"
 echo ""
 echo "1"
-sleep 2
-replace-prevline "2"
+sleep 5
+replace-prevline 2
+sleep 2 
+replace-prevline 3
+sleep 6
+
+msg_linfo-nonl "root login: set password?"
+sleep 4
+msg_lok-nonl "root login: set password?"
 sleep 2
 replace-prevline "3"
 echo ""
