@@ -95,7 +95,7 @@ function msg_quest_prompt() {
  function msg_lquest_prompt() {
   local number="$1"  # Number in digits
   local msg="$2"     # Message text
-  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg" " <y/N>" ;read -r -p "" prompt
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg <Y/N>"  ;read -r -p "" prompt
 }
 function msg_quest() {
     local msg="$1"
