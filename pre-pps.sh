@@ -2,7 +2,7 @@
 PREPPSREVISION="15"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "________________________________"
-echo "\\t\\t $PREPPSVERSION"
+printf "\\t\\t $PREPPSVERSION"
     # Variables
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
