@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="10"
+PREPPSREVISION="11"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
     # Variables
     COL_NC='\e[0m' # 
@@ -94,7 +94,12 @@ function msg_warn() {
     local msg="$1"
     printf "%b ${msg}\\n" "${WARN}"
     }
-
+function msg_list() {
+    local position="$1"
+    local msg="$2"
+    local INFO="${COL_NC}[i]  "   
+    printf "%b ${msg}\\n" "\\t${COL_NC}[$position]  "
+    }
 
 function header_info {
     echo -e "${COL_GREEN}
