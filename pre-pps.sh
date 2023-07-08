@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 PREPPSREVISION="27"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
+export POS=0
 echo "________________________________"
 printf "\\t\\t $PREPPSVERSION"
     # Variables
@@ -78,8 +79,12 @@ function msg_linfo() {
   local msg="$2"     # Message text
   printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
-
-
+export LISTVALUE=00
+function msg_infov2() {
+  number=$(< <(echo $POS))
+  local msg="$1"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
+}
 
 #function msg_linfo() {
 #  local number="$1"  # Number in digits
