@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-PREPPSREVISION="24"
+PREPPSREVISION="25"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "________________________________"
 printf "\\t\\t $PREPPSVERSION"
     # Variables
-    COL_NC='\e[0m' # 
+    COL_NC='\e[0m' 
     COL_GREEN='\e[1;32m'
     COL_RED='\e[1;31m'
     COL_GREY='\e[0;37m'
@@ -19,7 +19,7 @@ printf "\\t\\t $PREPPSVERSION"
     COL_BOLD='\e[1m' #b
     COL_UNDER='\e[4m' #un
     #########################################
-    RESET_COLOR='\e[0m' # 
+    RESET_COLOR='\e[0m' 
     GREEN='\e[1;32m'
     RED='\e[1;31m'
     GREY='\e[0;37m'
@@ -33,7 +33,7 @@ printf "\\t\\t $PREPPSVERSION"
     ITALICS='\e[3m' #it
     BOLD='\e[1m' #b
     UNDERLINE='\e[4m' #un
-    ########################################
+    
     TICK="${COL_NC}[${COL_GREEN}✓${COL_NC}]  "
     QUEST="${COL_NC}[${COL_BLUE}?${COL_NC}]  "
     col='\e[38;5;46m'
@@ -100,8 +100,8 @@ function msg_quest_prompt() {
 
  function msg_lquest_prompt() {
   local number="$1"  # Number in digits
-  local msg="$2"     # Message text
-  printf "${COL_DIM} [%02d]${COL_NC}\\t %s\\n" "$number" "${QUEST}" "$msg <y/N>  \\n"  ;read -r -p "" prompt
+  local msg="$2 <y/N> "     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg"  ;read -r -p "" prompt
 }
 
 function msg_quest() {
