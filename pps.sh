@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=09
+REVISION=10
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -62,10 +62,11 @@ msg_lquest_prompt 1 "root login: set password?"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
     msg_ok "${COL_DIM}root login:${COL_NC} password set"
-    msg_lok 1 "${COL_DIM}root login:${COL_NC} password set"
+    msg_lok 1 "root login: password set"
     echo ""
 else
     msg_info "${COL_DIM}root login:${COL_NC} unchanged"
+    msg_linfo 1 "root login: unchanged"
     echo ""
 fi
 
@@ -75,6 +76,7 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
     sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
     msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
+    msg_lok" 2 "sshd_config: root login permitted"
     echo ""
     if [ "$detected_env" == "lxc" ]; then
         #cp /etc/ssh/sshd_config /root/sshd_config.bckup
@@ -85,6 +87,7 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     fi
 else
     msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
+    msg_linfo 2 "sshd_config: unchanged"
     echo ""
 fi
 
