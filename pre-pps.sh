@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+PREPPSREVISION=01
+PREPPSVERSION="Q3.${REVISION}"
 
     # Variables
     COL_NC='\e[0m' # 
@@ -138,3 +140,4 @@ function apt-helper {
     done
     #msg_info "All updates complete!"
 }
+msg_info "${COL_ITAL}${COL_GREEN}Pre-PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
