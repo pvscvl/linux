@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="15"
+PREPPSREVISION="16"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "________________________________"
 printf "\\t\\t $PREPPSVERSION"
@@ -80,10 +80,10 @@ function msg_info() {
     printf "%b ${msg}\\n" "${INFO}"
     }
 
-function msg_info2() {
+function msg_linfo() {
   local number="$1"  # Number in digits
   local msg="$2"     # Message text
-  printf "\\t${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
 
 echo "________________________"
@@ -91,30 +91,59 @@ msg_info4 7 "Test info4"
 echo "_________________________"
 msg_info2 5 "test info 2"
 
-function msg_quest() {
-    local msg="$1"
-    printf "%b ${msg}${COL_NC}\\n" "${QUEST}${COL_NC}"
-    }
+
+function msg_linfo() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg"
+}
+
 function msg_quest_prompt() {
     local msg="$1"
     printf "%b ${msg}"" <y/N> " "${QUEST}";read -r -p "" prompt
 	}
+
+ function msg_lquest_prompt() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg" " <y/N>"
+}
 function msg_quest() {
     local msg="$1"
     printf "%b ${msg}\\n" "${QUEST}"
 	}
+ function msg_lquest() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg"
+}
 function msg_ok() {
     local msg="$1"
     printf "%b ${msg}\\n" "${TICK}"
     }
+    function msg_lok() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${TICK}" "$msg"
+}
 function msg_no() {
     local msg="$1"
     printf "%b ${msg}\\n" "${CROSS}"
     }
+function msg_lno() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${CROSS}" "$msg"
+}
 function msg_warn() {
     local msg="$1"
     printf "%b ${msg}\\n" "${WARN}"
     }
+function msg_lwarn() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${WARN}" "$msg"
+}
 function msg_list() {
     local position="$1"
     local msg="$2"
