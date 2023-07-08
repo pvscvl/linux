@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 PREPPSREVISION="12"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
+echo "#########################################"
+echo "\\t\\t $PREPPSVERSION"
     # Variables
     COL_NC='\e[0m' # 
     COL_GREEN='\e[1;32m'
