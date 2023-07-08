@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="14"
+PREPPSREVISION="15"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "________________________________"
 echo "\\t\\t $PREPPSVERSION"
@@ -80,18 +80,12 @@ function msg_info() {
     printf "%b ${msg}\\n" "${INFO}"
     }
 
-function msg_info2 {
-    local arg1="$1"
-    local msg="$2"
-    printf "\\t [%02d] %b ${msg}\\n" "${INFO}"
-    }
-
-function msg_info4() {
+function msg_info2() {
   local number="$1"  # Number in digits
   local msg="$2"     # Message text
-
-  printf "\\t [%02d]\\t %b %s\n" "$number" "${INFO}" "$msg"
+  printf "\\t${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
+
 echo "________________________"
 msg_info4 7 "Test info4"
 echo "_________________________"
