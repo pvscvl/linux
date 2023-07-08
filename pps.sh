@@ -62,9 +62,13 @@ echo "1"
 sleep 5
 replace-prevline 2
 sleep 2 
-replace-prevline 3
-sleep 6
-clear
+replace-line 3
+sleep 2
+replace-line 4
+sleep 2
+replace-line 5
+sleep 8
+
 
 msg_linfo-nonl "root login: set password?"
 sleep 4
@@ -73,11 +77,11 @@ sleep 2
 msg_ok "ficken? Erledifg"
 sleep 4
 
-replace-prevline-CR "3"
+replace-prevlineCR "3"
 echo ""
 echo ""
 sleep 7
-
+export POS=0
 #msg_lquest_prompt 1 "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 msg_lquest_prompt 1 "root login: set password?"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
