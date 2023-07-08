@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=02
+REVISION=03
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
+msg_info "${COL_ITAL}${COL_GREEN}Pre-PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$PREPPSVERSION ${COL_NC}"
 msg_info "${COL_ITAL}${COL_GREEN}PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 echo ""
 echo ""
