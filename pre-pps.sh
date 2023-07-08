@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="25"
+PREPPSREVISION="26"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "________________________________"
 printf "\\t\\t $PREPPSVERSION"
