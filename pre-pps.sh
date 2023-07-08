@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="19"
+PREPPSREVISION="20"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "________________________________"
 printf "\\t\\t $PREPPSVERSION"
@@ -95,7 +95,7 @@ function msg_quest_prompt() {
  function msg_lquest_prompt() {
   local number="$1"  # Number in digits
   local msg="$2"     # Message text
-  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg" " <y/N>"
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg <y/N>"
 }
 function msg_quest() {
     local msg="$1"
