@@ -56,6 +56,7 @@ install_package wget
 #msg_list 13 "Upgrade"
 #msg_list 14 "Dist-Upgrade"
 #msg_list 15 "reboot system"
+clear
 echo ""
 echo "1"
 sleep 5
@@ -63,14 +64,19 @@ replace-prevline 2
 sleep 2 
 replace-prevline 3
 sleep 6
+clear
 
 msg_linfo-nonl "root login: set password?"
 sleep 4
-msg_lok-nonl "root login: set password?"
+msg_quest "ficken?"
 sleep 2
-replace-prevline "3"
+msg_ok "ficken? Erledifg"
+sleep 4
+
+replace-prevline-CR "3"
 echo ""
 echo ""
+sleep 7
 
 #msg_lquest_prompt 1 "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 msg_lquest_prompt 1 "root login: set password?"
