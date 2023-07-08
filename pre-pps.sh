@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-PREPPSREVISION="12"
+PREPPSREVISION="13"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
-echo "#########################################"
+echo "________________________________"
 echo "\\t\\t $PREPPSVERSION"
     # Variables
     COL_NC='\e[0m' # 
@@ -92,9 +92,9 @@ function msg_info4() {
 
   printf "\\t [%02d]\\t %b %s\n" "$number" "${INFO} "$msg"
 }
-echo "######"
+echo "________________________"
 msg_info4 7 "Test info4"
-echo "######"
+echo "_________________________"
 msg_info2 5 "test info 2"
 
 function msg_quest() {
