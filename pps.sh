@@ -6,6 +6,15 @@ source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps
 header_info
 msg_info "${COL_ITAL}${COL_GREEN}Pre-PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$PREPPSVERSION ${COL_NC}"
 msg_info "${COL_ITAL}${COL_GREEN}PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+sleep 2
+remove-prevline
+msg_ok "${COL_ITAL}${COL_GREEN}PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+sleep 2
+remove-prevline
+msg_warn "${COL_ITAL}${COL_GREEN}PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+sleep 2
+remove-prevline
+msg_no "${COL_ITAL}${COL_GREEN}PPS Version:\\t\\t${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 echo ""
 echo ""
 msg_info "${COL_DIM}Hostname: ${COL_NC}${COL_BOLD}$hostsys ${COL_NC}"
