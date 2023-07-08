@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=10
+REVISION=11
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -56,16 +56,20 @@ msg_list 12 "zabbix-agent2"
 msg_list 13 "Upgrade"
 msg_list 14 "Dist-Upgrade"
 msg_list 15 "reboot system"
+echo ""
+echo ""
+echo ""
+echo ""
 
 #msg_lquest_prompt 1 "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 msg_lquest_prompt 1 "root login: set password?"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-    msg_ok "${COL_DIM}root login:${COL_NC} password set"
+    #msg_ok "${COL_DIM}root login:${COL_NC} password set"
     msg_lok 1 "root login: password set"
     echo ""
 else
-    msg_info "${COL_DIM}root login:${COL_NC} unchanged"
+    #msg_info "${COL_DIM}root login:${COL_NC} unchanged"
     msg_linfo 1 "root login: unchanged"
     echo ""
 fi
@@ -76,7 +80,7 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
     sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
     sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-    msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
+    #msg_ok "${COL_DIM}sshd_config:${COL_NC} root login via SSH permitted"
     msg_lok 2 "sshd_config: root login permitted"
     echo ""
     if [ "$detected_env" == "lxc" ]; then
@@ -87,13 +91,15 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
         echo ""
     fi
 else
-    msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
+    #msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
     msg_linfo 2 "sshd_config: unchanged"
     echo ""
 fi
 
 if [ "$WEBSITE_AVAILABLE" = true ]; then
-    msg_lquest_prompt 3 "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
+    #msg_lquest_prompt 3 "${COL_DIM}ssh:${COL_NC} copy public keys for root login?${COL_DIM}"
+	msg_lquest_prompt 3 "ssh: copy public keys?"
+
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
         if ! [[ -f "/root/.ssh/authorized_keys" ]] ; then
             mkdir /root/.ssh
@@ -106,27 +112,28 @@ if [ "$WEBSITE_AVAILABLE" = true ]; then
             KEY=$(curl -s "${URL}${KEY_URL}")
             if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
                 echo "$KEY" >> ~/.ssh/authorized_keys
-                msg_ok "${COL_DIM}ssh:${COL_NC} copied\\t\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
+                msg_lok 3 "${COL_DIM}ssh:${COL_NC} copied\\t\\t${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
             else
-                msg_info "${COL_DIM}ssh:${COL_NC} already exists:\\t${KEY_URL}${COL_NC}"
+                msg_linfo 3 "${COL_DIM}ssh:${COL_NC} already exists:\\t${KEY_URL}${COL_NC}"
             fi
         done
         echo ""
         chmod 600 /root/.ssh/authorized_keys
     else    
-        msg_info "${COL_DIM}ssh:${COL_NC} public keys unchanged"
+        msg_linfo 3 "${COL_DIM}ssh:${COL_NC} public keys unchanged"
         echo ""
     fi
 fi
 
 
-msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
+#msg_quest_prompt "${COL_DIM}.bashrc:${COL_NC} modify?${COL_DIM}"
+msg_lquest_prompt 4 ".bashrc: modify?"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
     wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-    msg_ok "${COL_DIM}.bashrc:${COL_NC} modified"
+    msg_lok 4 "${COL_DIM}.bashrc:${COL_NC} modified"
     echo ""
 else
-    msg_info "${COL_DIM}.bashrc:${COL_NC} unchanged"
+    msg_linfo 4 "${COL_DIM}.bashrc:${COL_NC} unchanged"
     echo ""
 fi
 
@@ -137,14 +144,15 @@ fi
 
 
 if [ ! -x "$(command -v pfetch)" ] ; then
-    msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
+    #msg_quest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
+msg_lquest_prompt 5 "pfetch: install?"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-        msg_info "${COL_DIM}pfetch:${COL_NC} installing"
+        msg_linfo "pfetch: installing"
         wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
         apt install unzip &>/dev/null
         unzip master.zip &>/dev/null
         install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
-        msg_ok "${COL_DIM}pfetch:${COL_NC} installed"
+        msg_lok 5 "pfetch: installed"
         echo ""
         if ! grep -q "clear" /root/.bashrc; then
             echo " " >> /root/.bashrc
@@ -157,18 +165,21 @@ if [ ! -x "$(command -v pfetch)" ] ; then
         fi
 
     else
-        msg_no "${COL_DIM}pfetch:${COL_NC} not installed"
+        msg_linfo 5  "pfetch: not installed"
         echo ""
     fi
 else
-    msg_quest "${COL_DIM}pfetch:${COL_NC} install?"
-    msg_info "${COL_DIM}pfetch:${COL_NC} already installed"
+    #msg_guest "${COL_DIM}pfetch:${COL_NC} install?"
+    #msg_info "${COL_DIM}pfetch:${COL_NC} already installed"
+	msg_lquest  5 "$pfetch: install?"
+    	msg_linfo 5 "pfetch: already installed"
     echo ""
 fi
 
 if  grep -q "neofetch" /root/.bashrc ; then
     sed -i "/neofetch/ s//#neofetch/g" /root/.bashrc
-    msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
+    #msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
+      msg_linfo "pfetch: Removed neofetch from .bashrc"
 fi
 
 if [ ! -x "$(command -v ack)" ] ; then
