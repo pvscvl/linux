@@ -193,8 +193,9 @@ function apt-helper {
     fi
 }
 
-
-
+function line-delete() {
+  echo -ne "${CUU1}${EL}$1"
+}
 
 
 
