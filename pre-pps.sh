@@ -184,13 +184,4 @@ function apt-helper {
 
 
 
-echo "________________________"
-msg_info "Test"
-echo "_________________________"
-msg_linfo 5 Test
-"__"
 
-echo "________________________"
-msg_info "Test"
-echo "_________________________"
-msg_lquest 5 Test
