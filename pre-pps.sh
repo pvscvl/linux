@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="17"
+PREPPSREVISION="19"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "________________________________"
 printf "\\t\\t $PREPPSVERSION"
@@ -68,13 +68,6 @@ printf "\\t\\t $PREPPSVERSION"
         fi
     fi
 
-output_text() {
-  local arg1="$1"  # First argument
-  local arg2="$2"  # Second argument
-
-  printf "[%02d] [i] %s\n" "$arg1" "$arg2"
-}
-
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
@@ -86,10 +79,6 @@ function msg_linfo() {
   printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
 
-echo "________________________"
-msg_info4 7 "Test info4"
-echo "_________________________"
-msg_info2 5 "test info 2"
 
 
 function msg_linfo() {
@@ -190,3 +179,18 @@ function apt-helper {
         sudo apt install -y "$1"
     fi
 }
+
+
+
+
+
+echo "________________________"
+msg_info "Test"
+echo "_________________________"
+msg_linfo 5 Test
+"__"
+
+echo "________________________"
+msg_info "Test"
+echo "_________________________"
+msg_lquest 5 Test
