@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=05
+REVISION=11
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -40,6 +40,21 @@ fi
 
 install_package curl
 install_package wget
+msg_list 01 "root login"
+msg_list 02 "sshd_config"
+msg_list 03 "copy ssh public keys"
+msg_list 04 ".bashrc"
+msg_list 05 "pfetch"
+msg_list 06 "ack"
+msg_list 07 "mc"
+msg_list 08 "qemu-guest-agent"
+msg_list 09 "linux-virtual-packages"
+msg_list 10 "KVP daemon bug Workaround"
+msg_list 11 "zabbix-agent"
+msg_list 12 "zabbix-agent2"
+msg_list 13 "Upgrade"
+msg_list 14 "Dist-Upgrade
+msg_list 15 "reboot"
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
