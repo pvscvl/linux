@@ -37,6 +37,8 @@ if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
     exit 1
 fi
 
+package-installer curl
+package-installer ABCDedjhfgedjs
 
 
 msg_quest_prompt "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
