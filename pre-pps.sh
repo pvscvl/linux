@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="09"
+PREPPSREVISION="10"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
     # Variables
     COL_NC='\e[0m' # 
@@ -95,14 +95,7 @@ function msg_warn() {
     printf "%b ${msg}\\n" "${WARN}"
     }
 
- function install_package() {
-    if ! dpkg -s "$1" >/dev/null 2>&1; then
-        msg_warn "$1 is not installed. Installing..."
-        sudo apt install -y "$1"
-    else
-        msg_info "$1 is already installed."
-    fi
-}
+
 function header_info {
     echo -e "${COL_GREEN}
     pascal's    ____  ____  _____
@@ -135,4 +128,10 @@ function apt-helper {
         fi
     done
     #msg_info "All updates complete!"
+}
+ function install_package() {
+    if ! dpkg -s "$1" >/dev/null 2>&1; then
+        apt-helper
+        sudo apt install -y "$1"
+    fi
 }
