@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="06"
+PREPPSREVISION="07"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 echo "$PREPPSVERSION"
     # Variables
@@ -67,16 +67,13 @@ echo "$PREPPSVERSION"
         fi
     fi
 
-function package_installer() {
-	function package_installed() {
-	local package="$1"
-	dpkg -s "$package" >/dev/null 2>&1
-}
-
-local package="$1"
-	if ! package_installed "$package" then
-	echo "$package installing"
-	apt install -y "$package" &> /dev/null
+function install_package() {
+    if ! dpkg -s "$1" >/dev/null 2>&1; then
+        echo "$1 is not installed. Installing..."
+        sudo apt install -y "$1"
+    else
+        echo "$1 is already installed."
+    fi
 }
 
 function msg_info() {
