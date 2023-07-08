@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=15
+REVISION=16
 VERSION="Q3.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
 header_info
@@ -57,7 +57,11 @@ install_package wget
 #msg_list 14 "Dist-Upgrade"
 #msg_list 15 "reboot system"
 echo ""
-echo ""
+echo "1"
+sleep 2
+replace-prevline "2"
+sleep 2
+replace-prevline "3"
 echo ""
 echo ""
 
@@ -67,14 +71,16 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
     #msg_ok "${COL_DIM}root login:${COL_NC} password set"
     sleep 5
-    delete_and_replace_line $(msg_lok 1 "root login: password set")
+    MSG=$(msg_lok 1 "root login: password set")
+    replace-prevline $MSG
     sleep 5
     msg_lok 1 "root login: password set"
     echo ""
 else
     #msg_info "${COL_DIM}root login:${COL_NC} unchanged"
     sleep 5
-    delete_and_replace_line  $(msg_linfo 1 "root login: unchanged")
+    MSG="$(msg_linfo 1 "root login: unchanged")
+  replace-prevline $MSG
     sleep 5
     msg_linfo 1 "root login: unchanged"
     echo ""
