@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PREPPSREVISION="29"
+PREPPSREVISION="30"
 PREPPSVERSION="Q3.${PREPPSREVISION}"
 export POS=0
 echo "________________________________"
@@ -74,10 +74,16 @@ function msg_info() {
     printf "%b ${msg}\\n" "${INFO}"
     }
 
+
 function msg_linfo() {
   local number="$1"  # Number in digits
   local msg="$2"     # Message text
   printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
+}
+function msg_linfo-nonl() {
+  local number="$1"  # Number in digits
+  local msg="$2"     # Message text
+  printf "${COL_DIM} [%02d]${COL_NC}\\t %b %s" "$number" "${INFO}" "$msg"
 }
 export POS=00
 function msg_infov2() {
