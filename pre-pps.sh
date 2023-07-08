@@ -200,7 +200,15 @@ function apt-helper {
 }
 
 function replace-prevline() {
+CUU1=$(tput cuu1)    
+EL=$(tput el)       
+CR=$(tput cr) 
   echo -ne "${CUU1}${EL}$1"
 }
 
-
+function replace-prevlineCR() {
+CUU1=$(tput cuu1)    
+EL=$(tput el)       
+CR=$(tput cr) 
+  echo -ne "${CUU1}${EL}${CR}$1"
+}
