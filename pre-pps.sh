@@ -65,6 +65,17 @@
         fi
     fi
     # Functions
+    # Function to check if a package is installed
+function package_installed() {
+    dpkg -s "$1" >/dev/null 2>&1
+}
+
+function package_installer() {
+    if ! package_installed "$1" then
+    echo "$1 installing"
+    apt install -y "$1" &> /dev/null
+}
+
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
