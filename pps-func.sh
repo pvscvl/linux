@@ -189,10 +189,10 @@ pps_debug() {
 
 
 init_log() {
-  ssh "$remote_user:$remote_pw@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" && echo "" > $remote_path/$logfile; fi"
+  ssh "$remote_user@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" && echo "" > $remote_path/$logfile; fi"
 }
 
 log() {
   local message="$1"
-  echo "$(date '+%Y-%m-%d %H:%M:%S'): $message" | ssh "$remote_user:$remote_pw@$remote_host" "cat >> $logfile"
+  echo "$(date '+%Y-%m-%d %H:%M:%S'): $message" | ssh "$remote_user@$remote_host" "cat >> $logfile"
 }
