@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=06
+REVISION=07
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -23,7 +23,7 @@ sleep 2
 	sleep 3
 	moveup && move2start && eraseline
  msg_lok "${COL_BOLD}ack:${COL_NC} installed"
-
+sleep 4
 
 msg_linfo "${COL_BOLD}Hostname: ${COL_NC}${COL_ITAL}$hostsys ${COL_NC}"
 msg_linfo "${COL_BOLD}Virtual environment: ${COL_NC}${COL_ITAL}$detected_env${COL_NC}"
