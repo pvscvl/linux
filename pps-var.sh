@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VARREVISION="02"
+VARREVISION="03"
 VARVERSION="V7.${VARREVISION}"
 export POS=0
     # Variables
@@ -71,8 +71,9 @@ GREEN3=$(tput setaf 40)
     hostsys=`hostname -f`
 PPS_DEBUG_CODE=-0
 TABSTOP=$(tput hpa 8)
-remote_user="your_username"
-remote_path="/path/to/log/files"
+remote_user="loguser"
+remote_pw="0000"
+remote_path="/Volumes/ssd0/Users/pascaL/logs"
 logfile="$(hostname).log"
 
 # Define remote hosts
