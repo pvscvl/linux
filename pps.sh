@@ -2,10 +2,11 @@
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
 REVISION=01
 VERSION="M7.${REVISION}"
-#source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pre-pps.sh")
-source ./pre-pps.sh
+source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
+source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
 header_info
 export POS=0
+
 msg_linfo "${COL_ITAL}${COL_GREEN}Pre-PPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$PREPPSVERSION ${COL_NC}"
 msg_linfo "${COL_ITAL}${COL_GREEN}MainPPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 echo ""
@@ -40,6 +41,20 @@ fi
 install_package curl
 install_package wget
 install_package dnsutils
+
+    WEBSITE_AVAILABLE=false
+
+    if curl --head --silent http://download.local &> /dev/null; then
+        URL="http://download.local/"
+        WEBSITE_AVAILABLE=true
+    else
+        if curl --head --silent http://10.0.0.254 &> /dev/null; then
+            URL="http://10.0.0.254/"
+            WEBSITE_AVAILABLE=true
+        fi
+    fi
+
+
 
 ((POS++))
 #msg_lquest_prompt 1 "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
