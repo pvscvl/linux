@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="08"
+FUNCREVISION="09"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
@@ -189,7 +189,7 @@ pps_debug() {
 
 
 init_log() {
-  ssh "$remote_user@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" > $remote_path/$logfile; fi"
+  ssh "$remote_user@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" && echo "" > $remote_path/$logfile; fi"
 }
 
 log() {
