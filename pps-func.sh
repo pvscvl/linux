@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="02"
+FUNCREVISION="04"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
@@ -16,12 +16,6 @@ function msg_linfo() {
   local msg="$1"     # Message text
   printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
-
-
-
-
-export POS=0
-
 
 function msg_quest_prompt() {
     local msg="$1"
@@ -130,7 +124,7 @@ function apt-helper {
  function install_package() {
     if ! dpkg -s "$1" &>/dev/null; then
         apt-helper
-        sudo apt install -y "$1" &>/dev/null"
+        sudo apt install -y "$1" &>/dev/null
     fi
 }
 
