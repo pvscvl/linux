@@ -7,8 +7,10 @@ source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-fun
 header_info
 export POS=0
 
-msg_linfo "${COL_ITAL}${COL_GREEN}Pre-PPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$PREPPSVERSION ${COL_NC}"
-msg_linfo "${COL_ITAL}${COL_GREEN}MainPPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+
+msg_linfo "${COL_ITAL}${COL_GREEN}Main PPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
+msg_linfo "${COL_ITAL}${COL_GREEN}PPS-vars Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VARVERSION ${COL_NC}"
+msg_linfo "${COL_ITAL}${COL_GREEN}PPS-func Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$FUNCVERSION ${COL_NC}"
 echo ""
 msg_linfo "${COL_BOLD}Hostname: ${COL_NC}${COL_ITAL}$hostsys ${COL_NC}"
 msg_linfo "${COL_BOLD}Virtual environment: ${COL_NC}${COL_ITAL}$detected_env${COL_NC}"
