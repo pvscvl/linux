@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="05"
+FUNCREVISION="06"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
@@ -8,7 +8,9 @@ function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
     }
-
+function creturn() {
+tput hpa 0
+    }
 
 function msg_linfo() {
   #local number="$1"  # Number in digits
