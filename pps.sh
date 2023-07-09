@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+ch#!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=02
+REVISION=03
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -39,10 +39,13 @@ if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
     msg_info "This script is for linux machines, not macOS machines"
     exit 1
 fi
-
+echo E1
 install_package curl
+echo E2
 install_package wget
+echo E3
 install_package dnsutils
+echo E4
 
     WEBSITE_AVAILABLE=false
 
