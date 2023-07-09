@@ -186,3 +186,13 @@ pps_debug() {
     PPS_DEBUG_CODE=$((PPS_DEBUG_CODE + 1))
     printf "${TABSTOP}E%03d\n" "$PPS_DEBUG_CODE"
 }
+
+
+init_log() {
+  ssh "$remote_user@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" > $remote_path/$logfile; fi"
+}
+
+log() {
+  local message="$1"
+  echo "$(date '+%Y-%m-%d %H:%M:%S'): $message" | ssh "$remote_user@$remote_host" "cat >> $logfile"
+}
