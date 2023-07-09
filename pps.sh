@@ -8,22 +8,8 @@ header_info
 export POS=0
 msg_linfo "${COL_ITAL}${COL_GREEN}Main PPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 msg_linfo "${COL_ITAL}${COL_GREEN}PPS-vars Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VARVERSION ${COL_NC}"
-msg_linfo "${COL_ITAL}${COL_GREEN}PPS-func Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$FUNCVERSION ${COL_NC}"
+msg_linfo "${COL_ITAL}${COL_GREEN}PPS-func Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$FUNCVERSION ${COL_NC}"echo ""
 echo ""
-sleep 2
-        msg_linfo "${COL_BOLD}ack:${COL_NC} installing"
-	sleep 3
-	moveup && move2start
- msg_lok "${COL_BOLD}ack:${COL_NC} installed"
- echo ""
- echo ""
- ((POS++))
-sleep 2
-        msg_linfo "${COL_BOLD}ack:${COL_NC} installing"
-	sleep 3
-	moveup && move2start && eraseline
- msg_lok "${COL_BOLD}ack:${COL_NC} installed"
-sleep 4
 
 msg_linfo "${COL_BOLD}Hostname: ${COL_NC}${COL_ITAL}$hostsys ${COL_NC}"
 msg_linfo "${COL_BOLD}Virtual environment: ${COL_NC}${COL_ITAL}$detected_env${COL_NC}"
@@ -66,14 +52,16 @@ if curl --head --silent http://download.local &> /dev/null; then
             	WEBSITE_AVAILABLE=true
         fi
 fi
-
+echo "E001"
 ssh-copy-id -i ~/.ssh/id_rsa.pub "$remote_user@$remote_host"
-
+echo "E002"
 init_log
+echo "E003"
 log "Test Log . Start"
+echo "E004"
 sleep 2
 log "Test Log . Ende"
-
+echo "E005"
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
