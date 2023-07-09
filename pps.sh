@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=01
+REVISION=02
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -132,15 +132,15 @@ fi
 sleep 1
 ((POS++))
 if [ ! -x "$(command -v pfetch)" ] ; then
-    #msg_lquest_prompt "${COL_DIM}pfetch:${COL_NC} install?${COL_DIM}"
-msg_lquest_prompt "pfetch: install?"
+    msg_lquest_prompt "${COL_BOLD}pfetch:${COL_NC} install?${COL_DIM}"
+#msg_lquest_prompt "pfetch: install?"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-        msg_linfo "pfetch: installing"
+        msg_linfo "${COL_BOLD}pfetch:${COL_NC} installing"
         wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
         apt install unzip &>/dev/null
         unzip master.zip &>/dev/null
         install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
-        msg_lok 5 "pfetch: installed"
+        msg_lok "${COL_BOLD}pfetch:${COL_NC} installed"
         if ! grep -q "clear" /root/.bashrc; then
             echo " " >> /root/.bashrc
             echo "clear" >> /root/.bashrc
