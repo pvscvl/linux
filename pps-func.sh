@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+FUNCREVISION="01"
+FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
 
