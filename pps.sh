@@ -1,13 +1,11 @@
-ch#!/usr/bin/env bash
+#!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=03
+REVISION=05
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
 header_info
 export POS=0
-
-
 msg_linfo "${COL_ITAL}${COL_GREEN}Main PPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 msg_linfo "${COL_ITAL}${COL_GREEN}PPS-vars Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VARVERSION ${COL_NC}"
 msg_linfo "${COL_ITAL}${COL_GREEN}PPS-func Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$FUNCVERSION ${COL_NC}"
@@ -39,39 +37,28 @@ if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
     msg_info "This script is for linux machines, not macOS machines"
     exit 1
 fi
-echo E1
 install_package curl
-echo E2
 install_package wget
-echo E3
 install_package dnsutils
-echo E4
 
-    WEBSITE_AVAILABLE=false
-
-    if curl --head --silent http://download.local &> /dev/null; then
-        URL="http://download.local/"
+WEBSITE_AVAILABLE=false
+if curl --head --silent http://download.local &> /dev/null; then
+ 	URL="http://download.local/"
         WEBSITE_AVAILABLE=true
     else
         if curl --head --silent http://10.0.0.254 &> /dev/null; then
-            URL="http://10.0.0.254/"
-            WEBSITE_AVAILABLE=true
+    		URL="http://10.0.0.254/"
+            	WEBSITE_AVAILABLE=true
         fi
-    fi
-
-
+fi
 
 ((POS++))
-#msg_lquest_prompt 1 "${COL_DIM}root login:${COL_NC} set password?${COL_DIM}"
 msg_lquest_prompt "${COL_BOLD}root login:${COL_NC} set password?${COL_DIM}"
-#msg_lquest_prompt "root login: set password?"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
-    #msg_ok "${COL_DIM}root login:${COL_NC} password set"
     msg_lok "${COL_BOLD}root login:${COL_NC} changed"
 else
     msg_linfo "${COL_BOLD}root login:${COL_NC} unchanged"
-    #msg_linfo 1 "root login: unchanged"
 fi
 echo ""
 
@@ -86,7 +73,6 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
         sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
     fi
 else
-    #msg_info "${COL_DIM}sshd_config:${COL_NC} root login via SSH unchanged"
     msg_linfo "${COL_BOLD}sshd_config:${COL_NC} unchanged"
 fi
 
@@ -116,27 +102,24 @@ if [ "$WEBSITE_AVAILABLE" = true ]; then
         msg_linfo "${COL_BOLD}ssh:${COL_NC} public keys not copied"
     fi
 fi
-        echo ""
+echo ""
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}.bashrc:${COL_NC} modify?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
     wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
     msg_lok "${COL_BOLD}.bashrc:${COL_NC} modified"
-    echo ""
 else
     msg_linfo "${COL_BOLD}.bashrc:${COL_NC} unchanged"
-    echo ""
 fi
-
         if ! grep -q "BASHVERSION=2" /root/.bashrc; then
             wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
         fi
-
+	
+echo ""
 sleep 1
 ((POS++))
 if [ ! -x "$(command -v pfetch)" ] ; then
     msg_lquest_prompt "${COL_BOLD}pfetch:${COL_NC} install?${COL_DIM}"
-#msg_lquest_prompt "pfetch: install?"
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
         msg_linfo "${COL_BOLD}pfetch:${COL_NC} installing"
         wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
@@ -161,7 +144,6 @@ else
 fi
 if  grep -q "neofetch" /root/.bashrc ; then
     sed -i "/neofetch/ s//#neofetch/g" /root/.bashrc
-    #msg_info "${COL_DIM}pfetch:${COL_NC} Removed neofetch from .bashrc"
       msg_linfo "${COL_BOLD}pfetch:${COL_NC} removed neofetch from .bashrc"
 fi
 
