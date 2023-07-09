@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="04"
+FUNCREVISION="05"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
@@ -123,8 +123,7 @@ function apt-helper {
 }
  function install_package() {
     if ! dpkg -s "$1" &>/dev/null; then
-        apt-helper
-        sudo apt install -y "$1" &>/dev/null
+        apt install -y "$1" &>/dev/null
     fi
 }
 
