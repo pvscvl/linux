@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=05
+REVISION=06
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -10,6 +10,21 @@ msg_linfo "${COL_ITAL}${COL_GREEN}Main PPS Version: ${COL_NC}${COL_BOLD}${COL_YE
 msg_linfo "${COL_ITAL}${COL_GREEN}PPS-vars Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VARVERSION ${COL_NC}"
 msg_linfo "${COL_ITAL}${COL_GREEN}PPS-func Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$FUNCVERSION ${COL_NC}"
 echo ""
+sleep 2
+        msg_linfo "${COL_BOLD}ack:${COL_NC} installing"
+	sleep 3
+	moveup && move2start
+ msg_lok "${COL_BOLD}ack:${COL_NC} installed"
+ echo ""
+ echo ""
+ ((POS++))
+sleep 2
+        msg_linfo "${COL_BOLD}ack:${COL_NC} installing"
+	sleep 3
+	moveup && move2start && eraseline
+ msg_lok "${COL_BOLD}ack:${COL_NC} installed"
+
+
 msg_linfo "${COL_BOLD}Hostname: ${COL_NC}${COL_ITAL}$hostsys ${COL_NC}"
 msg_linfo "${COL_BOLD}Virtual environment: ${COL_NC}${COL_ITAL}$detected_env${COL_NC}"
 msg_linfo "${COL_BOLD}Detected OS: ${COL_NC}${COL_ITAL}$detected_os $detected_version${COL_NC}"
