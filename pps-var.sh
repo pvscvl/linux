@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-PREPPSREVISION="01"
-PREPPSVERSION="M7.${PREPPSREVISION}"
+VARREVISION="01"
+VARVERSION="V7.${VARREVISION}"
 export POS=0
     # Variables
 #    COL_NC='\e[0m' 
