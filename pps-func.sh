@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="01"
+FUNCREVISION="02"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
@@ -128,9 +128,9 @@ function apt-helper {
     #msg_info "All updates complete!"
 }
  function install_package() {
-    if ! dpkg -s "$1" >/dev/null &>/dev/null; then
+    if ! dpkg -s "$1" &>/dev/null; then
         apt-helper
-        sudo apt install -y "$1 &>/dev/null"
+        sudo apt install -y "$1" &>/dev/null"
     fi
 }
 
