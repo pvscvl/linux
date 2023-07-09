@@ -67,6 +67,9 @@ if curl --head --silent http://download.local &> /dev/null; then
         fi
 fi
 
+
+init_log
+
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
