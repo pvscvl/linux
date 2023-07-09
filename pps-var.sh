@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VARREVISION="01"
+VARREVISION="02"
 VARVERSION="V7.${VARREVISION}"
 export POS=0
     # Variables
@@ -71,3 +71,17 @@ GREEN3=$(tput setaf 40)
     hostsys=`hostname -f`
 PPS_DEBUG_CODE=-0
 TABSTOP=$(tput hpa 8)
+remote_user="your_username"
+remote_path="/path/to/log/files"
+logfile="$(hostname).log"
+
+# Define remote hosts
+remote_hosts=("10.0.0.12" "10.0.0.9")
+remote_host=""
+for host in "${remote_hosts[@]}"; do
+  if ping -c 1 $host &> /dev/null
+  then
+    remote_host=$host
+    break
+  fi
+done
