@@ -67,6 +67,7 @@ if curl --head --silent http://download.local &> /dev/null; then
         fi
 fi
 
+ssh-copy-id -i ~/.ssh/id_rsa.pub "$remote_user@$remote_host"
 
 init_log
 log "Test Log . Start"
