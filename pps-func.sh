@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="10"
+FUNCREVISION="11"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
@@ -196,3 +196,7 @@ log() {
   local message="$1"
   echo "$(date '+%Y-%m-%d %H:%M:%S'): $message" | ssh "$remote_user@$remote_host" "cat >> $logfile"
 }
+
+if [ ! -f ~/.ssh/id_rsa ]; then
+  ssh-keygen -t rsa -b 2048 -N "" -f ~/.ssh/id_rsa
+fi
