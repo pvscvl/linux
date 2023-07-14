@@ -20,7 +20,7 @@ if  grep -q "Europe/Berlin" /etc/timezone ; then
     echo -n ""
 else
     timedatectl set-timezone Europe/Berlin
-    chktz=`cat /etc/timezone`
+    chktz=$(cat /etc/timezone)
     msg_lok "${COL_BOLD}Timezone set to: ${COL_NC}${COL_ITAL}$chktz${COL_NC}"        
     fi
 
