@@ -46,7 +46,8 @@ GREEN3=$(tput setaf 40)
     BLUE='\e[0;34m'
     YELLOW='\e[0;33m'
     CYAN='\e[0;36m'
-    NEW_LINE=`echo "\033[m"` 
+    NEW_LINE=$(echo "\033[m")
+    #NEW_LINE=`echo "\033[m"`     
     DIMMED='\e[2m' #dim
     ITALICS='\e[3m' #it
     BOLD='\e[1m' #b
@@ -60,15 +61,20 @@ GREEN3=$(tput setaf 40)
     DONE="${COL_GREEN} done!${COL_NC}"
     WARN="${COL_NC}[${BOLD}${COL_YELLOW}!${COL_NC}]  "
     OVER="\\r\\033[K"
-    OSTYPE=`uname`
-    detected_architecture=`uname -m`
+    #OSTYPE=`uname`
+    OSTYPE=$(uname)
+    #detected_architecture=`uname -m`
+    detected_architecture=$(uname -m)   
     detected_os=$(grep '^ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
     detected_version=$(grep VERSION_ID /etc/os-release | cut -d '=' -f2 | tr -d '"')
-    detected_env=`systemd-detect-virt`
+#   detected_env=`systemd-detect-virt` 
+    detected_env=$(systemd-detect-virt)
     zbxagent_current_version="zabbix agent not installed"
     #zbxagent_latest_version="$(curl -s "https://api.github.com/repos/zabbix/zabbix/tags" | grep -oP '"name": "\K(.*)(?=")' | head -n1)"
-    chktz=`cat /etc/timezone`
-    hostsys=`hostname -f`
+    chktz=$(cat /etc/timezone)    
+    #chktz=`cat /etc/timezone`
+    #hostsys=`hostname -f`  
+    hostsys=$(hostname -f)
 PPS_DEBUG_CODE=-0
 TABSTOP=$(tput hpa 8)
 remote_user="loguser"
