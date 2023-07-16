@@ -52,16 +52,11 @@ if curl --head --silent http://download.local &> /dev/null; then
             	WEBSITE_AVAILABLE=true
         fi
 fi
-echo "E001"
 ssh-copy-id -i ~/.ssh/id_rsa.pub "$remote_user@$remote_host"
-echo "E002"
 init_log
-echo "E003"
 log "Test Log . Start"
-echo "E004"
 sleep 2
 log "Test Log . Ende"
-echo "E005"
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
