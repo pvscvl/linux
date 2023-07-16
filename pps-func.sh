@@ -3,6 +3,27 @@ FUNCREVISION="11"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
+function get_mac() {
+  local mac_address
+  mac_address=$(ip link show "$interface" | awk '/ether/ {print $2}')
+  echo "$mac_address"
+}
+
+function get_ip() {
+  local ip_address
+  ip_address=$(ip addr show dev "$interface" | awk '/inet / {print $2}')
+  echo "$ip_address"
+}
+
+
+function get_interface() {
+  local interface
+  interface=$(ip route | awk '/default/ {print $5}')
+  echo "$interface"
+}
+
+
+
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
