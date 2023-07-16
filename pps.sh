@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=21
+REVISION=22
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -56,11 +56,11 @@ if curl --head --silent http://download.local &> /dev/null; then
             	WEBSITE_AVAILABLE=true
         fi
 fi
-ssh-copy-id -i ~/.ssh/id_rsa.pub "$remote_user@$remote_host"
-init_log
-log "Test Log . Start"
-sleep 2
-log "Test Log . Ende"
+#ssh-copy-id -i ~/.ssh/id_rsa.pub "$remote_user@$remote_host"
+#init_log
+#log "Test Log . Start"
+#sleep 2
+#log "Test Log . Ende"
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
