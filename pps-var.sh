@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VARREVISION="03"
+VARREVISION="20"
 VARVERSION="V7.${VARREVISION}"
 export POS=0
     # Variables
