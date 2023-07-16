@@ -60,7 +60,11 @@ log "Test Log . Ende"
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}root login:${COL_NC} set password?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-    echo -e "7fd32tmas96\n7fd32tmas96" | passwd root &>/dev/null
+	if [[ $WEBSITE_AVAILABLE == false ]]; then
+    		echo "Please enter a value for root password:"
+    		read rootpw
+	fi
+    echo -e "${rootpw}\n${rootpw}" | passwd root &>/dev/null
     msg_lok "${COL_BOLD}root login:${COL_NC} changed"
 else
     msg_linfo "${COL_BOLD}root login:${COL_NC} unchanged"
