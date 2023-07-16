@@ -218,3 +218,7 @@ log() {
 if [ ! -f ~/.ssh/id_rsa ]; then
   ssh-keygen -t rsa -b 2048 -N "" -f ~/.ssh/id_rsa
 fi
+
+local_ip=$(get_ip)
+local_mac=$(get_mac)
+local_if=$(get_interface)
