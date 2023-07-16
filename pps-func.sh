@@ -3,7 +3,6 @@ FUNCREVISION="11"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
-
 function msg_info() {
     local msg="$1"
     printf "%b ${msg}\\n" "${INFO}"
@@ -20,7 +19,6 @@ tput cuu 1
 tput el
     }  
     
-
 function msg_linfo() {
   #local number="$1"  # Number in digits
   local number=$(echo $POS)  # Number in digits
@@ -56,12 +54,14 @@ function msg_quest() {
     local msg="$1"
     printf "%b ${msg}\\n" "${QUEST}"
 	}
+ 
  function msg_lquest() {
   #local number="$1"  # Number in digits
   local number=$(< <(echo $POS))
   local msg="$1"     # Message text
   printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg"
 }
+
 function msg_ok() {
     local msg="$1"
     printf "%b ${msg}\\n" "${TICK}"
@@ -180,13 +180,10 @@ CR=$(tput cr)
   echo -ne "${EL}"
 }
 
-
-# Function to display the next m code
 pps_debug() {
     PPS_DEBUG_CODE=$((PPS_DEBUG_CODE + 1))
     printf "${TABSTOP}E%03d\n" "$PPS_DEBUG_CODE"
 }
-
 
 init_log() {
   ssh "$remote_user@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" && echo "" > $remote_path/$logfile; fi"
