@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="20"
+FUNCREVISION="21"
 FUNCVERSION="F7.${FUNCREVISION}"
 export POS=0
 
