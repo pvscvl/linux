@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=20
+REVISION=21
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -8,7 +8,7 @@ header_info
 export POS=0
 msg_linfo "${COL_ITAL}${COL_GREEN}Main PPS Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VERSION ${COL_NC}"
 msg_linfo "${COL_ITAL}${COL_GREEN}PPS-vars Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$VARVERSION ${COL_NC}"
-msg_linfo "${COL_ITAL}${COL_GREEN}PPS-func Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$FUNCVERSION ${COL_NC}"echo ""
+msg_linfo "${COL_ITAL}${COL_GREEN}PPS-func Version: ${COL_NC}${COL_BOLD}${COL_YELLOW}$FUNCVERSION ${COL_NC}"
 echo ""
 
 msg_linfo "${COL_BOLD}Hostname: ${COL_NC}${COL_ITAL}$hostsys ${COL_NC}"
