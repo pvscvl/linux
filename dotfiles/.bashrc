@@ -138,5 +138,13 @@ mv2ext() {
 }
 
 
+get_macaddress() {
+    ip=$1
+    arp -a | grep "$ip" | grep -oE '([0-9A-Fa-f]{1,2}:){5}([0-9A-Fa-f]{1,2})' 
+}
+
+
+
+
 clear
 pfetch
