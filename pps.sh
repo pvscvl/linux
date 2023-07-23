@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=22
+REVISION=23
 VERSION="M7.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -301,8 +301,9 @@ dpkg -i "$deb_file" &>/dev/null
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
         msg_linfo "${COL_BOLD}zabbix-agent:${COL_NC} installing"
         apt update &>/dev/null
-        apt install zabbix-agent -y &>/dev/null
-        apt-helper
+	DEBIAN_FRONTEND=noninteractive apt-get install zabbix-agent -y &>/dev/null
+        #apt install zabbix-agent -y &>/dev/null
+        #apt-helper
         msg_linfo "${COL_BOLD}zabbix-agent:${COL_NC} modify config"
         systemctl restart zabbix-agent &>/dev/null
         systemctl enable zabbix-agent &>/dev/null
@@ -326,8 +327,9 @@ echo ""
     if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
         msg_linfo "${COL_BOLD}zabbix-agent2:${COL_NC} installing"
         apt update &>/dev/null
-		apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
-        apt-helper
+	DEBIAN_FRONTEND=noninteractive apt-get install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
+		#apt install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
+        #apt-helper
         msg_linfo "${COL_BOLD}zabbix-agent2:${COL_NC} modify config"
         systemctl restart zabbix-agent2 &>/dev/null
         systemctl enable zabbix-agent2  &>/dev/null
@@ -352,8 +354,9 @@ msg_lquest_prompt "${COL_BOLD}$hostsys:${COL_NC} install updates?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
     msg_linfo "${COL_BOLD}$hostsys:${COL_NC} installing updates"
     apt-get update &>/dev/null
-    apt-get -y upgrade &>/dev/null
-    apt-helper
+    DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" upgrade -y &>/dev/null
+    #apt-get -y upgrade &>/dev/null
+    #apt-helper
    msg_lok "${COL_BOLD}$hostsys:${COL_NC} updates installed"
 else
     msg_linfo "${COL_BOLD}$hostsys:${COL_NC} no updates installed"
@@ -365,8 +368,9 @@ msg_lquest_prompt "${COL_BOLD}$hostsys:${COL_NC} install dist-upgrades?${COL_DIM
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
     msg_linfo "${COL_BOLD}$hostsys:${COL_NC} installing dist-upgrades"
     apt-get update &>/dev/null
-    apt-get -y dist-upgrade &>/dev/null
-    apt-helper
+    DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" dist-upgrade -y &>/dev/null
+    #apt-get -y dist-upgrade &>/dev/null
+    #apt-helper
    msg_lok "${COL_BOLD}$hostsys:${COL_NC} dist-upgrades installed"
 else
     msg_linfo "${COL_BOLD}$hostsys:${COL_NC} no updates installed"
