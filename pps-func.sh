@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-FUNCREVISION="21"
-FUNCVERSION="F7.${FUNCREVISION}"
+FUNCREVISION="01"
+FUNCVERSION="F8.${FUNCREVISION}"
 export POS=0
 
 function get_mac() {

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-VARREVISION="20"
-VARVERSION="V7.${VARREVISION}"
+VARREVISION="01"
+VARVERSION="V8.${VARREVISION}"
 export POS=0
     # Variables
 #    COL_NC='\e[0m' 
