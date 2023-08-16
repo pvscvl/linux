@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=01
+REVISION=02
 VERSION="M8.${REVISION}"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
@@ -307,11 +307,11 @@ dpkg -i "$deb_file" &>/dev/null
         msg_linfo "${COL_BOLD}zabbix-agent:${COL_NC} modify config"
         systemctl restart zabbix-agent &>/dev/null
         systemctl enable zabbix-agent &>/dev/null
-        sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/Server=127.0.0.1/ s//Server=10.255.255.10/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# StartAgents=3/ s//StartAgents=5/g" /etc/zabbix/zabbix_agentd.conf
-        sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/zabbix_agentd.conf
+        sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.255.255.10:10051/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agentd.conf
         sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agentd.conf
@@ -333,10 +333,10 @@ echo ""
         msg_linfo "${COL_BOLD}zabbix-agent2:${COL_NC} modify config"
         systemctl restart zabbix-agent2 &>/dev/null
         systemctl enable zabbix-agent2  &>/dev/null
-        sed -i "/Server=127.0.0.1/ s//Server=10.0.0.5/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/Server=127.0.0.1/ s//Server=10.255.255.10/g" /etc/zabbix/zabbix_agent2.conf
         sed -i "/# ListenPort=10050/ s//ListenPort=10050/g" /etc/zabbix/zabbix_agent2.conf
         sed -i "/# ListenIP=0.0.0.0/ s//ListenIP=0.0.0.0/g" /etc/zabbix/zabbix_agent2.conf
-        sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.0.0.5:10051/g" /etc/zabbix/zabbix_agent2.conf
+        sed -i "/ServerActive=127.0.0.1/ s//ServerActive=10.255.255.10:10051/g" /etc/zabbix/zabbix_agent2.conf
         sed -i "/Hostname=Zabbix server/ s//Hostname=$HOSTNAME/g" /etc/zabbix/zabbix_agent2.conf
         sed -i "/# RefreshActiveChecks=120/ s//RefreshActiveChecks=60/g" /etc/zabbix/zabbix_agent2.conf
         sed -i "/# HeartbeatFrequency=/ s//HeartbeatFrequency=60/g" /etc/zabbix/zabbix_agent2.conf
