@@ -20,37 +20,39 @@ msg_linfo "${COL_BOLD}MAC Address: ${COL_NC}${COL_ITAL}${local_mac}${COL_NC}"
 msg_linfo "${COL_BOLD}Interface: ${COL_NC}${COL_ITAL}${local_if}${COL_NC}"
 echo ""
 msg_linfo "${COL_BOLD}Timezone: ${COL_NC}${COL_ITAL}$chktz${COL_NC}"
-if  grep -q "Europe/Berlin" /etc/timezone ; then
-    echo -n ""
+if grep -q "Europe/Berlin" /etc/timezone ; then
+	echo -n ""
 else
-    timedatectl set-timezone Europe/Berlin
-    chktz=$(cat /etc/timezone)
-    msg_lok "${COL_BOLD}Timezone set to: ${COL_NC}${COL_ITAL}$chktz${COL_NC}"        
-    fi
+	timedatectl set-timezone Europe/Berlin
+	chktz=$(cat /etc/timezone)
+	msg_lok "${COL_BOLD}Timezone set to: ${COL_NC}${COL_ITAL}$chktz${COL_NC}"        
+fi
 
 apt update &>/dev/null
 echo ""
+
 if [[ "${EUID}" -ne 0 ]] ; then
-    printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
-    printf "%b Root privileges are needed for this script\\n" "${INFO}"
-    printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_RED}"
-    exit 1
+	printf "%b%b Can't execute script\\n" "${OVER}" "${CROSS}"
+	printf "%b Root privileges are needed for this script\\n" "${INFO}"
+	printf "%b %bPlease re-run this script as root${COL_NC}\\n" "${INFO}" "${COL_RED}"
+	exit 1
 fi
     
 if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
-   msg_lno "Can't execute sript"
-    msg_info "This script is for linux machines, not macOS machines"
-    exit 1
+	msg_lno "Can't execute sript"
+	msg_info "This script is for linux machines, not macOS machines"
+	exit 1
 fi
+
 install_package curl
 install_package wget
 install_package dnsutils
 
 WEBSITE_AVAILABLE=false
 if curl --head --silent http://download.local &> /dev/null; then
- 	URL="http://download.local/"
-        WEBSITE_AVAILABLE=true
-    else
+	URL="http://download.local/"
+	WEBSITE_AVAILABLE=true
+else
         if curl --head --silent http://10.0.0.254 &> /dev/null; then
     		URL="http://10.0.0.254/"
             	WEBSITE_AVAILABLE=true
@@ -68,61 +70,61 @@ if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
     		echo "Please enter a value for root password:"
     		read rootpw
 	fi
-    echo -e "${rootpw}\n${rootpw}" | passwd root &>/dev/null
-    msg_lok "${COL_BOLD}root login:${COL_NC} changed"
+	echo -e "${rootpw}\n${rootpw}" | passwd root &>/dev/null
+	msg_lok "${COL_BOLD}root login:${COL_NC} changed"
 else
-    msg_linfo "${COL_BOLD}root login:${COL_NC} unchanged"
+	msg_linfo "${COL_BOLD}root login:${COL_NC} unchanged"
 fi
 echo ""
 
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}sshd_config:${COL_NC} permit root login?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-    sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
-    sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
-    sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-    msg_lok "${COL_BOLD}sshd_config:${COL_NC} root permitted"
-    if [ "$detected_env" == "lxc" ]; then
-        sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
-    fi
+	sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
+	sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
+	sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
+	msg_lok "${COL_BOLD}sshd_config:${COL_NC} root permitted"
+	if [ "$detected_env" == "lxc" ]; then
+        	sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
+	fi
 else
-    msg_linfo "${COL_BOLD}sshd_config:${COL_NC} unchanged"
+	msg_linfo "${COL_BOLD}sshd_config:${COL_NC} unchanged"
 fi
 
 echo ""
 ((POS++))
 if [ "$WEBSITE_AVAILABLE" = true ]; then
-    msg_lquest_prompt "${COL_BOLD}ssh:${COL_NC} copy public keys?${COL_DIM}"
-    if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-        if ! [[ -f "/root/.ssh/authorized_keys" ]] ; then
-            mkdir /root/.ssh
-            echo "" > /root/.ssh/authorized_keys
-        fi
+	msg_lquest_prompt "${COL_BOLD}ssh:${COL_NC} copy public keys?${COL_DIM}"
+	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+        	if ! [[ -f "/root/.ssh/authorized_keys" ]] ; then
+        		mkdir /root/.ssh
+            		echo "" > /root/.ssh/authorized_keys
+        	fi
         chmod 700 /root/.ssh
         FILE_LIST=$(curl -s $URL)
         KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
         for KEY_URL in $KEY_URLS; do
-            KEY=$(curl -s "${URL}${KEY_URL}")
-            if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
-                echo "$KEY" >> ~/.ssh/authorized_keys
-                msg_lok "${COL_BOLD}ssh: ${COL_NC}copied         ${COL_GREEN}${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
-            else
-                msg_linfo "${COL_BOLD}ssh: ${COL_NC}${COL_DIM}already exists:     ${KEY_URL}${COL_NC}"
-            fi
+        	KEY=$(curl -s "${URL}${KEY_URL}")
+        	if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
+                	echo "$KEY" >> ~/.ssh/authorized_keys
+                	msg_lok "${COL_BOLD}ssh: ${COL_NC}copied         ${COL_GREEN}${COL_BOLD}${COL_ITAL}${KEY_URL}${COL_NC}"
+            	else
+        msg_linfo "${COL_BOLD}ssh: ${COL_NC}${COL_DIM}already exists:     ${KEY_URL}${COL_NC}"
+        fi
         done
-        chmod 600 /root/.ssh/authorized_keys
-    else    
-        msg_linfo "${COL_BOLD}ssh:${COL_NC} public keys not copied"
-    fi
+        	chmod 600 /root/.ssh/authorized_keys
+	else    
+        	msg_linfo "${COL_BOLD}ssh:${COL_NC} public keys not copied"
+    	fi
 fi
 echo ""
 ((POS++))
 msg_lquest_prompt "${COL_BOLD}.bashrc:${COL_NC} modify?${COL_DIM}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-    wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-    msg_lok "${COL_BOLD}.bashrc:${COL_NC} modified"
+	wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+	msg_lok "${COL_BOLD}.bashrc:${COL_NC} modified"
 else
-    msg_linfo "${COL_BOLD}.bashrc:${COL_NC} unchanged"
+	msg_linfo "${COL_BOLD}.bashrc:${COL_NC} unchanged"
 fi
         if ! grep -q "BASHVERSION=2" /root/.bashrc; then
             wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc

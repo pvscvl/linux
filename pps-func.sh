@@ -4,81 +4,81 @@ FUNCVERSION="F8.${FUNCREVISION}"
 export POS=0
 
 function get_mac() {
-  local interface
-  interface=$(ip route | awk '/default/ {print $5}')
+	local interface
+	interface=$(ip route | awk '/default/ {print $5}')
 
-  local mac_address
-  mac_address=$(ip link show "$interface" | awk '/ether/ {print $2}')
+	local mac_address
+	mac_address=$(ip link show "$interface" | awk '/ether/ {print $2}')
 
-  local ip_address
-  ip_address=$(ip addr show dev "$interface" | awk '/inet / {print $2}')
-  echo "$mac_address"
+	local ip_address
+	ip_address=$(ip addr show dev "$interface" | awk '/inet / {print $2}')
+	echo "$mac_address"
 }
 
 function get_ip() {
-  local interface
-  interface=$(ip route | awk '/default/ {print $5}')
+	local interface
+	interface=$(ip route | awk '/default/ {print $5}')
 
-  local mac_address
-  mac_address=$(ip link show "$interface" | awk '/ether/ {print $2}')
+	local mac_address
+	mac_address=$(ip link show "$interface" | awk '/ether/ {print $2}')
 
-  local ip_address
-  ip_address=$(ip addr show dev "$interface" | awk '/inet / {print $2}')
-  echo "$ip_address"
+	local ip_address
+	ip_address=$(ip addr show dev "$interface" | awk '/inet / {print $2}')
+	echo "$ip_address"
 }
 
 
 function get_interface() {
-  local interface
-  interface=$(ip route | awk '/default/ {print $5}')
+	local interface
+	interface=$(ip route | awk '/default/ {print $5}')
 
-  local mac_address
-  mac_address=$(ip link show "$interface" | awk '/ether/ {print $2}')
+	local mac_address
+	mac_address=$(ip link show "$interface" | awk '/ether/ {print $2}')
 
-  local ip_address
-  ip_address=$(ip addr show dev "$interface" | awk '/inet / {print $2}')
-  echo "$interface"
+	local ip_address
+	ip_address=$(ip addr show dev "$interface" | awk '/inet / {print $2}')
+	echo "$interface"
 }
 
 function msg_info() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${INFO}"
-    }
+	local msg="$1"
+	printf "%b ${msg}\\n" "${INFO}"
+}
 function move2start() {
-tput hpa 0
-    }
+	tput hpa 0
+}
 
-  function moveup() {
-tput cuu 1
-    }  
+function moveup() {
+	tput cuu 1
+}  
     
-  function eraseline() {
-tput el
-    }  
+function eraseline() {
+	tput el
+}  
     
 function msg_linfo() {
-  #local number="$1"  # Number in digits
-  local number=$(echo $POS)  # Number in digits
-  local msg="$1"     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
+	#local number="$1"  # Number in digits
+	local number=$(echo $POS)  # Number in digits
+	local msg="$1"     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${INFO}" "$msg"
 }
 
 function msg_quest_prompt() {
-    local msg="$1"
-    printf "%b ${msg}"" <y/N> " "${QUEST}";read -r -p "" prompt
-	}
-
- function msg_lquest_prompt2() {
-  local number="$1"  # Number in digits
-  local msg="$2"     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg <Y/N>"  ;read -r -p "" prompt
+	local msg="$1"
+	printf "%b ${msg}"" <y/N> " "${QUEST}";read -r -p "" prompt
 }
 
- function msg_lquest5_prompt() {
-  number=$(< <(echo $POS))
-  #local number="$1"  # Number in digits
-  local msg="$2 <y/N> "     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg"  ;read -r -p "" prompt
+function msg_lquest_prompt2() {
+	local number="$1"  # Number in digits
+	local msg="$2"     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg <Y/N>"  ;read -r -p "" prompt
+}
+
+function msg_lquest5_prompt() {
+	number=$(< <(echo $POS))
+	#local number="$1"  # Number in digits
+	local msg="$2 <y/N> "     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg"  ;read -r -p "" prompt
 }
 
  function msg_lquest_prompt() {
@@ -218,21 +218,21 @@ CR=$(tput cr)
 }
 
 pps_debug() {
-    PPS_DEBUG_CODE=$((PPS_DEBUG_CODE + 1))
-    printf "${TABSTOP}E%03d\n" "$PPS_DEBUG_CODE"
+	PPS_DEBUG_CODE=$((PPS_DEBUG_CODE + 1))
+	printf "${TABSTOP}E%03d\n" "$PPS_DEBUG_CODE"
 }
 
 init_log() {
-  ssh "$remote_user@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" && echo "" > $remote_path/$logfile; fi"
+	ssh "$remote_user@$remote_host" "if [ ! -f $remote_path/$logfile ]; then printf "\\t$(hostname)\\t\\t$(hostname -I)" && echo "" && echo "" > $remote_path/$logfile; fi"
 }
 
 log() {
-  local message="$1"
-  echo "$(date '+%Y-%m-%d %H:%M:%S'): $message" | ssh "$remote_user@$remote_host" "cat >> $logfile"
+	local message="$1"
+	echo "$(date '+%Y-%m-%d %H:%M:%S'): $message" | ssh "$remote_user@$remote_host" "cat >> $logfile"
 }
 
 if [ ! -f ~/.ssh/id_rsa ]; then
-  ssh-keygen -t rsa -b 2048 -N "" -f ~/.ssh/id_rsa
+	ssh-keygen -t rsa -b 2048 -N "" -f ~/.ssh/id_rsa
 fi
 
 local_ip=$(get_ip)
