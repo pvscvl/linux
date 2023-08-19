@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-FUNCREVISION="01"
+FUNCREVISION="03"
 FUNCVERSION="F8.${FUNCREVISION}"
-export POS=0
+#	export POS=0
 
 function get_mac() {
 	local interface
@@ -27,7 +27,6 @@ function get_ip() {
 	echo "$ip_address"
 }
 
-
 function get_interface() {
 	local interface
 	interface=$(ip route | awk '/default/ {print $5}')
@@ -44,6 +43,7 @@ function msg_info() {
 	local msg="$1"
 	printf "%b ${msg}\\n" "${INFO}"
 }
+
 function move2start() {
 	tput hpa 0
 }
@@ -81,140 +81,145 @@ function msg_lquest5_prompt() {
 	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg"  ;read -r -p "" prompt
 }
 
- function msg_lquest_prompt() {
-  local number=$(< <(echo $POS))
-  local msg="$1 <y/N> "     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg"  ;read -r -p "" prompt
+function msg_lquest_prompt() {
+	local number=$(< <(echo $POS))
+	local msg="$1 <y/N> "     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg"  ;read -r -p "" prompt
 }
 
 function msg_quest() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${QUEST}"
-	}
+	local msg="$1"
+	printf "%b ${msg}\\n" "${QUEST}"
+}
  
- function msg_lquest() {
-  #local number="$1"  # Number in digits
-  local number=$(< <(echo $POS))
-  local msg="$1"     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg"
+function msg_lquest() {
+	#local number="$1"  # Number in digits
+	local number=$(< <(echo $POS))
+	local msg="$1"     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${QUEST}" "$msg"
 }
 
 function msg_ok() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${TICK}"
-    }
-    function msg_lok() {
-  local number=$(< <(echo $POS))
-  #local number="$1"  # Number in digits
-  local msg="$1"     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${TICK}" "$msg"
+	local msg="$1"
+	printf "%b ${msg}\\n" "${TICK}"
 }
+
+function msg_lok() {
+	local number=$(< <(echo $POS))
+	#local number="$1"  # Number in digits
+	local msg="$1"     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${TICK}" "$msg"
+}
+
 function msg_no() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${CROSS}"
-    }
+	local msg="$1"
+	printf "%b ${msg}\\n" "${CROSS}"
+}
+
 function msg_lno() {
-  local number=$(< <(echo $POS))
-  #local number="$1"  # Number in digits
-  local msg="$1"     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${CROSS}" "$msg"
+	local number=$(< <(echo $POS))
+	#local number="$1"  # Number in digits
+	local msg="$1"     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${CROSS}" "$msg"
 }
+
 function msg_warn() {
-    local msg="$1"
-    printf "%b ${msg}\\n" "${WARN}"
-    }
-function msg_lwarn() {
-  local number=$(< <(echo $POS))
-  #local number="$1"  # Number in digits
-  local msg="$1"     # Message text
-  printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${WARN}" "$msg"
+	local msg="$1"
+	printf "%b ${msg}\\n" "${WARN}"
 }
+
+function msg_lwarn() {
+	local number=$(< <(echo $POS))
+	#local number="$1"  # Number in digits
+	local msg="$1"     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s\n" "$number" "${WARN}" "$msg"
+}
+
 function msg_list() {
-    local position="$1"
-    local msg="$2"
-    local INFO="${COL_NC}[i]  "   
-    printf "%b ${msg}\\n" "\\t${COL_NC}[$position]  "
-    }
+	local position="$1"
+	local msg="$2"
+	local INFO="${COL_NC}[i]  "   
+	printf "%b ${msg}\\n" "\\t${COL_NC}[$position]  "
+}
 
 function header_info {
-    echo -e "${COL_GREEN}
-    pascal's    ____  ____  _____
-    prepare    / __ \/ __ \/ ___/
-    script    / /_/ / /_/ (__  ) 
- ____________/ .___/ .___/____/  
-/_____________/   /_/       
+	echo -e "${COL_GREEN}
+	    pascal's    ____  ____  _____
+	    prepare    / __ \/ __ \/ ___/
+	    script    / /_/ / /_/ (__  ) 
+	 ____________/ .___/ .___/____/  
+	/_____________/   /_/       
 
-${COL_CL}"
-    }
+	${COL_CL}"
+}
 
 function apt-helper {
         # Check if either command needs input and prompt the user
-    while [ -n "$(fuser /var/lib/dpkg/lock)" ]; do
-        msg_info "Waiting for another package manager to finish..."
-       # sleep 5
-    done
-    while debconf-communicate --list >/dev/null 2>&1; do
-        msg_warn "Configuration files have changed. Please review and press Enter to continue."
-        read -p ""
-    done
-    while systemctl status --no-pager -l "systemd-services-shutdown" >/dev/null 2>&1; do
-        msg_warn "System services need to be restarted. Please enter 'y' to continue, or 'n' to cancel."
-        read -p "" input
-        if [ "$input" = "y" ]; then
-            systemctl daemon-reexec
-        else
-            msg_no "Script cancelled."
-            exit 1
-        fi
-    done
-    #msg_info "All updates complete!"
+    	while [ -n "$(fuser /var/lib/dpkg/lock)" ]; do
+        	msg_info "Waiting for another package manager to finish..."
+    	done
+    	while debconf-communicate --list >/dev/null 2>&1; do
+        	msg_warn "Configuration files have changed. Please review and press Enter to continue."
+        	read -p ""
+    	done
+    	while systemctl status --no-pager -l "systemd-services-shutdown" >/dev/null 2>&1; do
+        	msg_warn "System services need to be restarted. Please enter 'y' to continue, or 'n' to cancel."
+        	read -p "" input
+        	if [ "$input" = "y" ]; then
+            		systemctl daemon-reexec
+        	else
+            		msg_no "Script cancelled."
+            		exit 1
+        	fi
+    	done
 }
- function install_package() {
-    if ! dpkg -s "$1" &>/dev/null; then
-        apt install -y "$1" &>/dev/null
-    fi
+
+function install_package() {
+	if ! dpkg -s "$1" &>/dev/null; then
+        	apt install -y "$1" &>/dev/null
+	fi
 }
 
 function replace-prevline() {
-CUU1=$(tput cuu1)    
-EL=$(tput el)       
-CR=$(tput cr) 
-  echo -ne "${CUU1}${EL}$1"
+	CUU1=$(tput cuu1)    
+	EL=$(tput el)       
+	CR=$(tput cr) 
+	echo -ne "${CUU1}${EL}$1"
 }
 
 function replace-prevlineCR() {
-CUU1=$(tput cuu1)    
-EL=$(tput el)       
-CR=$(tput cr) 
-  echo -ne "${CUU1}${EL}${CR}$1"
+	CUU1=$(tput cuu1)    
+	EL=$(tput el)       
+	CR=$(tput cr) 
+	echo -ne "${CUU1}${EL}${CR}$1"
 }
 
 function replace-line() {
-CUU1=$(tput cuu1)    
-EL=$(tput el)       
-CR=$(tput cr) 
-  echo -ne "${EL}$1"
+	CUU1=$(tput cuu1)    
+	EL=$(tput el)       
+	CR=$(tput cr) 
+	echo -ne "${EL}$1"
 }
 
 function remove-prevline() {
-CUU1=$(tput cuu1)    
-EL=$(tput el)       
-CR=$(tput cr) 
-  echo -ne "${CUU1}${EL}"
+	CUU1=$(tput cuu1)    
+	EL=$(tput el)       
+	CR=$(tput cr) 
+	echo -ne "${CUU1}${EL}"
 }
 
 function remove-prevlineCR() {
-CUU1=$(tput cuu1)    
-EL=$(tput el)       
-CR=$(tput cr) 
-  echo -ne "${CUU1}${EL}${CR}"
+	CUU1=$(tput cuu1)    
+	EL=$(tput el)       
+	CR=$(tput cr) 
+	echo -ne "${CUU1}${EL}${CR}"
 }
 
 function remove-line() {
-CUU1=$(tput cuu1)    
-EL=$(tput el)       
-CR=$(tput cr) 
-  echo -ne "${EL}"
+	CUU1=$(tput cuu1)    
+	EL=$(tput el)       
+	CR=$(tput cr) 
+	echo -ne "${EL}"
 }
 
 pps_debug() {
