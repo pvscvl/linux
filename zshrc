@@ -2,7 +2,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="agnoster"
 CASE_SENSITIVE="false"
 zstyle ':omz:update' mode auto
-DISABLE_AUTO_TITLE="true"
+#DISABLE_AUTO_TITLE="true"
 HIST_STAMPS="yyyy-mm-dd"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
