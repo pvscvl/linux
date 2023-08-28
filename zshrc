@@ -12,7 +12,7 @@ export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 setopt EXTENDED_HISTORY
 
-
+pfetch
 
 function powerline_precmd() {
     PS1="$(powerline-shell --shell zsh $?)"
