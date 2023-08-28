@@ -14,6 +14,14 @@ setopt EXTENDED_HISTORY
 
 pfetch
 
+DOTFILESHOME=$HOME
+source $DOTFILESHOME/.dotfiles/.exports
+source $DOTFILESHOME/.dotfiles/.aliases
+source $DOTFILESHOME/.dotfiles/.functions
+
+
+
+
 function powerline_precmd() {
     PS1="$(powerline-shell --shell zsh $?)"
 }
