@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=09
+REVISION=10
 VERSION="M8.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
