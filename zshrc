@@ -24,7 +24,7 @@ alias ....="cd ../.."
 alias _ls="ls -alhFXp --color=always --group-directories-first" 
 alias ll="ls -alhFXp --color=always --group-directories-first" 
 
-
+export LANG=en_US.UTF-8 
 
 function powerline_precmd() {
     PS1="$(powerline-shell --shell zsh $?)"
