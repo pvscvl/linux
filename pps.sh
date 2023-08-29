@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=15
+REVISION=16
 VERSION="M8.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -132,7 +132,7 @@ echo ""
 
 ((POS++))
 msg_lquest_prompt "${BOLD}.bashrc:${DEFAULT} modify?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
 	wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
 	msg_lok "${BOLD}.bashrc:${DEFAULT} modified"
 else
@@ -181,7 +181,7 @@ echo ""
 ((POS++))
 if [ ! -x "$(command -v ack)" ] ; then
 	msg_lquest_prompt "${BOLD}ack:${DEFAULT} install?${DIMMED}"
-	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
         	msg_linfo "${BOLD}ack:${DEFAULT} installing"
         	apt install ack -y &>/dev/null
         	apt-helper
@@ -198,7 +198,7 @@ echo ""
 ((POS++))
 if [ ! -x "$(command -v mc)" ] ; then
 	msg_lquest_prompt "${BOLD}Midnight Commander:${DEFAULT} install?${DIMMED}"
-	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
         	msg_linfo "${BOLD}Midnight Commander:${DEFAULT} installing"
         	apt install mc -y &>/dev/null
 		msg_lok "${BOLD}Midnight Commander:${DEFAULT} installed"
@@ -313,7 +313,7 @@ dpkg -i "$deb_file" &>/dev/null
 
 ((POS++))  
 msg_lquest_prompt "${BOLD}zabbix-agent:${DEFAULT} install?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
 	msg_linfo "${BOLD}zabbix-agent:${DEFAULT} installing"
         apt update &>/dev/null
 	DEBIAN_FRONTEND=noninteractive apt-get install zabbix-agent -y #&>/dev/null
@@ -340,7 +340,7 @@ echo ""
 
 ((POS++))  
 msg_lquest_prompt "${BOLD}zabbix-agent2:${DEFAULT} install?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
         msg_linfo "${BOLD}zabbix-agent2:${DEFAULT} installing"
 	apt update &>/dev/null
 	DEBIAN_FRONTEND=noninteractive apt-get install zabbix-agent2 zabbix-agent2-plugin-mongodb -y &>/dev/null
@@ -367,7 +367,7 @@ echo ""
 ((POS++))  
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
 	msg_lquest_prompt "${BOLD}zsh:${DEFAULT} install?${DIMMED}"
-	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
  		apt install zsh -y
    		if ! command -v git &> /dev/null; then
     			sudo apt install git -y
@@ -404,7 +404,7 @@ fi
 
 ((POS++))  
 msg_lquest_prompt "${BOLD}$hostsys:${DEFAULT} install updates?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
 	msg_linfo "${BOLD}$hostsys:${DEFAULT} installing updates"
 	apt-get update &>/dev/null
 	DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" upgrade -y &>/dev/null
@@ -418,7 +418,7 @@ echo ""
 
 ((POS++))  
 msg_lquest_prompt "${BOLD}$hostsys:${DEFAULT} install dist-upgrades?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
 	msg_linfo "${BOLD}$hostsys:${DEFAULT} installing dist-upgrades"
 	apt-get update &>/dev/null
 	DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" dist-upgrade -y &>/dev/null
@@ -432,7 +432,7 @@ echo ""
 
 ((POS++))  
 msg_lquest_prompt "${BOLD}$hostsys:${DEFAULT} reboot now?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
 	msg_linfo "${BOLD}$hostsys:${DEFAULT} rebooting"
 	sleep 1
 	msg_lok "Completed post-installation routines"
