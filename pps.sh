@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    $SHELL -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=16
+REVISION=17
 VERSION="M8.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -74,9 +74,12 @@ fi
 #log "Test Log . Ende"
 
 ((POS++))
-msg_lquest_prompt "${BOLD}root login:${DEFAULT} set password?${DIMMED}"
+
+read REPLY\?"$(msg_lquest_promptzsh "${BOLD}root login:${DEFAULT} set password?${DIMMED}")"
+#msg_lquest_prompt "${BOLD}root login:${DEFAULT} set password?${DIMMED}"
 #if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
+if [[ $REPLY =~ ^[Yy][Ee]?[Ss]? ]]; then
+#if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
 	if [[ $WEBSITE_AVAILABLE == false ]]; then
     		echo "Please enter a value for root password:"
     		read rootpw
