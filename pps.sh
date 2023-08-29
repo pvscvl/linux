@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=10
+REVISION=112
 VERSION="M8.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -147,10 +147,11 @@ if [ ! -x "$(command -v pfetch)" ] ; then
 	msg_lquest_prompt "${BOLD}pfetch:${DEFAULT} install?${DIMMED}"
 	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
         	msg_linfo "${BOLD}pfetch:${DEFAULT} installing"
-        	wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
-	 	wget https://github.com/dylanaraps/pfetch/archive/refs/tags/0.6.0.zip
+        	#wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
+	 	wget -q http://10.0.0.254/pfetch-master.zip
+	 	#wget https://github.com/dylanaraps/pfetch/archive/refs/tags/0.6.0.zip
         	apt install unzip &>/dev/null
-        	unzip 0.6.0.zip &>/dev/null
+        	unzip pfetch-master.zip &>/dev/null
         	install pfetch-master/pfetch /usr/local/bin/ &>/dev/null
         	msg_lok "${BOLD}pfetch:${DEFAULT} installed"
         	if ! grep -q "clear" /root/.bashrc; then
