@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=112
+REVISION=13
 VERSION="M8.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -362,6 +362,44 @@ else
         msg_linfo "${BOLD}zabbix-agent2:${DEFAULT} not installed"
 fi       
 echo ""
+
+((POS++))  
+if [ "$SHELL" != "/usr/bin/zsh" ]; then
+	msg_lquest_prompt "${BOLD}zsh:${DEFAULT} install?${DIMMED}"
+	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+ 		apt install zsh -y
+   		if ! command -v git &> /dev/null; then
+    			sudo apt install git -y
+		fi
+  		chsh -s $(which zsh)
+    		cd $HOME
+		mkdir -p .dotfiles
+		cd $HOME/.dotfiles
+		touch .aliases .functions .exports
+  		if ! command -v wget &> /dev/null; then
+		    sudo apt install wget -y
+		fi
+  		sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		apt install fonts-powerline -y
+		if ! command -v pip &> /dev/null; then
+    			apt install python3-pip -y
+		fi
+		pip install powerline-shell
+		mkdir -p ~/.config/powerline-shell
+		powerline-shell --generate-config > ~/.config/powerline-shell/config.json
+		if ! command -v curl &> /dev/null; then
+    			apt install curl -y
+		fi
+		cd
+		curl https://raw.githubusercontent.com/pvscvl/linux/main/zshrc > .zshrc
+		source ~/.zshrc
+ 	fi
+else
+	msg_lquest "${BOLD}zsh${DEFAULT} install?${DIMMED}"
+	msg_lok "${BOLD}zsh:${DEFAULT} already installed"
+fi
 
 ((POS++))  
 msg_lquest_prompt "${BOLD}$hostsys:${DEFAULT} install updates?${DIMMED}"
