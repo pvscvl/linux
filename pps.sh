@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=14
+REVISION=15
 VERSION="M8.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -90,7 +90,7 @@ echo ""
 
 ((POS++))
 msg_lquest_prompt "${BOLD}sshd_config:${DEFAULT} permit root login?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
 	sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
 	sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
 	sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
@@ -106,7 +106,7 @@ echo ""
 ((POS++))
 if [ "$WEBSITE_AVAILABLE" = true ]; then
 	msg_lquest_prompt "${BOLD}ssh:${DEFAULT} copy public keys?${DIMMED}"
-	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
         	if ! [[ -f "/root/.ssh/authorized_keys" ]] ; then
         		mkdir /root/.ssh
             		echo "" > /root/.ssh/authorized_keys
@@ -146,7 +146,7 @@ echo ""
 ((POS++))
 if [ ! -x "$(command -v pfetch)" ] ; then
 	msg_lquest_prompt "${BOLD}pfetch:${DEFAULT} install?${DIMMED}"
-	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
         	msg_linfo "${BOLD}pfetch:${DEFAULT} installing"
         	#wget -q https://github.com/dylanaraps/pfetch/archive/master.zip
 	 	wget -q http://10.0.0.254/pfetch-master.zip
@@ -215,7 +215,7 @@ echo ""
 if [[ $detected_env == "kvm" ]]; then
 	if [ ! -x "$(command -v qemu-ga)" ]; then
 		msg_lquest_prompt "${BOLD}qemu-guest-agent:${DEFAULT} install?${DIMMED}"
-        	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+        	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
         		msg_linfo "${BOLD}qemu-guest-agent:${DEFAULT} installing"
         		apt install qemu-guest-agent -y &>/dev/null
         		msg_lok "${BOLD}qemu-guest-agent:${DEFAULT} installed"
@@ -236,7 +236,7 @@ echo ""
 if [[ $detected_os == "ubuntu" && $detected_env == "kvm" ]]; then
 	if ! dpkg -s linux-virtual >/dev/null 2>&1; then
         	msg_lquest_prompt "${DIMMED}linux-virtual-packages:${DEFAULT} install?${DIMMED}"
-        	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+        	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
             		msg_linfo "${DIMMED}linux-virtual-packages:${DEFAULT} installing"
             		apt install --install-recommends linux-virtual -y &>/dev/null
             		apt install linux-tools-virtual linux-cloud-tools-virtual -y &>/dev/null
@@ -262,7 +262,7 @@ if [[ -f /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service && $d
         	msg_lok "${BOLD}KVP daemon bug:${DEFAULT} workaround already applied"
     	else
         	msg_lquest_prompt "${BOLD}KVP daemon bug:${DEFAULT} apply workaround?${DIMMED}"
-        	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
+        	if [[ $prompt =~ ^[Yy][Ee]?[Ss]? ]]; then
         		msg_linfo "${BOLD}KVP daemon bug:${DEFAULT} applying workaround"
         		sed -i "s/^After=.*/After=systemd-remount-fs.service/" /etc/systemd/system/multi-user.target.wants/hv-kvp-daemon.service
         		systemctl daemon-reload
