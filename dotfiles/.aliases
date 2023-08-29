@@ -1,7 +1,31 @@
-alias ls="ls -alhFX --color=always" 
-alias _update="sudo apt-get update && sudo apt-get upgrade -y"
-alias _update-dotfiles="wget -O $HOME/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc && wget -O $HOME/.dotfiles/.exports https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports && wget -O $HOME/.dotfiles/.functions https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions && wget -O $HOME/.dotfiles/.aliases https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases"
-alias _update-dotfiles2="curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc > $HOME/.bashrc && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.exports > $HOME/.dotfiles/.exports && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.functions > $HOME/.dotfiles/.functions  && curl https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.aliases > $HOME/.dotfiles/.aliases "
+alias ..="cd .."
+alias ....="cd ../.."
+alias _ls="ls -alhFXp --color=always --group-directories-first" 
+alias ll="ls -alhFXp --color=always --group-directories-first" 
+alias _update="apt-get update && apt-get upgrade -y"
+alias _updatedist="apt-get update && apt-get dist-upgrade -y"
+
 
 alias show-externalip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias show-internalip="hostname -I"
+alias show-ip='hostname -I | tr " " "\n"'
+#alias show-internalip="hostname -I"
+alias pwgen="generate-password"
+
+
+
+function generate-password() {
+    local pwup="`env LC_CTYPE=C tr -dc "ABCDEFGHKLMNPRQSTUVWXYZ" < /dev/urandom | head -c 4`"
+    local pwdown1="`env LC_CTYPE=C tr -dc "abcdefghikmnoprstuvwxyz" < /dev/urandom | head -c 4`"
+    local pwdown2="`env LC_CTYPE=C tr -dc "abcdefghikmnoprstuvwxyz" < /dev/urandom | head -c 4`"
+    local pwdigits="`env LC_CTYPE=C tr -dc "0123456789" < /dev/urandom | head -c 4` "
+    echo ""
+    printf "${pwup}-${pwdown1}-${pwdown2}-${pwdigits}"
+    echo ""
+    echo ""
+}
+
+get_macaddress() {
+    ip=$1
+    arp -a | grep "$ip" | grep -oE '([0-9A-Fa-f]{1,2}:){5}([0-9A-Fa-f]{1,2})' | head -n 1
+}
+
