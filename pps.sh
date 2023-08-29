@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
+#    $SHELL -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
 REVISION=16
 VERSION="M8.${REVISION}"
 function install_package() {
