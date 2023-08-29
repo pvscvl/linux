@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FUNCREVISION="03"
+FUNCREVISION="04"
 FUNCVERSION="F8.${FUNCREVISION}"
 #	export POS=0
 
@@ -86,6 +86,15 @@ function msg_lquest_prompt() {
 	local msg="$1 <y/N> "     # Message text
 	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg"  ;read -r -p "" prompt
 }
+
+
+function msg_lquest_promptzsh() {
+	local number=$(< <(echo $POS))
+	local msg="$1 <y/N> "     # Message text
+	printf "${COL_DIM} [%02d/15]${COL_NC}\\t %b %s" "$number" "${QUEST}" "$msg" ""
+}
+read REPLY\?
+
 
 function msg_quest() {
 	local msg="$1"
