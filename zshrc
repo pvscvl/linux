@@ -19,6 +19,10 @@ source $DOTFILESHOME/.dotfiles/.exports
 source $DOTFILESHOME/.dotfiles/.aliases
 source $DOTFILESHOME/.dotfiles/.functions
 
+alias ..="cd .."
+alias ....="cd ../.."
+alias _ls="ls -alhFXp --color=always --group-directories-first" 
+alias ll="ls -alhFXp --color=always --group-directories-first" 
 
 
 
