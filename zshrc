@@ -4,7 +4,7 @@ CASE_SENSITIVE="false"
 zstyle ':omz:update' mode auto
 #DISABLE_AUTO_TITLE="true"
 HIST_STAMPS="yyyy-mm-dd"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 export HISTFILE="$HOME/.zsh_history"
