@@ -1,5 +1,6 @@
 sudo apt update
 sudo apt install zsh -y
+apt install git -y
 chsh -s $(which zsh)
 cd $HOME
 mkdir .dotfiles
