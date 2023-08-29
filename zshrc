@@ -43,7 +43,7 @@ if [ "$TERM" != "linux" -a -x "$(command -v powerline-shell)" ]; then
     install_powerline_precmd
 fi
 
-setopt prompt_subst
+#setopt prompt_subst
 
 function preexec() {
   cmdstart=$(($(print -P %D{%s%6.})/1000))
