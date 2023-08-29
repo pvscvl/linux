@@ -2,6 +2,14 @@
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
 REVISION=03
 VERSION="M8.${REVISION}"
+function install_package() {
+	if ! dpkg -s "$1" &>/dev/null; then
+        	apt install -y "$1" &>/dev/null
+	fi
+}
+apt update &>/dev/null
+install_package curl
+install_package wget
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
 
@@ -46,8 +54,6 @@ if [[ "${OSTYPE}" == "Darwin" || "${OSTYPE}" == "darwin" ]]; then
 	exit 1
 fi
 
-install_package curl
-install_package wget
 install_package dnsutils
 
 WEBSITE_AVAILABLE=false
