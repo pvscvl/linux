@@ -10,6 +10,7 @@ function install_package() {
 apt update &>/dev/null
 install_package curl
 install_package wget
+install_package unzip
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
 
@@ -312,7 +313,7 @@ msg_lquest_prompt "${BOLD}zabbix-agent:${DEFAULT} install?${DIMMED}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 	msg_linfo "${BOLD}zabbix-agent:${DEFAULT} installing"
         apt update &>/dev/null
-	DEBIAN_FRONTEND=noninteractive apt-get install zabbix-agent -y &>/dev/null
+	DEBIAN_FRONTEND=noninteractive apt-get install zabbix-agent -y #&>/dev/null
         #apt install zabbix-agent -y &>/dev/null
         #apt-helper
         msg_linfo "${BOLD}zabbix-agent:${DEFAULT} modify config"
