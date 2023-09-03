@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-VARREVISION="03"
-VARVERSION="V8.${VARREVISION}"
+VARREVISION="01"
+VARVERSION="V9.${VARREVISION}"
 #	export POS=0
 # 	Variables
 #	COL_NC='\e[0m' 
@@ -62,12 +62,17 @@ CYAN='\e[0;36m'
 UNDERLINE='\e[4m' #un
     
 TICK="${COL_NC}${BOLD}[${COL_GREEN}✓${COL_NC}]  "
+TICK2="${COL_NC}${BOLD}「${COL_GREEN}✓${COL_NC}」  "
 QUEST="${COL_NC}${BOLD}[${COL_CYAN}?${COL_NC}]  "
+QUEST2="${COL_NC}${BOLD}「${COL_CYAN}?${COL_NC}」  "
 col='\e[38;5;46m'
 CROSS="${COL_NC}[${BOLD}${COL_RED}✗${COL_NC}]  "
+CROSS2="${COL_NC}「${BOLD}${COL_RED}✗${COL_NC}」  "
 INFO="${COL_NC}${BOLD}[i]${COL_NC}  "   
+INFO2="${COL_NC}${BOLD}「i」${COL_NC}  "   
 DONE="${COL_GREEN} done!${COL_NC}"
 WARN="${COL_NC}[${BOLD}${COL_YELLOW}!${COL_NC}]  "
+WARN2="${COL_NC}「${BOLD}${COL_YELLOW}!${COL_NC}」  "
 OVER="\\r\\033[K"
 #OSTYPE=`uname`
 OSTYPE=$(uname)
