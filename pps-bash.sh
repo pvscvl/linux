@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=b02
+REVISION=b03
 VERSION="M9.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -72,8 +72,7 @@ fi
 #log "Test Log . Start"
 #sleep 2
 #log "Test Log . Ende"
-「
-」
+
 ((POS++))
 #msg_lquest_prompt "${BOLD}root login:${DEFAULT} set password?${DIMMED}"
 msg_lquest_prompt "${BOLD}「root login」${DEFAULT} set password?${DIMMED}"
