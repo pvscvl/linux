@@ -153,6 +153,17 @@ function header_info {
 	${COL_CL}"
 }
 
+function header_info {
+	echo -e "${COL_GREEN}
+                              ____  ____  _____
+                             / __ \/ __ \/ ___/
+    「pascal's prep script」/ /_/ / /_/ (__  ) 
+     ______________________/ .___/ .___/____/  
+    /_______________________/   /_/       
+
+	${COL_CL}"
+}
+
 function apt-helper {
         # Check if either command needs input and prompt the user
     	while [ -n "$(fuser /var/lib/dpkg/lock)" ]; do
