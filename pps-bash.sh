@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=b03
+REVISION=b04
 VERSION="M9.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -21,15 +21,15 @@ msg_linfo "${ITALICS}${GREEN}Main PPS-Bash Version: ${DEFAULT}${BOLD}${YELLOW}$V
 msg_linfo "${ITALICS}${GREEN}PPS-Bash-vars Version: ${DEFAULT}${BOLD}${YELLOW}$VARVERSION ${DEFAULT}"
 msg_linfo "${ITALICS}${GREEN}Main PPS-func Version: ${DEFAULT}${BOLD}${YELLOW}$FUNCVERSION ${DEFAULT}"
 echo ""
-msg_linfo "${BOLD}Hostname: ${DEFAULT}${ITALICS}$hostsys ${DEFAULT}"
-msg_linfo "${BOLD}Virtual environment: ${DEFAULT}${ITALICS}$detected_env${DEFAULT}"
-msg_linfo "${BOLD}Detected OS: ${DEFAULT}${ITALICS}$detected_os $detected_version${DEFAULT}"
-msg_linfo "${BOLD}Detected architecture: ${DEFAULT}${ITALICS}${detected_architecture}${DEFAULT}"
-msg_linfo "${BOLD}IP Address: ${DEFAULT}${ITALICS}${local_ip}${DEFAULT}"
-msg_linfo "${BOLD}MAC Address: ${DEFAULT}${ITALICS}${local_mac}${DEFAULT}"
-msg_linfo "${BOLD}Interface: ${DEFAULT}${ITALICS}${local_if}${DEFAULT}"
+msg_linfo "${BOLD}「Hostname: ${DEFAULT}${ITALICS}$hostsys ${DEFAULT}${BOLD}」${DEFAULT}"
+msg_linfo "${BOLD}「Virtual environment: ${DEFAULT}${ITALICS}$detected_env${DEFAULT}${BOLD}」${DEFAULT}"
+msg_linfo "${BOLD}「Detected OS: ${DEFAULT}${ITALICS}$detected_os $detected_version${DEFAULT${BOLD}」${DEFAULT}}"
+msg_linfo "${BOLD}「Detected architecture: ${DEFAULT}${ITALICS}${detected_architecture}${DEFAULT}${BOLD}」${DEFAULT}"
+msg_linfo "${BOLD}「IP Address: ${DEFAULT}${ITALICS}${local_ip}${DEFAULT}${BOLD}」${DEFAULT}"
+msg_linfo "${BOLD}「MAC Address: ${DEFAULT}${ITALICS}${local_mac}${DEFAULT}${BOLD}」${DEFAULT}"
+msg_linfo "${BOLD}「Interface: ${DEFAULT}${ITALICS}${local_if}${DEFAULT}${BOLD}」${DEFAULT}"
 echo ""
-msg_linfo "${BOLD}Timezone: ${DEFAULT}${ITALICS}$chktz${DEFAULT}"
+msg_linfo "${BOLD}「Timezone: ${DEFAULT}${ITALICS}$chktz${DEFAULT}${BOLD}」${DEFAULT}"
 
 if grep -q "Europe/Berlin" /etc/timezone ; then
 	echo -n ""
@@ -377,7 +377,7 @@ fi
 echo ""
 
 ((POS++))  
-msg_lquest_prompt "${BOLD}「$hostsys」{DEFAULT} install dist-upgrades?${DIMMED}"
+msg_lquest_prompt "${BOLD}「$hostsys」${DEFAULT} install dist-upgrades?${DIMMED}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 	msg_linfo "${BOLD}「$hostsys」${DEFAULT} installing dist-upgrades"
 	apt-get update &>/dev/null
@@ -391,7 +391,7 @@ fi
 echo ""
 
 ((POS++))  
-msg_lquest_prompt "${BOLD}「$hostsys」{DEFAULT} reboot now?${DIMMED}"
+msg_lquest_prompt "${BOLD}「$hostsys」${DEFAULT} reboot now?${DIMMED}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
 	msg_linfo "${BOLD}「$hostsys」${DEFAULT} rebooting"
 	sleep 1
