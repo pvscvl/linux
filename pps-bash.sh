@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=03
-VERSION="M8.${REVISION}"
+REVISION=b01
+VERSION="M9.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
         	apt install -y "$1" &>/dev/null
@@ -12,7 +12,7 @@ install_package curl
 install_package wget
 install_package unzip
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
-source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
+source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash-func.sh")
 
 header_info
 export POS=0
@@ -72,33 +72,35 @@ fi
 #log "Test Log . Start"
 #sleep 2
 #log "Test Log . Ende"
-
+「
+」
 ((POS++))
-msg_lquest_prompt "${BOLD}root login:${DEFAULT} set password?${DIMMED}"
+#msg_lquest_prompt "${BOLD}root login:${DEFAULT} set password?${DIMMED}"
+msg_lquest_prompt "${BOLD}「root login」${DEFAULT} set password?${DIMMED}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
 	if [[ $WEBSITE_AVAILABLE == false ]]; then
     		echo "Please enter a value for root password:"
     		read rootpw
 	fi
 	echo -e "${rootpw}\n${rootpw}" | passwd root &>/dev/null
-	msg_lok "${BOLD}root login:${DEFAULT} changed"
+	msg_lok "${BOLD}「root login」${DEFAULT} changed"
 else
-	msg_linfo "${BOLD}root login:${DEFAULT} unchanged"
+	msg_linfo "${BOLD}「root login」${DEFAULT} unchanged"
 fi
 echo ""
 
 ((POS++))
-msg_lquest_prompt "${BOLD}sshd_config:${DEFAULT} permit root login?${DIMMED}"
+msg_lquest_prompt "${BOLD}「sshd_config」${DEFAULT} permit root login?${DIMMED}"
 if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
 	sed -i "/#PermitRootLogin prohibit-password/ s//PermitRootLogin yes/g" /etc/ssh/sshd_config
 	sed -i "/#PubkeyAuthentication yes/ s//PubkeyAuthentication yes/g" /etc/ssh/sshd_config
 	sed -i "/#AuthorizedKeysFile/ s//AuthorizedKeysFile/g" /etc/ssh/sshd_config
-	msg_lok "${BOLD}sshd_config:${DEFAULT} root permitted"
+	msg_lok "${BOLD}「sshd_config」${DEFAULT} root permitted"
 	if [ "$detected_env" == "lxc" ]; then
         	sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sftp    internal-sftp' /etc/ssh/sshd_config
 	fi
 else
-	msg_linfo "${BOLD}sshd_config:${DEFAULT} unchanged"
+	msg_linfo "${BOLD}「sshd_config」${DEFAULT} unchanged"
 fi
 echo ""
 
