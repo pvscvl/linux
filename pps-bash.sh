@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION="B#04"
-VERSION="M9.${REVISION}"
+#    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash.sh)"
+REVISION="B01"
+VERSION="N03.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
         	apt install -y "$1" &>/dev/null
@@ -12,31 +12,31 @@ install_package curl
 install_package wget
 install_package unzip
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
-source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
+source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash-func.sh")
 
 header_info
 export POS=0
 
-msg_linfo "${ITALICS}${GREEN}Main PPS Version: ${DEFAULT}${BOLD}${YELLOW}$VERSION ${DEFAULT}"
-msg_linfo "${ITALICS}${GREEN}PPS-vars Version: ${DEFAULT}${BOLD}${YELLOW}$VARVERSION ${DEFAULT}"
-msg_linfo "${ITALICS}${GREEN}PPS-func Version: ${DEFAULT}${BOLD}${YELLOW}$FUNCVERSION ${DEFAULT}"
+msg_info "${ITALICS}${GREEN}Main PPS Version: ${DEFAULT}${BOLD}${YELLOW}$VERSION ${DEFAULT}"
+msg_info "${ITALICS}${GREEN}PPS-vars Version: ${DEFAULT}${BOLD}${YELLOW}$VARVERSION ${DEFAULT}"
+msg_info "${ITALICS}${GREEN}PPS-func Version: ${DEFAULT}${BOLD}${YELLOW}$FUNCVERSION ${DEFAULT}"
 echo ""
-msg_linfo "${BOLD}Hostname: ${DEFAULT}${ITALICS}$hostsys ${DEFAULT}"
-msg_linfo "${BOLD}Virtual environment: ${DEFAULT}${ITALICS}$detected_env${DEFAULT}"
-msg_linfo "${BOLD}Detected OS: ${DEFAULT}${ITALICS}$detected_os $detected_version${DEFAULT}"
-msg_linfo "${BOLD}Detected architecture: ${DEFAULT}${ITALICS}${detected_architecture}${DEFAULT}"
-msg_linfo "${BOLD}IP Address: ${DEFAULT}${ITALICS}${local_ip}${DEFAULT}"
-msg_linfo "${BOLD}MAC Address: ${DEFAULT}${ITALICS}${local_mac}${DEFAULT}"
-msg_linfo "${BOLD}Interface: ${DEFAULT}${ITALICS}${local_if}${DEFAULT}"
+msg_info "${BOLD}Hostname: ${DEFAULT}${ITALICS}$hostsys ${DEFAULT}"
+msg_info "${BOLD}Virtual environment: ${DEFAULT}${ITALICS}$detected_env${DEFAULT}"
+msg_info "${BOLD}Detected OS: ${DEFAULT}${ITALICS}$detected_os $detected_version${DEFAULT}"
+msg_info "${BOLD}Detected architecture: ${DEFAULT}${ITALICS}${detected_architecture}${DEFAULT}"
+msg_info "${BOLD}IP Address: ${DEFAULT}${ITALICS}${local_ip}${DEFAULT}"
+msg_info "${BOLD}MAC Address: ${DEFAULT}${ITALICS}${local_mac}${DEFAULT}"
+msg_info "${BOLD}Interface: ${DEFAULT}${ITALICS}${local_if}${DEFAULT}"
 echo ""
-msg_linfo "${BOLD}Timezone: ${DEFAULT}${ITALICS}$chktz${DEFAULT}"
+msg_info "${BOLD}Timezone: ${DEFAULT}${ITALICS}$chktz${DEFAULT}"
 
 if grep -q "Europe/Berlin" /etc/timezone ; then
 	echo -n ""
 else
 	timedatectl set-timezone Europe/Berlin
 	chktz=$(cat /etc/timezone)
-	msg_lok "${BOLD}Timezone set to: ${DEFAULT}${ITALICS}$chktz${DEFAULT}"        
+	msg_ok "${BOLD}Timezone set to: ${DEFAULT}${ITALICS}$chktz${DEFAULT}"        
 fi
 
 apt update &>/dev/null
