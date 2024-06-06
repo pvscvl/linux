@@ -12,6 +12,7 @@ install_package curl
 install_package wget
 install_package unzip
 install_package ncdu
+install_package ripgrep
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash-func.sh")
 
