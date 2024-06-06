@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    $SHELL -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps.sh)"
-REVISION=17
-VERSION="M8.${REVISION}"
+REVISION=01
+VERSION="M9.${REVISION}"
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
         	apt install -y "$1" &>/dev/null
@@ -11,6 +11,8 @@ apt update &>/dev/null
 install_package curl
 install_package wget
 install_package unzip
+install_package ncdu
+
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-func.sh")
 
@@ -282,30 +284,35 @@ echo ""
 
 case "$detected_os-$detected_version" in
 	debian-10)
-        	deb_file=zabbix-release_6.5-1+debian10_all.deb
-        	deb_url=https://repo.zabbix.com/zabbix/6.5/debian/pool/main/z/zabbix-release/$deb_file
+        	deb_file=zabbix-release_7.0-1+debian10_all.deb
+        	deb_url=https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/$deb_file
         ;;
     	debian-11)
-        	deb_file=zabbix-release_6.5-1+debian11_all.deb
-        	deb_url=https://repo.zabbix.com/zabbix/6.5/debian/pool/main/z/zabbix-release/$deb_file
+        	deb_file=zabbix-release_7.0-1+debian11_all.deb
+        	deb_url=https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/$deb_file
         ;;
     	debian-12)
-        	deb_file=zabbix-release_6.5-1+debian12_all.deb
-        	deb_url=https://repo.zabbix.com/zabbix/6.5/debian/pool/main/z/zabbix-release/$deb_file
+        	deb_file=zabbix-release_7.0-1+debian12_all.deb
+        	deb_url=https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/$deb_file
         ;;
     	ubuntu-20.04)
-        	deb_file=zabbix-release_6.5-1+ubuntu20.04_all.deb
-        	deb_url=https://repo.zabbix.com/zabbix/6.5/ubuntu/pool/main/z/zabbix-release/$deb_file
+        	deb_file=zabbix-release_7.0-1+ubuntu20.04_all.deb
+        	deb_url=https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/$deb_file
         ;;
     	ubuntu-22.04)
-        	deb_file=zabbix-release_6.5-1+ubuntu22.04_all.deb
-        	deb_url=https://repo.zabbix.com/zabbix/6.5/ubuntu/pool/main/z/zabbix-release/$deb_file
+        	deb_file=zabbix-release_7.0-1+ubuntu22.04_all.deb
+        	deb_url=https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/$deb_file
+        ;;
+	ubuntu-24.04)
+        deb_file=zabbix-release_7.0-1+ubuntu24.04_all.deb
+        deb_url=https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/$deb_file
         ;;
 	*)
        		msg_lno "${BOLD}zabbix-agent:${DEFAULT} Unsupported OS version: $detected_os $detected_version"
         	#exit 1
         ;;
 esac
+
 
 if [ -f "$deb_file" ]; then
 	sleep 1
