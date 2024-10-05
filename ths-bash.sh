@@ -71,6 +71,10 @@ bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/ths-b
 		
 apt update &>/dev/null
 
+	if ! command -v fzf &> /dev/null; then
+		apt install -y fzf
+	fi
+
 	if ! command -v iperf &> /dev/null; then
 		apt install -y iperf
 	fi
