@@ -6,6 +6,10 @@
 bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/ths-bash.sh)"
 
 
+cp /root/.bashrc /root/.bashrc.bak
+wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrcths
+
+
 ###SCRIPT-EXECUTION###
 
 
