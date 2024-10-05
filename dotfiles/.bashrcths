@@ -18,13 +18,17 @@ HOSTNAME=$(hostname)
 DEFAULT=$(tput sgr0)
 BOLD=$(tput bold)
 YELLOW=$(tput setaf 3)
+LOCALIP=`ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'`
+
+printf "\\t${YELLOW}${BOLD}Hostname:${DEFAULT}\\t$HOSTNAME\\n"
+printf "\\t${YELLOW}${BOLD}IPs:${DEFAULT}\\t$LOCALIP\\n"
 if [[ "$HOSTNAME" =~ ^[tT][kK][mM]-[sS][vV]-[wW][eE][bB] ]]; then
 	if [ -d "$VHOST_DIR" ]; then
-		printf "\\t\\t${YELLOW}${BOLD}vhosts:${DEFAULT}\\n"
+		printf "\\t${YELLOW}${BOLD}vhosts:${DEFAULT}\\n"
 		for vhost in "$VHOST_DIR"/*; do
 			if [ -d "$vhost" ]; then
 			#	echo "$(basename "$vhost")"
-				printf "\\t\\t\\t${BOLD}$(basename "$vhost")${DEFAULT}\\n"
+				printf "\\t\\t${BOLD}$(basename "$vhost")${DEFAULT}\\n"
         		fi
           	done
         fi
