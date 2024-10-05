@@ -154,14 +154,7 @@ sed -i '/^Subsystem  sftp    \/usr\/lib\/openssh\/sftp-server$/i Subsystem   sft
 		cd /root/pfetch
 		wget https://github.com/dylanaraps/pfetch/archive/master.zip
 		unzip master.zip
-		install pfetch-master/pfetch /usr/local/bin/ 
-
-		if command -v pfetch &> /dev/null; then
-			if ! grep -q "pfetch" /root/.bashrc; then
-				echo " " >> /root/.bashrc
-				echo "pfetch" >> /root/.bashrc
-			fi		
-		fi
+		install pfetch-master/pfetch /usr/local/bin/ 		
   		rm -r /root/pfetch
 	fi
 
