@@ -7,3 +7,25 @@ alias ..="cd .."
 alias ....="cd ../.."
 alias _ls="ls -alhFXp --color=always --group-directories-first" 
 alias ll="ls -alhFXp --color=always --group-directories-first" 
+
+
+if command -v pfetch &> /dev/null; then
+    pfetch
+fi
+
+VHOST_DIR="/var/www/vhost"
+HOSTNAME=$(hostname)
+DEFAULT=$(tput sgr0)
+BOLD=$(tput bold)
+YELLOW=$(tput setaf 3)
+if [[ "$HOSTNAME" =~ ^[tT][kK][mM]-[sS][vV]-[wW][eE][bB] ]]; then
+	if [ -d "$VHOST_DIR" ]; then
+		printf "\\t\\t${YELLOW}${BOLD}vhosts:${DEFAULT}\\n"
+		for vhost in "$VHOST_DIR"/*; do
+			if [ -d "$vhost" ]; then
+			#	echo "$(basename "$vhost")"
+				printf "\\t\\t\\t${BOLD}$(basename "$vhost")${DEFAULT}\\n"
+        		fi
+          	done
+        fi
+fi
