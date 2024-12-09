@@ -25,7 +25,7 @@ set -v
         fi
 
 # Placeholder for the URL of the text file containing the SSH keys
-SSH_KEY_URL="<PLACEHOLDER_FOR_URL>"
+SSH_KEY_URL="http://download.local/pascal-mba_id-ed25519.pub"
 
 # Config file paths
 SSH_CONFIG_FILE="/etc/ssh/sshd_config"
