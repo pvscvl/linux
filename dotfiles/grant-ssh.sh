@@ -61,6 +61,11 @@ else
         fi
 fi
 
+		if ! [[ -f "/root/.ssh/authorized_keys" ]] ; then
+			mkdir /root/.ssh
+		echo "" > /root/.ssh/authorized_keys
+		fi
+
       FILE_LIST=$(curl -s $URL)
         KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
         for KEY_URL in $KEY_URLS; do
