@@ -72,9 +72,9 @@ fi
         	KEY=$(curl -s "${URL}${KEY_URL}")
         	if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
                 	echo "$KEY" >> ~/.ssh/authorized_keys
-                	msg_lok "${BOLD}ssh: ${DEFAULT}copied         ${GREEN}${BOLD}${ITALICS}${KEY_URL}${DEFAULT}"
+                	echo "ssh: copied         ${KEY_URL}"
             	else
-        msg_linfo "${BOLD}ssh: ${DEFAULT}${DIMMED}already exists:     ${KEY_URL}${DEFAULT}"
+        echo "ssh: already exists:     ${KEY_URL}"
         fi
         done
 
