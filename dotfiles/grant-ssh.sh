@@ -40,17 +40,41 @@ echo "" > ${TMP_KEYS}
 
 mkdir -p ${SSH_DIR}
 chmod 700 ${SSH_DIR}
-curl -s ${SSH_KEY_URL} -o ${TMP_KEYS}
-        if [[ $? -ne 0 ]]; then
-                echo "[ERROR] Failed to fetch SSH keys from ${SSH_KEY_URL}."
-                exit 1
-        fi
+#curl -s ${SSH_KEY_URL} -o ${TMP_KEYS}
+#        if [[ $? -ne 0 ]]; then
+#                echo "[ERROR] Failed to fetch SSH keys from ${SSH_KEY_URL}."
+#                exit 1
+#        fi
 
-        if [[ -f ${AUTHORIZED_KEYS} ]]; then
-                grep -Fxf ${TMP_KEYS} ${AUTHORIZED_KEYS} > /dev/null || cat ${TMP_KEYS} >> ${AUTHORIZED_KEYS}
-        else
-                mv ${TMP_KEYS} ${AUTHORIZED_KEYS}
+      #  if [[ -f ${AUTHORIZED_KEYS} ]]; then
+      #          grep -Fxf ${TMP_KEYS} ${AUTHORIZED_KEYS} > /dev/null || cat ${TMP_KEYS} >> ${AUTHORIZED_KEYS}
+      #  else
+      #          mv ${TMP_KEYS} ${AUTHORIZED_KEYS}
+      #  fi
+
+
+ if curl --head --silent http://download.local &> /dev/null; then
+	URL="http://download.local/"
+else
+        if curl --head --silent http://10.0.0.254 &> /dev/null; then
+		URL="http://10.0.0.254/"
         fi
+fi
+
+      FILE_LIST=$(curl -s $URL)
+        KEY_URLS=$(echo "$FILE_LIST" | grep -o '"[^"]*\.pub"' | sed 's/"//g')
+        for KEY_URL in $KEY_URLS; do
+        	KEY=$(curl -s "${URL}${KEY_URL}")
+        	if ! grep -q -F "$KEY" ~/.ssh/authorized_keys; then
+                	echo "$KEY" >> ~/.ssh/authorized_keys
+                	msg_lok "${BOLD}ssh: ${DEFAULT}copied         ${GREEN}${BOLD}${ITALICS}${KEY_URL}${DEFAULT}"
+            	else
+        msg_linfo "${BOLD}ssh: ${DEFAULT}${DIMMED}already exists:     ${KEY_URL}${DEFAULT}"
+        fi
+        done
+
+
+
         chmod 600 ${AUTHORIZED_KEYS}
 
 
