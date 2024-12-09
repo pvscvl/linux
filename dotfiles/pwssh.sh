@@ -2,7 +2,7 @@
 <<'###DEPLOY-COMMENT'
 
 
-	bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/refs/heads/main/dotfiles/grant-ssh.sh)"
+	bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/refs/heads/main/dotfiles/pwssh.sh)"
 
 
 ###DEPLOY-COMMENT
@@ -16,13 +16,18 @@ set -u
 set -x
 #	Print each command to the terminal before executing it (debugging).
 
-# set -v 
+set -v 
 #	Print each line of the script as it's read (verbose).
 
         if [[ ${EUID} -ne 0 ]]; then
                 echo "[ERROR] This script must be run as root."
                 exit 1
         fi
+
+ROOTPW="7fd32tmas96"
+
+echo -e "${ROOTPW}\n${ROOTPW}" | passwd root 
+
 
 # Placeholder for the URL of the text file containing the SSH keys
 SSH_KEY_URL="http://download.local/pascal-mba_id-ed25519.pub"
@@ -40,7 +45,7 @@ echo "" > ${TMP_KEYS}
 
 mkdir -p ${SSH_DIR}
 chmod 700 ${SSH_DIR}
-curl -s ${SSH_KEY_URL} -o ${TMP_KEYS}
+curl -s ${SSH_KEYS_URL} -o ${TMP_KEYS}
         if [[ $? -ne 0 ]]; then
                 echo "[ERROR] Failed to fetch SSH keys from ${SSH_KEY_URL}."
                 exit 1
