@@ -341,7 +341,7 @@ local_mac=$(get_mac)
 local_if=$(get_interface)
 
 
-
+msg_info "$(date)"
 
 REVISION="B02"
 VERSION="N06.${REVISION}"
@@ -351,11 +351,13 @@ function install_package() {
 	fi
 }
 apt update &>/dev/null
+msg_info "$(date)"
 install_package curl
 install_package wget
 install_package unzip
 install_package ncdu
 install_package ripgrep
+msg_info "$(date)"
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash-func.sh")
 
