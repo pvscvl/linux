@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps-bashfull.sh)"
-
+# 
 
 VARREVISION="01"
 VARVERSION="V9.${VARREVISION}"
@@ -350,16 +350,9 @@ function install_package() {
         	apt install -y "$1" &>/dev/null
 	fi
 }
-apt update &>/dev/null
-msg_info "$(date)"
-install_package curl
-install_package wget
-install_package unzip
-install_package ncdu
-install_package ripgrep
-msg_info "$(date)"
-source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
-source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash-func.sh")
+
+# source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
+# source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash-func.sh")
 
 header_info
 export POS=0
@@ -387,6 +380,7 @@ else
 fi
 
 apt update &>/dev/null
+
 echo ""
 
 if [[ "${EUID}" -ne 0 ]] ; then
@@ -488,6 +482,15 @@ fi
 echo ""
 
 ((POS++))
+
+
+install_package curl
+install_package wget
+install_package unzip
+install_package ncdu
+install_package ripgrep
+
+
 if [ ! -x "$(command -v pfetch)" ] ; then
 	msg_lquest_prompt "${BOLD}pfetch:${DEFAULT} install?${DIMMED}"
 	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]]; then
