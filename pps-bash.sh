@@ -61,13 +61,13 @@ install_package dnsutils
 
 WEBSITE_AVAILABLE=false
 # if curl --head --silent http://download.local &> /dev/null; then
-if curl --head --silent --fail --output /dev/null --write-out "%{http_code}" http://download.local/sshkeys/ | ggrep -q "^200$"; then
+if curl --head --silent --fail --output /dev/null --write-out "%{http_code}" http://download.local/sshkeys/ | grep -q "^200$"; then
 	# URL="http://download.local/"
 	URL="http://download.local/sshkeys/"
 	WEBSITE_AVAILABLE=true
 else
         # if curl --head --silent http://10.0.0.254 &> /dev/null; then
-	 if curl --head --silent --fail --output /dev/null --write-out "%{http_code}" http://10.0.0.254/sshkeys/ | ggrep -q "^200$"; then
+	 if curl --head --silent --fail --output /dev/null --write-out "%{http_code}" http://10.0.0.254/sshkeys/ | grep -q "^200$"; then
 		# URL="http://10.0.0.254/"
 		URL="http://10.0.0.254/sshkeys/"
 		WEBSITE_AVAILABLE=true
