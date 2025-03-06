@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash.sh)"
 VYEAR="2025"
-BUILD="2"
+BUILD="3"
 VERSION="0.${VYEAR}.$(printf "%03d" ${BUILD})"
 
 function install_package() {
@@ -22,8 +22,8 @@ header_info
 export POS=0
 
 msg_info "${ITALICS}${GREEN}Main PPS Version: ${DEFAULT}${BOLD}${YELLOW}$VERSION ${DEFAULT}"
-msg_info "${ITALICS}${GREEN}PPS-vars Version: ${DEFAULT}${BOLD}${YELLOW}$VARVERSION ${DEFAULT}"
-msg_info "${ITALICS}${GREEN}PPS-func Version: ${DEFAULT}${BOLD}${YELLOW}$FUNCVERSION ${DEFAULT}"
+# msg_info "${ITALICS}${GREEN}PPS-vars Version: ${DEFAULT}${BOLD}${YELLOW}$VARVERSION ${DEFAULT}"
+# msg_info "${ITALICS}${GREEN}PPS-func Version: ${DEFAULT}${BOLD}${YELLOW}$FUNCVERSION ${DEFAULT}"
 echo ""
 msg_info "${BOLD}Hostname: ${DEFAULT}${ITALICS}$hostsys ${DEFAULT}"
 msg_info "${BOLD}Virtual environment: ${DEFAULT}${ITALICS}$detected_env${DEFAULT}"
@@ -336,8 +336,6 @@ else
 fi
 echo ""
 
-https://repo.zabbix.com/zabbix/7.2/release/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.2+ubuntu24.04_all.deb
-https://repo.zabbix.com/zabbix/7.2/release/debian/pool/main/z/zabbix-release/
 case "$detected_os-$detected_version" in
 	debian-10)
         	deb_file=zabbix-release_latest_7.2+debian10_all.deb
