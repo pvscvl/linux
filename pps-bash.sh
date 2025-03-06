@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash.sh)"
-REVISION="B02"
-VERSION="N06.${REVISION}"
+VYEAR="2025"
+BUILD="1"
+VERSION="0.${VYEAR}.$(printf "%03d" ${BUILD})"
+
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
         	apt install -y "$1" &>/dev/null
@@ -136,17 +138,71 @@ fi
 echo ""
 
 ((POS++))
+#	msg_lquest_prompt "${BOLD}.bashrc:${DEFAULT} modify?${DIMMED}"
+#	if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+#		wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+#		msg_lok "${BOLD}.bashrc:${DEFAULT} modified"
+#	else
+#		msg_linfo "${BOLD}.bashrc:${DEFAULT} unchanged"
+#	fi
+#       if ! grep -q "BASHVERSION=2" /root/.bashrc; then
+#		wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
+#		fi
+#	echo ""
 msg_lquest_prompt "${BOLD}.bashrc:${DEFAULT} modify?${DIMMED}"
-if [[ $prompt =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
-	wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-	msg_lok "${BOLD}.bashrc:${DEFAULT} modified"
+if [[ ${prompt} =~ ^[Yy][Ee]?[Ss]?|[Jj][Aa]?$ ]] ; then
+	BASHRC_PATH="/root/.bashrc"
+	TIMESTAMP=$(date +"%Y%m%d-%H%M")
+	BACKUP_PATH="${BASHRC_PATH}_${TIMESTAMP}"
+	
+	cp ${BASHRC_PATH} ${BACKUP_PATH}
+	
+	PS1_LINE='export PS1="\[\e]0;\u@\H: \w\a\]\t ${debian_chroot:+($debian_chroot)}\033[00m\]\u\[\033[01;30m\]@\[\033[01;32m\]\H\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\\$ "'
+	LS_COLORS_LINE='export LS_COLORS="no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:"'
+	LSCOLORS_LINE='export LSCOLORS="BxBxhxDxfxhxhxhxhxcxcx"'
+	COLORFLAG_LINE='export colorflag="-G"'
+	ALIAS_LINES='
+alias ..="cd .."
+alias ....="cd ../.."
+alias _ls="ls -alhFXp --color=always --group-directories-first" 
+alias ll="ls -alhFXp --color=always --group-directories-first" 
+'
+	APPEND=false
+
+	if ! grep -Fxq "${PS1_LINE}" ${BASHRC_PATH}; then
+		echo "${PS1_LINE}" >> ${BASHRC_PATH}
+		APPEND=true
+	fi
+	if ! grep -Fxq "${LS_COLORS_LINE}" ${BASHRC_PATH}; then
+		echo "${LS_COLORS_LINE}" >> ${BASHRC_PATH}
+		APPEND=true
+	fi
+	if ! grep -Fxq "${LSCOLORS_LINE}" ${BASHRC_PATH}; then
+		echo "${LSCOLORS_LINE}" >> ${BASHRC_PATH}
+		APPEND=true
+	fi
+	if ! grep -Fxq "${COLORFLAG_LINE}" ${BASHRC_PATH}; then
+		echo "${COLORFLAG_LINE}" >> ${BASHRC_PATH}
+		APPEND=true
+	fi
+	if ! grep -Fqx "alias ..=\"cd ..\"" ${BASHRC_PATH}; then
+		echo "${ALIAS_LINES}" >> ${BASHRC_PATH}
+		APPEND=true
+	fi
+
+	if ${APPEND}; then
+		msg_lok "${BOLD}.bashrc:${DEFAULT} modified"
+	else
+		msg_linfo "${BOLD}.bashrc:${DEFAULT} already contains the necessary lines"
+	fi
 else
 	msg_linfo "${BOLD}.bashrc:${DEFAULT} unchanged"
 fi
-        if ! grep -q "BASHVERSION=2" /root/.bashrc; then
-            wget -q -O /root/.bashrc https://raw.githubusercontent.com/pvscvl/linux/main/dotfiles/.bashrc
-        fi
-echo ""
+
+
+
+
+
 
 ((POS++))
 if [ ! -x "$(command -v pfetch)" ] ; then
