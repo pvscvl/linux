@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash.sh)"
 VYEAR="2025"
-BUILD="6"
+BUILD="7"
 MAYORVERSION="0."
 
 VERSION="${VYEAR}.$(printf "%03d" ${BUILD})"
@@ -175,14 +175,14 @@ alias show-ports="netstat -tulpn"
 alias show-ports="netstat -tulpn"
 '
 	ALIAS_FUNCTIONS='
- function show-ports {
-	ARGS="-tulpn"
+function show-ports {
+	ARGS="-tulp"
+	RESOLVED=false
 
 	for ARG in "$@"; do
 		case ${ARG} in
 			-r|--resolved|--dns|--dnsname)
-				ARGS="${ARGS/N/}"
-				ARGS="${ARGS}N"
+				RESOLVED=true
 				;;
 			--extended|-e)
 				ARGS="${ARGS}e"
@@ -192,6 +192,12 @@ alias show-ports="netstat -tulpn"
 				;;
 		esac
 	done
+
+	if ${RESOLVED}; then
+		ARGS="${ARGS}N"
+	else
+		ARGS="${ARGS}n"
+	fi
 
 	netstat ${ARGS}
 }
