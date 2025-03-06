@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash.sh)"
 VYEAR="2025"
-BUILD="3"
-VERSION="0.${VYEAR}.$(printf "%03d" ${BUILD})"
+BUILD="5"
+MAYORVERSION="0."
+
+VERSION="${VYEAR}.$(printf "%03d" ${BUILD})"
+#	VERSION="${MAYORBERSION}${VYEAR}.$(printf "%03d" ${BUILD})"
 
 function install_package() {
 	if ! dpkg -s "$1" &>/dev/null; then
@@ -15,6 +18,8 @@ install_package wget
 install_package unzip
 install_package ncdu
 install_package ripgrep
+install_package net-tools
+
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-var.sh")
 source <(curl  -sSL "https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash-func.sh")
 
@@ -200,7 +205,7 @@ else
 fi
 
 
-
+echo ""
 
 
 
