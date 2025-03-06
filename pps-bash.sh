@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #    bash -c "$(wget -qLO - https://raw.githubusercontent.com/pvscvl/linux/main/pps-bash.sh)"
 VYEAR="2025"
-BUILD="5"
+BUILD="6"
 MAYORVERSION="0."
 
 VERSION="${VYEAR}.$(printf "%03d" ${BUILD})"
@@ -171,7 +171,31 @@ alias ..="cd .."
 alias ....="cd ../.."
 alias _ls="ls -alhFXp --color=always --group-directories-first" 
 alias ll="ls -alhFXp --color=always --group-directories-first" 
+alias show-ports="netstat -tulpn"
+alias show-ports="netstat -tulpn"
 '
+	ALIAS_FUNCTIONS='
+ function show-ports {
+	ARGS="-tulpn"
+
+	for ARG in "$@"; do
+		case ${ARG} in
+			-r|--resolved|--dns|--dnsname)
+				ARGS="${ARGS/N/}"
+				ARGS="${ARGS}N"
+				;;
+			--extended|-e)
+				ARGS="${ARGS}e"
+				;;
+			--all|-a)
+				ARGS="${ARGS}a"
+				;;
+		esac
+	done
+
+	netstat ${ARGS}
+}
+ '
 	APPEND=false
 
 	if ! grep -Fxq "${PS1_LINE}" ${BASHRC_PATH}; then
@@ -192,6 +216,10 @@ alias ll="ls -alhFXp --color=always --group-directories-first"
 	fi
 	if ! grep -Fqx "alias ..=\"cd ..\"" ${BASHRC_PATH}; then
 		echo "${ALIAS_LINES}" >> ${BASHRC_PATH}
+		APPEND=true
+	fi
+ 	if ! grep -Fqx "function show-ports" ${BASHRC_PATH}; then
+		echo "${ALIAS_FUNCTIONS}" >> ${BASHRC_PATH}
 		APPEND=true
 	fi
 
