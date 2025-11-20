@@ -391,6 +391,7 @@ case "$detected_os-$detected_version" in
 	debian-13)
 		deb_file=zabbix-release_latest_7.4+debian13_all.deb
 		deb_url=https://repo.zabbix.com/zabbix/7.4/release/debian/pool/main/z/zabbix-release/$deb_file
+	;;
     	ubuntu-20.04)
         	deb_file=zabbix-release_latest_7.2+ubuntu20.04_all.deb
         	deb_url=https://repo.zabbix.com/zabbix/7.2/release/ubuntu/pool/main/z/zabbix-release/$deb_file
