@@ -4,7 +4,7 @@ if [[ -n "${ZSH_VERSION:-}" ]]; then
 	return 0
 fi
 VYEAR="2026"
-BUILD="4"
+BUILD="9"
 MAYORVERSION="0."
 
 VERSION="${VYEAR}.$(printf "%03d" ${BUILD})"
@@ -147,7 +147,18 @@ function select-steps() {
 	add-step "dist" "$hostsys: install dist-upgrades"
 	add-step "reboot" "$hostsys: reboot now"
 
-	STEP_CHOICE=$(gum choose --no-limit --height 20 --header "Select the steps to run (space = select, enter = run)" "${STEP_LABELS[@]}")
+	STEP_CHOICE=$(gum choose \
+		--no-limit \
+		--height 20 \
+		--header "Select the steps to run (space = select, enter = run)" \
+		--header.foreground="#0ff702" \
+		--cursor "  ⌦ " \
+		--selected-prefix="⛌ " \
+		--cursor.foreground="255" \
+		--selected.foreground="#0066FF" \
+		--item.foreground="#6d6d6d" \
+		--timeout=120s \
+		"${STEP_LABELS[@]}")
 	STEP_STATUS=$?
 	if [[ ${STEP_STATUS} -eq 130 ]]; then
 		msg_linfo "${BOLD}gum:${DEFAULT} aborted"
