@@ -4,7 +4,7 @@ if [[ -n "${ZSH_VERSION:-}" ]]; then
 	return 0
 fi
 VYEAR="2026"
-BUILD="1"
+BUILD="2"
 MAYORVERSION="0."
 
 VERSION="${VYEAR}.$(printf "%03d" ${BUILD})"
